@@ -4,7 +4,7 @@ pragma solidity ^0.8.24;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract ProofContract is ERC721, Ownable {
+contract Provify is ERC721, Ownable {
     struct Proof {
         string ipfsHash; // IPFS hash of the proof file
         string proofType; // Type of proof (e.g., certificate, document)

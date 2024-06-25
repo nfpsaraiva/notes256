@@ -1,31 +1,48 @@
-import { AppShell, Burger, Button, Center, Group, Stack, Text, Title, UnstyledButton } from '@mantine/core';
+import { AppShell, Burger, Center, Group, Stack, Text, Title, UnstyledButton } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import ColorSchemeToggle from '@/components/ColorSchemeToggle/ColorSchemeToggle';
+import ColorSchemeToggle from '@/features/ColorSchemeToggle/ColorSchemeToggle';
 import CreateProofButton from '@/features/CreateProof/CreateProofButton';
 import VerifyProofButton from '@/features/VerifyProof/VerifyProofButton';
-
+import { IconCertificate, IconCube } from '@tabler/icons-react';
+import WalletButton from '@/features/Wallet/WalletButton';
+import { createWeb3Modal } from '@web3modal/ethers/react';
+import { ethersConfig, mainnet, projectId } from '@/walletconnect';
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
 
+  createWeb3Modal({
+    ethersConfig,
+    chains: [mainnet],
+    projectId,
+    enableAnalytics: true,
+  });
+
   return (
     <AppShell
-      header={{ height: 60 }}
+      header={{ height: 70 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
       padding="md"
     >
-      <AppShell.Header>
+      <AppShell.Header className={classes.header}>
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>
-            <Title>Provify</Title>
-            <Group ml="xl" gap={0} visibleFrom="sm">
-              <UnstyledButton className={classes.control}>Home</UnstyledButton>
-              <UnstyledButton className={classes.control}>Blog</UnstyledButton>
-              <UnstyledButton className={classes.control}>Contacts</UnstyledButton>
-              <UnstyledButton className={classes.control}>Support</UnstyledButton>
-              <ColorSchemeToggle />
+            <Group>
+              <IconCertificate />
+              <Stack gap={2}>
+                <Title size={"h2"}>Provify</Title>
+                <Text size='xs' c={"dimmed"}>Ethereum network</Text>
+              </Stack>
+            </Group>
+            <Group>
+              <Group gap="xs" visibleFrom="sm">
+                <UnstyledButton className={classes.control}>About</UnstyledButton>
+                <UnstyledButton className={classes.control}>Team</UnstyledButton>
+                <UnstyledButton className={classes.control}>How it works</UnstyledButton>
+              </Group>
+              <WalletButton />
             </Group>
           </Group>
         </Group>
@@ -35,19 +52,23 @@ export function HomePage() {
         <UnstyledButton className={classes.control}>Home</UnstyledButton>
         <UnstyledButton className={classes.control}>Blog</UnstyledButton>
         <UnstyledButton className={classes.control}>Contacts</UnstyledButton>
-        <UnstyledButton className={classes.control}>Support</UnstyledButton>
+        <UnstyledButton className={classes.control}>How it works</UnstyledButton>
 
       </AppShell.Navbar>
 
-      <AppShell.Main>
-        <Center h={"75vh"}>
+      <AppShell.Main className={classes.main}>
+        <Center h={"75vh"} maw={800} mx={"auto"}>
           <Stack gap={"xl"} align='center'>
             <Stack gap={3}>
-              <Title order={2}>
-                Secure Blockchain Proof Issuance and Verification Made Simple
-              </Title>
+              <Group gap={"xs"}>
+                <Title ta={"center"} fw={500} order={2}>
+                  <strong>Create</strong> and <strong>Verify</strong> proofs secured by the <strong>Blockchain</strong>
+                </Title>
+                <IconCube />
+              </Group>
+              <Text ta={"center"} c={"dimmed"}>Upload text, images, etc and receive an NFT certificate as a proof of that information</Text>
             </Stack>
-            <Group gap={"xs"}>
+            <Group gap={"xs"} justify='center'>
               <CreateProofButton />
               <VerifyProofButton />
             </Group>

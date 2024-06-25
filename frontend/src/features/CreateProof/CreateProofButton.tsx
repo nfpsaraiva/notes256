@@ -8,7 +8,7 @@ const CreateProofButton: FC = () => {
 
   return (
     <>
-      <Button miw={200} color='blue' onClick={open}>Create</Button>
+      <Button miw={200} fw={700} size="md" color='blue' onClick={open}>Create</Button>
       <CreateProofModal opened={opened} close={close} />
     </>
   )

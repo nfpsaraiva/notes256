@@ -8,7 +8,7 @@ const VerifyProofButton: FC = () => {
 
   return (
     <>
-      <Button miw={200} onClick={open}>Verify</Button>
+      <Button size="md" fw={700} miw={200} onClick={open}>Verify</Button>
       <VerifyProofModal opened={opened} close={close} />
     </>
   )

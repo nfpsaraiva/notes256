@@ -8,3 +8,11 @@
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
   }
 }
+
+.header {
+  opacity: 0.6;
+}
+
+.main {
+  background-image: linear-gradient(to bottom right, blue, green);
+}
