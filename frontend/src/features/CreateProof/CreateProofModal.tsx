@@ -1,5 +1,6 @@
 import { Modal } from "@mantine/core";
 import { FC } from "react";
+import CreateProofForm from "./CreateProofForm";
 
 interface CreateProofModalProps {
   opened: boolean,
@@ -12,7 +13,7 @@ const CreateProofModal: FC<CreateProofModalProps> = ({
 }: CreateProofModalProps) => {
   return (
     <Modal opened={opened} onClose={close} title="Create Proof">
-      Create proof modal
+      <CreateProofForm closeModal={close} />
     </Modal>
   )
 }

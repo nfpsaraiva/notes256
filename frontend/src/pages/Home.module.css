@@ -10,9 +10,8 @@
 }
 
 .header {
-  opacity: 0.6;
 }
 
 .main {
-  background-image: linear-gradient(to bottom right, blue, green);
+  /* background-image: linear-gradient(to bottom right, blue, green); */
 }

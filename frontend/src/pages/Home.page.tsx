@@ -1,10 +1,9 @@
 import { AppShell, Burger, Center, Group, Stack, Text, Title, UnstyledButton } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import ColorSchemeToggle from '@/features/ColorSchemeToggle/ColorSchemeToggle';
 import CreateProofButton from '@/features/CreateProof/CreateProofButton';
 import VerifyProofButton from '@/features/VerifyProof/VerifyProofButton';
-import { IconCertificate, IconCube } from '@tabler/icons-react';
+import { IconCertificate } from '@tabler/icons-react';
 import WalletButton from '@/features/Wallet/WalletButton';
 import { createWeb3Modal } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
@@ -21,26 +20,20 @@ export function HomePage() {
 
   return (
     <AppShell
-      header={{ height: 70 }}
+      header={{ height: 90 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
       padding="md"
     >
       <AppShell.Header className={classes.header}>
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <Group justify="space-between" style={{ flex: 1 }}>
-            <Group>
-              <IconCertificate />
-              <Stack gap={2}>
-                <Title size={"h2"}>Provify</Title>
-                <Text size='xs' c={"dimmed"}>Ethereum network</Text>
-              </Stack>
-            </Group>
+          <Group gap={0} justify="space-between" style={{ flex: 1 }}>
+            <Title size={"h2"}>Provify</Title>
             <Group>
               <Group gap="xs" visibleFrom="sm">
-                <UnstyledButton className={classes.control}>About</UnstyledButton>
-                <UnstyledButton className={classes.control}>Team</UnstyledButton>
                 <UnstyledButton className={classes.control}>How it works</UnstyledButton>
+                <UnstyledButton className={classes.control}>Team</UnstyledButton>
+                <UnstyledButton className={classes.control}>About</UnstyledButton>
               </Group>
               <WalletButton />
             </Group>
@@ -60,12 +53,9 @@ export function HomePage() {
         <Center h={"75vh"} maw={800} mx={"auto"}>
           <Stack gap={"xl"} align='center'>
             <Stack gap={3}>
-              <Group gap={"xs"}>
-                <Title ta={"center"} fw={500} order={2}>
-                  <strong>Create</strong> and <strong>Verify</strong> proofs secured by the <strong>Blockchain</strong>
-                </Title>
-                <IconCube />
-              </Group>
+              <Title ta={"center"} fw={500} order={2}>
+                <strong>Create</strong> and <strong>Verify</strong> proofs secured by the <strong>Blockchain</strong>
+              </Title>
               <Text ta={"center"} c={"dimmed"}>Upload text, images, etc and receive an NFT certificate as a proof of that information</Text>
             </Stack>
             <Group gap={"xs"} justify='center'>
