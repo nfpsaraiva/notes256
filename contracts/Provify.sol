@@ -32,7 +32,7 @@ contract Provify is ERC721, Ownable {
 
     constructor() ERC721("Proof", "PRF") Ownable(msg.sender) {}
 
-    function createProof(string memory _name, string memory _description) external {
+    function createProof(string memory _name, string memory _description) external returns (uint256) {
         proofCounter++;
 
         proofs[proofCounter] = Proof(
@@ -47,6 +47,8 @@ contract Provify is ERC721, Ownable {
         // Mint an NFT as proof
         _mint(msg.sender, proofCounter);
         emit NFTIssued(proofCounter, msg.sender, proofCounter);
+
+        return proofCounter;
     }
 
     /**

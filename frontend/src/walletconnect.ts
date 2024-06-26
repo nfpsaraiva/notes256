@@ -5,11 +5,11 @@ const projectId = "random"
 
 // 2. Set chains
 const mainnet = {
-  chainId: 1,
-  name: 'Ethereum',
+  chainId: 31337,
+  name: 'Localhost',
   currency: 'ETH',
   explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'https://cloudflare-eth.com'
+  rpcUrl: 'http://localhost:8545'
 }
 
 // 3. Create a metadata object

@@ -3,7 +3,7 @@ import { useForm } from "@mantine/form";
 import { FC } from "react";
 import { IconCertificate } from "@tabler/icons-react";
 import WalletButton from "../Wallet/WalletButton";
-import { useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import useCreateProof from "@/hooks/useCreateProof";
 
 interface CreateProofFormProps {
@@ -11,8 +11,8 @@ interface CreateProofFormProps {
 }
 
 const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFormProps) => {
-  const { walletProvider } = useWeb3ModalProvider()
   const { isConnected } = useWeb3ModalAccount();
+  const { createProof } = useCreateProof();
 
   const form = useForm({
     initialValues: {
@@ -25,10 +25,13 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
     }
   });
 
-  const { createProof } = useCreateProof(form.getValues().name, form.getValues().description);
 
   const handleSubmit = async (values: typeof form.values) => {
-    await createProof();
+    const proofId = await createProof(values.name, values.description);
+
+    console.log(proofId);
+
+    closeModal();
   };
 
   return (
