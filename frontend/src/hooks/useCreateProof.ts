@@ -15,7 +15,9 @@ const useCreateProof = () => {
 
         const provifyContract = new Contract(CONTRACT_ADDRESS, contract.abi, signer);
 
-        await provifyContract.createProof(name, description);
+        const response = await provifyContract.createProof(name, description);
+
+        return await response.wait();
     }
 
     return { createProof }
