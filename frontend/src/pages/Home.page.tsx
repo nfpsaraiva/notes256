@@ -1,12 +1,9 @@
 import { AppShell, Burger, Center, Group, Stack, Text, Title, UnstyledButton } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import CreateProofButton from '@/features/CreateProof/CreateProofButton';
-import VerifyProofButton from '@/features/VerifyProof/VerifyProofButton';
-import { IconCertificate } from '@tabler/icons-react';
-import WalletButton from '@/features/Wallet/WalletButton';
 import { createWeb3Modal } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
+import { CreateProofButton, VerifyProofButton, WalletButton } from '@/features';
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();

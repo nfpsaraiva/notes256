@@ -15,8 +15,8 @@ const mainnet = {
 // 3. Create a metadata object
 const metadata = {
   name: 'Provify',
-  description: 'Simpel ERC-20 explorer',
-  url: 'https://showmethetokens.nfpsaraiva.com', // origin must match your domain & subdomain
+  description: 'Decentralized proof issuer',
+  url: 'https://provify.nfpsaraiva.com', // origin must match your domain & subdomain
   icons: ['https://avatars.mywebsite.com/']
 }
 

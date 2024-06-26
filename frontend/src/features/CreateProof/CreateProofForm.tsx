@@ -1,35 +1,34 @@
-import { Button, Stack, TextInput } from "@mantine/core";
+import { Button, Stack, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { FC } from "react";
+import { IconCertificate } from "@tabler/icons-react";
 import WalletButton from "../Wallet/WalletButton";
-import { notifications } from "@mantine/notifications";
+import { useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react';
+import useCreateProof from "@/hooks/useCreateProof";
 
 interface CreateProofFormProps {
   closeModal: () => void
 }
 
-const CreateProofForm: FC<CreateProofFormProps> = ({closeModal}: CreateProofFormProps) => {
+const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFormProps) => {
+  const { walletProvider } = useWeb3ModalProvider()
   const { isConnected } = useWeb3ModalAccount();
 
   const form = useForm({
     initialValues: {
-      name: ""
+      name: "",
+      description: ""
     },
     validate: {
-      name: value => value.length > 0 ? null : "Invalid name"
+      name: value => value.length > 0 ? null : "Invalid name",
+      description: value => value.length > 0 ? null : "Invalid name",
     }
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log(values);
+  const { createProof } = useCreateProof(form.getValues().name, form.getValues().description);
 
-    notifications.show({
-      title: 'Default notification',
-      message: 'Hey there, your code is awesome! 🤥',
-    });
-
-    closeModal();
+  const handleSubmit = async (values: typeof form.values) => {
+    await createProof();
   };
 
   return (
@@ -42,9 +41,15 @@ const CreateProofForm: FC<CreateProofFormProps> = ({closeModal}: CreateProofForm
           key={form.key("name")}
           {...form.getInputProps("name")}
         />
+        <Textarea
+          label="Description"
+          placeholder="The proof description"
+          key={form.key("description")}
+          {...form.getInputProps("description")}
+        />
         {
           isConnected
-            ? <Button color="blue" type="submit">Submit</Button>
+            ? <Button leftSection={<IconCertificate size={18} />} color="blue" type="submit">Create Proof</Button>
             : <WalletButton />
         }
       </Stack>
