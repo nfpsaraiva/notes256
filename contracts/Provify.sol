@@ -3,6 +3,7 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 contract Provify is ERC721, Ownable {
 
@@ -32,7 +33,7 @@ contract Provify is ERC721, Ownable {
 
     constructor() ERC721("Proof", "PRF") Ownable(msg.sender) {}
 
-    function createProof(string memory _name, string memory _description) external returns (uint256) {
+    function createProof(string memory _name, string memory _description) external {
         proofCounter++;
 
         proofs[proofCounter] = Proof(
@@ -42,13 +43,13 @@ contract Provify is ERC721, Ownable {
             block.timestamp
         );
 
+        console.log(proofCounter);
+
         emit ProofCreated(proofCounter, _name, _description, msg.sender);
 
         // Mint an NFT as proof
         _mint(msg.sender, proofCounter);
         emit NFTIssued(proofCounter, msg.sender, proofCounter);
-
-        return proofCounter;
     }
 
     /**

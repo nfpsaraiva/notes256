@@ -30,7 +30,6 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
     const proofId = await createProof(values.name, values.description);
 
     console.log(proofId);
-
     closeModal();
   };
 

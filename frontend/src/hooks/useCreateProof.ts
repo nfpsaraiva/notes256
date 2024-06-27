@@ -17,7 +17,9 @@ const useCreateProof = () => {
 
         const response = await provifyContract.createProof(name, description);
 
-        return await response.wait();
+        const receipt = await response.wait();
+
+        console.log(receipt.logs);
     }
 
     return { createProof }
