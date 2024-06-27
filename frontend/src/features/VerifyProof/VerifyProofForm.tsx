@@ -1,3 +1,4 @@
+import useVerifyProof from "@/hooks/verifyProof";
 import { Button, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconCheck } from "@tabler/icons-react";
@@ -8,6 +9,8 @@ interface VerifyProofFormProps {
 }
 
 const VerifyProofForm: FC<VerifyProofFormProps> = ({ closeModal }: VerifyProofFormProps) => {
+  const { verifyProof } = useVerifyProof();
+
   const form = useForm({
     initialValues: {
       proofId: ""
@@ -17,9 +20,8 @@ const VerifyProofForm: FC<VerifyProofFormProps> = ({ closeModal }: VerifyProofFo
     }
   });
 
-  const handleSubmit = (values: typeof form.values) => {
-    console.log(values);
-
+  const handleSubmit = async (values: typeof form.values) => {
+    await verifyProof(Number(values.proofId));
 
     closeModal();
   }

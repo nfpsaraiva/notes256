@@ -4,7 +4,7 @@ import { FC } from "react";
 import { IconCertificate } from "@tabler/icons-react";
 import WalletButton from "../Wallet/WalletButton";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { createProof } from "@/hooks";
+import useCreateProof from "@/hooks/createProof";
 
 interface CreateProofFormProps {
   closeModal: () => void
@@ -12,6 +12,7 @@ interface CreateProofFormProps {
 
 const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFormProps) => {
   const { isConnected } = useWeb3ModalAccount();
+  const {createProof} = useCreateProof();
 
   const form = useForm({
     initialValues: {

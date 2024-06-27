@@ -4,35 +4,41 @@ import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const createProof = async (name: string, description: string) => {
+const useCreateProof =  () => {
     const { walletProvider } = useWeb3ModalProvider();
-    if (!walletProvider) return;
 
-    const ethersProvider = new BrowserProvider(walletProvider)
-    const signer = await ethersProvider.getSigner();
+    const createProof = async (name: string, description: string) => {
+        if (!walletProvider) return;
 
-    const provifyContract = new Contract(CONTRACT_ADDRESS, contract.abi, signer);
+        const ethersProvider = new BrowserProvider(walletProvider)
+        const signer = await ethersProvider.getSigner();
 
-    const response = await provifyContract.createProof(name, description);
+        const provifyContract = new Contract(CONTRACT_ADDRESS, contract.abi, signer);
 
-    const txReceipt: ContractTransactionReceipt = await response.wait();
+        const response = await provifyContract.createProof(name, description);
 
-    const logsDescriptions = txReceipt.logs.map(log => {
-        return provifyContract.interface.parseLog(log);
-    });
+        const txReceipt: ContractTransactionReceipt = await response.wait();
 
-    const proofCreated = logsDescriptions.find(log => log?.name === "ProofCreated");
-    const nftMinted = logsDescriptions.find(log => log?.name === "NFTIssued");
+        const logsDescriptions = txReceipt.logs.map(log => {
+            return provifyContract.interface.parseLog(log);
+        });
 
-    if (nftMinted) {
-        console.log(nftMinted.args);
+        const proofCreated = logsDescriptions.find(log => log?.name === "ProofCreated");
+        const nftMinted = logsDescriptions.find(log => log?.name === "NFTIssued");
+
+        if (nftMinted) {
+            console.log(nftMinted.args);
+        }
+
+        if (!proofCreated) return 0;
+
+        return Number(proofCreated.args[0]);
     }
 
-    if (!proofCreated) return 0;
+    return { createProof }
 
-    return Number(proofCreated.args[0]);
 }
 
 
 
-export default createProof;
+export default useCreateProof;

@@ -4,27 +4,36 @@ import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const verifyProof = async (proofId: number) => {
+const useVerifyProof = () => {
   const { walletProvider } = useWeb3ModalProvider();
 
-  if (!walletProvider) return;
+  const verifyProof = async (proofId: number) => {
 
-  const ethersProvider = new BrowserProvider(walletProvider);
-  const signer = await ethersProvider.getSigner();
+    if (!walletProvider) return;
 
-  const provifyContract = new Contract(CONTRACT_ADDRESS, contract.abi, signer);
+    const ethersProvider = new BrowserProvider(walletProvider);
+    const signer = await ethersProvider.getSigner();
 
-  const response = await provifyContract.verifyProof(proofId);
+    const provifyContract = new Contract(CONTRACT_ADDRESS, contract.abi, signer);
 
-  const txReceipt: ContractTransactionReceipt = await response.wait();
+    const response = await provifyContract.verifyProof(proofId);
 
-  const logsDescriptions = txReceipt.logs.map(log => {
-    return provifyContract.interface.parseLog(log);
-  });
+    const txReceipt: ContractTransactionReceipt = await response.wait();
 
-  const proofDetails = logsDescriptions.find(log => log?.name === "ProofDetails");
+    const logsDescriptions = txReceipt.logs.map(log => {
+      return provifyContract.interface.parseLog(log);
+    });
 
-  if (!proofDetails) return 0;
+    const proofDetails = logsDescriptions.find(log => log?.name === "ProofDetails");
 
-  return proofDetails.args;
+    if (!proofDetails) return 0;
+
+    console.log(proofDetails.args);
+
+    return proofDetails.args;
+  }
+
+  return { verifyProof };
 }
+
+export default useVerifyProof;
