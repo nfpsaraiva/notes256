@@ -2,11 +2,8 @@
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "hardhat/console.sol";
 
-contract Provify is ERC721, Ownable {
-
+contract Provify is ERC721 {
     struct Proof {
         string name;
         string description;
@@ -31,7 +28,14 @@ contract Provify is ERC721, Ownable {
         uint256 tokenId
     );
 
-    constructor() ERC721("Proof", "PRF") Ownable(msg.sender) {}
+    event ProofDetails(
+        uint256 indexed proofId,
+        string name,
+        string description,
+        address indexed issuer
+    );
+
+    constructor() ERC721("Proof", "PRF") {}
 
     function createProof(string memory _name, string memory _description) external {
         proofCounter++;
@@ -50,10 +54,6 @@ contract Provify is ERC721, Ownable {
         emit NFTIssued(proofCounter, msg.sender, proofCounter);
     }
 
-    /**
-     * @dev Get proof details by proof ID.
-     * @param _proofId ID of the proof
-     */
     function getProofDetails(uint256 _proofId) external view returns (Proof memory) {
         require(_proofId <= proofCounter && _proofId > 0, "Proof does not exist");
 
