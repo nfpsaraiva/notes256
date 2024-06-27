@@ -1,5 +1,5 @@
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
-import { BrowserProvider, Contract } from "ethers";
+import { BrowserProvider, Contract, ContractTransactionReceipt } from "ethers";
 import contract from "./../../../artifacts/contracts/Provify.sol/Provify.json";
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
@@ -17,9 +17,17 @@ const useCreateProof = () => {
 
         const response = await provifyContract.createProof(name, description);
 
-        const receipt = await response.wait();
+        const txReceipt: ContractTransactionReceipt = await response.wait();
 
-        console.log(receipt.logs);
+        const logsDescriptions = txReceipt.logs.map(log => {
+            return provifyContract.interface.parseLog(log);
+        });
+
+        const proofCreated = logsDescriptions.find(log => log?.name === "ProofCreated");
+
+        if (!proofCreated) return 0;
+
+        return Number(proofCreated.args[0]);
     }
 
     return { createProof }

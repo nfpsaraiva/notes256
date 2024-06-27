@@ -27,9 +27,8 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
 
 
   const handleSubmit = async (values: typeof form.values) => {
-    const proofId = await createProof(values.name, values.description);
+    await createProof(values.name, values.description);
 
-    console.log(proofId);
     closeModal();
   };
 

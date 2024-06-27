@@ -43,8 +43,6 @@ contract Provify is ERC721, Ownable {
             block.timestamp
         );
 
-        console.log(proofCounter);
-
         emit ProofCreated(proofCounter, _name, _description, msg.sender);
 
         // Mint an NFT as proof
