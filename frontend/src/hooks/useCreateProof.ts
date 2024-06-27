@@ -24,6 +24,11 @@ const useCreateProof = () => {
         });
 
         const proofCreated = logsDescriptions.find(log => log?.name === "ProofCreated");
+        const nftMinted = logsDescriptions.find(log => log?.name === "NFTIssued");
+
+        if (nftMinted) {
+            console.log(nftMinted.args);
+        }
 
         if (!proofCreated) return 0;
 
