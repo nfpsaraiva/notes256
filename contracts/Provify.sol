@@ -54,9 +54,11 @@ contract Provify is ERC721 {
         emit NFTIssued(proofCounter, msg.sender, proofCounter);
     }
 
-    function getProofDetails(uint256 _proofId) external view returns (Proof memory) {
+    function getProofDetails(uint256 _proofId) external {
         require(_proofId <= proofCounter && _proofId > 0, "Proof does not exist");
 
-        return proofs[_proofId];
+        Proof memory proof = proofs[_proofId];
+
+        emit ProofDetails(_proofId, proof.name, proof.description, proof.issuer);
     }
 }
