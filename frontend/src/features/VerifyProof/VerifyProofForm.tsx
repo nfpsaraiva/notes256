@@ -22,8 +22,6 @@ const VerifyProofForm: FC<VerifyProofFormProps> = ({ closeModal }: VerifyProofFo
 
   const handleSubmit = async (values: typeof form.values) => {
     await verifyProof(Number(values.proofId));
-
-    closeModal();
   }
 
   return (
