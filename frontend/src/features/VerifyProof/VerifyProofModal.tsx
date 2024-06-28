@@ -13,7 +13,7 @@ const VerifyProofModal: FC<VerifyProofModalProps> = ({
 }: VerifyProofModalProps) => {
   return (
     <Modal opened={opened} onClose={close} title="Verify Proof">
-      <VerifyProofForm closeModal={close} />
+      <VerifyProofForm />
     </Modal>
   )
 }
