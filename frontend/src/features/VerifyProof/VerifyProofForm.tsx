@@ -1,43 +1,33 @@
-import useVerifyProof from "@/hooks/verifyProof";
-import { Button, Stack, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { IconCheck } from "@tabler/icons-react";
-import { FC } from "react";
+import { Center, Loader, NumberInput, Stack, Text } from "@mantine/core";
+import { FC, useState } from "react";
+import { useVerifyProof } from "@/hooks";
 
-interface VerifyProofFormProps {
-  closeModal: () => void
-}
-
-const VerifyProofForm: FC<VerifyProofFormProps> = ({ closeModal }: VerifyProofFormProps) => {
-  const { verifyProof } = useVerifyProof();
-
-  const form = useForm({
-    initialValues: {
-      proofId: ""
-    },
-    validate: {
-      proofId: value => value.length > 0 ? null : "Invalid proof ID"
-    }
-  });
-
-  const handleSubmit = async (values: typeof form.values) => {
-    await verifyProof(Number(values.proofId));
-  }
+const VerifyProofForm: FC = () => {
+  const [proofId, setProofId] = useState<number>();
+  const { verified, isSuccess, isFetching } = useVerifyProof(Number(proofId));
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack>
-        <TextInput
-          withAsterisk
-          label="Proof ID"
-          placeholder="Enter the proof ID"
-          key={form.key("proofId")}
-          {...form.getInputProps("proofId")}
-        />
+    <Stack>
+      <NumberInput
+        withAsterisk
+        label="Proof ID"
+        placeholder="Enter the proof ID"
+        value={proofId}
+        onChange={e => setProofId(Number(e))}
+      />
 
-        <Button leftSection={<IconCheck size={18} />} type="submit">Verify</Button>
-      </Stack>
-    </form>
+      {
+        isFetching
+          ? <Center><Loader /></Center>
+          : (
+            isSuccess && (
+              verified
+                ? <Center><Text c={"teal"} fw={700}>Verified</Text></Center>
+                : <Center><Text c={"red"} fw={700}>Not Verified</Text></Center>
+            )
+          )
+      }
+    </Stack>
   )
 }
 
