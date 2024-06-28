@@ -4,7 +4,7 @@ import { FC } from "react";
 import { IconCertificate } from "@tabler/icons-react";
 import WalletButton from "../Wallet/WalletButton";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
-import useCreateProof from "@/hooks/createProof";
+import { useCreateProof } from "@/hooks";
 
 interface CreateProofFormProps {
   closeModal: () => void
@@ -12,7 +12,7 @@ interface CreateProofFormProps {
 
 const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFormProps) => {
   const { isConnected } = useWeb3ModalAccount();
-  const {createProof} = useCreateProof();
+  const { createProof } = useCreateProof();
 
   const form = useForm({
     initialValues: {
@@ -27,7 +27,10 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
 
 
   const handleSubmit = async (values: typeof form.values) => {
-    await createProof(values.name, values.description);
+    createProof({
+      name: values.name, 
+      description: values.description
+    });
 
     closeModal();
   };

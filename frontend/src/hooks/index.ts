@@ -1,7 +1,7 @@
-import createProof from "./createProof"
+import useCreateProof from "./useCreateProof"
 import useVerifyProof from "./useVerifyProof"
 
 export {
-  createProof,
+  useCreateProof,
   useVerifyProof
 }
