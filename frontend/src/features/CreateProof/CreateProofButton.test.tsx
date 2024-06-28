@@ -1,8 +1,12 @@
 import { fireEvent, render, screen } from "@test-utils";
 import CreateProofButton from "./CreateProofButton";
 
-describe("Quote", async () => {
-  it("should render properly", async () => {
+describe("CreateProofButton", async () => {
+  it("should render a button", async () => {
     render(<CreateProofButton />);
+
+    const button = screen.getByRole('button');
+
+    expect(button).toBeVisible();
   });
 });
