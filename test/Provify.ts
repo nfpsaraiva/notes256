@@ -45,26 +45,3 @@ describe("Create Proof", () => {
       .withArgs(2, 'foo2', 'bar', owner.address)
   });
 });
-
-describe("Verify Proof", () => {
-  it("Should emit ProofDetails event for 1 proof", async () => {
-    const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
-
-    await provifyContract.createProof('foo', 'bar');
-
-    const verifyProof = provifyContract.verifyProof(1);
-
-    await expect(await verifyProof)
-      .to.emit(provifyContract, 'ProofDetails')
-      .withArgs(1, 'foo', 'bar', owner.address);
-  });
-
-  it("Should revert verifying a non existing proof", async () => {
-    const { provifyContract } = await loadFixture(deployProvifyFixture);
-
-    const verifyProof = provifyContract.verifyProof(1);
-
-    await expect(verifyProof)
-      .to.be.reverted;
-  });
-});

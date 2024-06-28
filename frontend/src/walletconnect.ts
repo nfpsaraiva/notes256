@@ -1,15 +1,24 @@
 import { defaultConfig } from "@web3modal/ethers"
 
+const {
+  VITE_CHAIN_ID,
+  VITE_CHAIN_NAME,
+  VITE_CHAIN_CURRENCY,
+  VITE_CHAIN_ETHERSCAN_URL,
+  VITE_CHAIN_RPC_URL
+} = import.meta.env;
+
+
 // 1. Get projectId
 const projectId = "random"
 
 // 2. Set chains
 const mainnet = {
-  chainId: 31337,
-  name: 'Localhost',
-  currency: 'ETH',
-  explorerUrl: 'https://etherscan.io',
-  rpcUrl: 'http://localhost:8545'
+  chainId: VITE_CHAIN_ID,
+  name: VITE_CHAIN_NAME,
+  currency: VITE_CHAIN_CURRENCY,
+  explorerUrl: VITE_CHAIN_ETHERSCAN_URL,
+  rpcUrl: VITE_CHAIN_RPC_URL
 }
 
 // 3. Create a metadata object
