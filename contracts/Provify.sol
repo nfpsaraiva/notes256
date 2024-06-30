@@ -10,7 +10,7 @@ contract Provify is ERC721 {
         address issuer;
         uint256 timestamp;
     }
-
+    
     mapping(uint256 => Proof) public proofs;
     
     uint256 public proofCounter;

@@ -9,7 +9,7 @@ const WalletButton: FC = () => {
 
   return (
     isConnected
-      ? <w3m-button size='sm' />
+      ? <w3m-button balance="hide" size='sm' />
       : (
         <>
           <Button leftSection={<IconWallet size={20} />} onClick={() => open()} size='sm' visibleFrom="sm">Connect Wallet</Button>

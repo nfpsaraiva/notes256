@@ -1,4 +1,4 @@
-import { Button, Stack, TextInput, Textarea } from "@mantine/core";
+import { Button, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { FC } from "react";
 import { IconCertificate } from "@tabler/icons-react";
@@ -28,7 +28,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
 
   const handleSubmit = async (values: typeof form.values) => {
     createProof({
-      name: values.name, 
+      name: values.name,
       description: values.description
     });
 
@@ -53,7 +53,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
         />
         {
           isConnected
-            ? <Button leftSection={<IconCertificate size={18} />} color="blue" type="submit">Create Proof</Button>
+            ? <Button leftSection={<IconCertificate size={18} />} type="submit">Submit</Button>
             : <WalletButton />
         }
       </Stack>

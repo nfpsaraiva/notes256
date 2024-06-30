@@ -1,15 +1,19 @@
-import { Button } from "@mantine/core";
+import { ActionIcon, Affix, Button, Tooltip } from "@mantine/core";
 import { FC } from "react";
 import CreateProofModal from "./CreateProofModal";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCertificate } from "@tabler/icons-react";
+import { IconBulb, IconCertificate, IconPlus } from "@tabler/icons-react";
 
 const CreateProofButton: FC = () => {
-  const [opened, {open, close}] = useDisclosure(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <>
-      <Button leftSection={<IconCertificate />} miw={200} fw={700} size="md" color='blue' onClick={open}>Prove</Button>
+      <Affix position={{ bottom: 20, right: 20 }}>
+        <ActionIcon onClick={open} radius={"xl"} size={"xl"}>
+          <IconPlus stroke={3} />
+        </ActionIcon>
+      </Affix>
       <CreateProofModal opened={opened} close={close} />
     </>
   )
