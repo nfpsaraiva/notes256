@@ -6,6 +6,7 @@ import { theme } from './theme';
 import { Notifications } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AlchemyProvider } from './contexts/AlchemyContext';
+import { ContractAddressProvider } from './contexts/ContractAddress';
 
 export default function App() {
   const queryClient = new QueryClient()
@@ -14,9 +15,11 @@ export default function App() {
     <MantineProvider theme={theme} defaultColorScheme='dark'>
       <Notifications />
       <AlchemyProvider>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-        </QueryClientProvider>
+        <ContractAddressProvider>
+          <QueryClientProvider client={queryClient}>
+            <Router />
+          </QueryClientProvider>
+        </ContractAddressProvider>
       </AlchemyProvider>
     </MantineProvider>
   );
