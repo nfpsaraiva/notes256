@@ -43,7 +43,7 @@ contract Provify is ERC721 {
         emit ProofCreated(proofCounter, _name, _description, msg.sender);
 
         // Mint an NFT as proof
-        _mint(msg.sender, proofCounter);
+        _safeMint(msg.sender, proofCounter);
         emit NFTIssued(proofCounter, msg.sender, proofCounter);
     }
 }
