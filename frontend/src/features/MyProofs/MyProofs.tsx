@@ -1,12 +1,12 @@
 import { useProofs } from "@/hooks";
-import { Accordion, Button, Card, Center, Group, Loader, Stack, Text, Textarea, Title } from "@mantine/core";
+import { Accordion, Button, Center, Group, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
-import { useWalletInfo, useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
 
 const MyProofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
-  const { proofs, isFetching } = useProofs(address);
+  const { proofs } = useProofs(address);
 
   if (!isConnected) {
     return (
@@ -39,14 +39,6 @@ const MyProofs: FC = () => {
             </Text>
           </Stack>
         </Stack>
-      </Center>
-    )
-  }
-
-  if (isFetching) {
-    return (
-      <Center>
-        <Loader />
       </Center>
     )
   }

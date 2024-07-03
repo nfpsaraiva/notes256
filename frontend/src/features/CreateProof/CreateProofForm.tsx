@@ -20,8 +20,8 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
       description: ""
     },
     validate: {
-      name: value => value.length > 0 ? null : "Invalid name",
-      description: value => value.length > 0 ? null : "Invalid name",
+      name: value => value.length > 0 ? null : "Can't be empty",
+      description: value => value.length > 0 ? null : "Can't be empty",
     }
   });
 
@@ -48,6 +48,9 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
         <Textarea
           label="Description"
           placeholder="The proof description"
+          autosize
+          minRows={3}
+          withAsterisk
           key={form.key("description")}
           {...form.getInputProps("description")}
         />

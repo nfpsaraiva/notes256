@@ -1,4 +1,4 @@
-import { ActionIcon, Affix } from "@mantine/core";
+import { ActionIcon, Affix, Tooltip } from "@mantine/core";
 import { FC } from "react";
 import CreateProofModal from "./CreateProofModal";
 import { useDisclosure } from "@mantine/hooks";
@@ -10,9 +10,11 @@ const CreateProofButton: FC = () => {
   return (
     <>
       <Affix position={{ bottom: 20, right: 20 }}>
-        <ActionIcon onClick={open} radius={"xl"} size={"xl"}>
-          <IconBulb  stroke={3} />
-        </ActionIcon>
+        <Tooltip label="New idea">
+          <ActionIcon onClick={open} radius={"xl"} size={"xl"}>
+            <IconBulb stroke={3} />
+          </ActionIcon>
+        </Tooltip>
       </Affix>
       <CreateProofModal opened={opened} close={close} />
     </>

@@ -30,7 +30,7 @@ export function HomePage() {
           <Group gap={0} justify="space-between" style={{ flex: 1 }}>
             <Group>
               {opened && <SidebarToggle toggle={toggle} />}
-              <Title size={"h2"}>My Ideas</Title>
+              <Title size={"h3"}>My Ideas</Title>
             </Group>
             <WalletButton />
           </Group>
