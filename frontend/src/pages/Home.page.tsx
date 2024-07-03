@@ -31,7 +31,7 @@ export function HomePage() {
               {
                 opened && <SidebarToggle toggle={toggle} />
               }
-              <Title size={"h2"}>Ideas</Title>
+              <Title size={"h2"}>Title</Title>
             </Group>
             <WalletButton />
           </Group>
@@ -43,7 +43,7 @@ export function HomePage() {
           <Group justify='space-between'>
             <Group>
               <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-              <Title size={"h3"}>Drafts</Title>
+              <Title size={"h3"}>Sidebar</Title>
             </Group>
             <Group>
               <ColorSchemeToggle />
@@ -60,24 +60,10 @@ export function HomePage() {
 
       <AppShell.Main className={classes.main}>
         <Container maw={800} mx={"auto"}>
+          <CreateProofButton />
         </Container>
       </AppShell.Main>
       <AppShell.Footer className={classes.footer} withBorder={false}>
-        <Container maw={800} mx={"auto"} my={"xl"}>
-          <Stack>
-            <Textarea
-              placeholder='Write an idea'
-              size='lg'
-              autosize
-              autoFocus
-              minRows={3}
-            />
-            <Group>
-              <Button variant='light'>Save Draft</Button>
-              <Button>Submit</Button>
-            </Group>
-          </Stack>
-        </Container>
       </AppShell.Footer>
     </AppShell>
   );

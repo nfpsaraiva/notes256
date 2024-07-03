@@ -53,7 +53,7 @@ const MyProofs: FC = () => {
               <Accordion.Control>
                 <Group justify="space-between">
                   <Stack gap={3}>
-                    <Title order={5}>Sample idea</Title>
+                    <Title order={5}>Sample item</Title>
                     <Text size="xs" c={"dimmed"}>Sample excerpt</Text>
                   </Stack>
                 </Group>
