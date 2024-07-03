@@ -1,13 +1,14 @@
-import { AppShell, Box, Burger, Button, Container, Group, Stack, Textarea, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Container, Group, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
-import { createWeb3Modal } from '@web3modal/ethers/react';
+import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
-import { ColorSchemeToggle, CreateProofButton, MyProofs, WalletButton } from '@/features';
+import { ColorSchemeToggle, CreateProofButton, Menu, MyProofs, WalletButton } from '@/features';
 import { SidebarToggle } from '@/components';
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
+  const { isConnected } = useWeb3ModalAccount();
 
   createWeb3Modal({
     ethersConfig,
@@ -28,10 +29,8 @@ export function HomePage() {
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group gap={0} justify="space-between" style={{ flex: 1 }}>
             <Group>
-              {
-                opened && <SidebarToggle toggle={toggle} />
-              }
-              <Title size={"h2"}>Title</Title>
+              {opened && <SidebarToggle toggle={toggle} />}
+              <Title size={"h2"}>My Ideas</Title>
             </Group>
             <WalletButton />
           </Group>
@@ -43,7 +42,7 @@ export function HomePage() {
           <Group justify='space-between'>
             <Group>
               <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-              <Title size={"h3"}>Sidebar</Title>
+              <Title size={"h3"}>Menu</Title>
             </Group>
             <Group>
               <ColorSchemeToggle />
@@ -54,13 +53,14 @@ export function HomePage() {
           </Group>
         </AppShell.Section>
         <AppShell.Section grow p={"md"}>
-          <MyProofs />
+          <Menu />
         </AppShell.Section>
       </AppShell.Navbar>
 
       <AppShell.Main className={classes.main}>
         <Container maw={800} mx={"auto"}>
-          <CreateProofButton />
+          <MyProofs />
+          {isConnected && <CreateProofButton />}
         </Container>
       </AppShell.Main>
       <AppShell.Footer className={classes.footer} withBorder={false}>

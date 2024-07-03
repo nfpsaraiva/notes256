@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@test-utils";
+import { render, screen } from "@test-utils";
 import CreateProofButton from "./CreateProofButton";
 
 describe("CreateProofButton", async () => {

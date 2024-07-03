@@ -1,0 +1,10 @@
+.menu button {
+  padding: 10px 0px;
+  border-radius: 4px;
+  
+  &:hover {
+    padding: 10px;
+    background-color: light-dark(var(--mantine-color-dark-5), var(--mantine-color-gray-8));
+    color: #FFF;
+  }
+}
