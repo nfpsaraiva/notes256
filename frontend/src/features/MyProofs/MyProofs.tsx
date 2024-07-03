@@ -1,5 +1,5 @@
 import { useProofs } from "@/hooks";
-import { Card, Center, Group, Stack, Text, Textarea, Title } from "@mantine/core";
+import { Accordion, Button, Card, Center, Group, Stack, Text, Textarea, Title } from "@mantine/core";
 import { FC } from "react";
 import { useWalletInfo, useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
@@ -44,21 +44,30 @@ const MyProofs: FC = () => {
   }
 
   return (
-    <Stack>
+    <Accordion variant="separated">
       {
         proofs &&
         proofs.map(proof => {
           return (
-            <Card>
-              <Group>
-                <Text>Proof ID:</Text>
-                <Text>{proof.tokenId}</Text>
-              </Group>
-            </Card>
+            <Accordion.Item value={proof.tokenId} key={proof.tokenId}>
+              <Accordion.Control>
+                <Group justify="space-between">
+                  <Stack gap={3}>
+                    <Title order={5}>Sample idea</Title>
+                    <Text size="xs" c={"dimmed"}>Sample excerpt</Text>
+                  </Stack>
+                </Group>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <Group>
+                  <Button size="xs">Download Certificate</Button>
+                </Group>
+              </Accordion.Panel>
+            </Accordion.Item>
           )
         })
       }
-    </Stack>
+    </Accordion>
   )
 }
 

@@ -1,4 +1,4 @@
-import { Button, Stack, Text, TextInput, Textarea, Title } from "@mantine/core";
+import { Button, Stack, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { FC } from "react";
 import { IconCertificate } from "@tabler/icons-react";

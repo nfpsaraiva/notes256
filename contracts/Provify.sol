@@ -28,13 +28,6 @@ contract Provify is ERC721 {
         uint256 tokenId
     );
 
-    event ProofDetails(
-        uint256 indexed proofId,
-        string name,
-        string description,
-        address indexed issuer
-    );
-
     constructor() ERC721("Proof", "PRF") {}
 
     function createProof(string memory _name, string memory _description) external {

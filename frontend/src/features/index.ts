@@ -1,4 +1,4 @@
-import ColorSchemeToggle from "./ColorSchemeToggle/ColorSchemeToggle";
+import ColorSchemeToggle from "../components/ColorSchemeToggle/ColorSchemeToggle";
 import CreateProofButton from "./CreateProof/CreateProofButton";
 import MyProofs from "./MyProofs/MyProofs";
 import VerifyProofButton from "./VerifyProof/VerifyProofButton";
