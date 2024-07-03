@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
 
-const MyProofs: FC = () => {
+const Proofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
   const { proofs } = useProofs(address);
 
@@ -53,7 +53,7 @@ const MyProofs: FC = () => {
               <Accordion.Control>
                 <Group justify="space-between">
                   <Stack gap={3}>
-                    <Title order={5}>{proof.name}</Title>
+                    <Title order={5}>{proof.name} (#{proof.id})</Title>
                     <Text size="xs" c={"dimmed"}>{proof.description}</Text>
                   </Stack>
                 </Group>
@@ -71,4 +71,4 @@ const MyProofs: FC = () => {
   )
 }
 
-export default MyProofs;
+export default Proofs;

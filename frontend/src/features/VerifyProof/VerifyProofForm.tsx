@@ -1,13 +1,21 @@
-import { Center, Loader, NumberInput, Stack, Text } from "@mantine/core";
+import { Center, Loader, NumberInput, Stack, Text, TextInput } from "@mantine/core";
 import { FC, useState } from "react";
 import { useVerifyProof } from "@/hooks";
 
 const VerifyProofForm: FC = () => {
-  const [proofId, setProofId] = useState<number>();
-  const { verified, isSuccess, isFetching } = useVerifyProof(Number(proofId));
+  const [proofId, setProofId] = useState<number>(0);
+  const [address, setAddress] = useState<string>("");
+  const { verified, isSuccess, isFetching } = useVerifyProof(Number(proofId), address);
 
   return (
     <Stack>
+      <TextInput
+        withAsterisk
+        label="Owner Address"
+        placeholder="Type the owner address"
+        value={address}
+        onChange={e => setAddress(e.target.value)}
+      />
       <NumberInput
         withAsterisk
         label="Proof ID"

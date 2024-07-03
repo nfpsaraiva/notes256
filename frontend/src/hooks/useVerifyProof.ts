@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 
-const useVerifyProof = (proofId: number) => {
+const useVerifyProof = (proofId: number, address: string) => {
   const alchemy = useAlchemy();
   const [verified, setVerified] = useState<boolean>();
 
@@ -15,7 +15,7 @@ const useVerifyProof = (proofId: number) => {
 
       const mintAddress = tokenMetadata.mint?.mintAddress;
 
-      setVerified(mintAddress !== undefined);
+      setVerified(mintAddress === address);
 
       return true;
     },

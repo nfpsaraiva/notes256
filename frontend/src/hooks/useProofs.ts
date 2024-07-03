@@ -16,11 +16,15 @@ const useProofs = (owner: string | undefined) => {
 
       const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
 
+      const provifyOwnedNfts = ownedNfts.filter(nft => nft.contract.address === contractAddress);
+
       const alchemyProvider = await alchemy.config.getProvider();
 
-      const provifyContract = new Contract(contractAddress, contract.abi, alchemyProvider)
-
-      const provifyOwnedNfts = ownedNfts.filter(nft => nft.contract.address === contractAddress);
+      const provifyContract =  new Contract(
+        contractAddress,
+        contract.abi,
+        alchemyProvider
+      )
 
       const proofs = [];
       for (const nft of provifyOwnedNfts) {

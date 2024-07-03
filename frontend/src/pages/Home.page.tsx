@@ -1,9 +1,9 @@
-import { AppShell, Box, Burger, Container, Group, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Button, Center, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
-import { ColorSchemeToggle, CreateProofButton, Menu, MyProofs, WalletButton } from '@/features';
+import { ColorSchemeToggle, CreateProofButton, Menu, Proofs, VerifyProofButton, WalletButton } from '@/features';
 import { SidebarToggle } from '@/components';
 
 export function HomePage() {
@@ -42,7 +42,7 @@ export function HomePage() {
           <Group justify='space-between'>
             <Group>
               <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-              <Title size={"h3"}>Menu</Title>
+              <Title size={"h3"}>Options</Title>
             </Group>
             <Group>
               <ColorSchemeToggle />
@@ -53,17 +53,26 @@ export function HomePage() {
           </Group>
         </AppShell.Section>
         <AppShell.Section grow p={"md"}>
+          <Stack>
+            <VerifyProofButton />
+          </Stack>
+        </AppShell.Section>
+        <AppShell.Section p={"md"}>
           <Menu />
         </AppShell.Section>
       </AppShell.Navbar>
 
       <AppShell.Main className={classes.main}>
         <Container maw={800} mx={"auto"}>
-          <MyProofs />
+          <Proofs />
           {isConnected && <CreateProofButton />}
         </Container>
       </AppShell.Main>
-      <AppShell.Footer className={classes.footer} withBorder={false}>
+      <AppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
+        <Center>
+          
+          <Text size='xs'><strong>{import.meta.env.VITE_CHAIN_NAME}</strong> Blockchain Network</Text>
+        </Center>
       </AppShell.Footer>
     </AppShell>
   );
