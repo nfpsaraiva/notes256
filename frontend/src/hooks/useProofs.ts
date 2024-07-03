@@ -14,18 +14,28 @@ const useProofs = (owner: string | undefined) => {
 
       const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
 
-      const provider = new ethers.AlchemyProvider()
+      const provider = new ethers.AlchemyProvider(
+        import.meta.env.VITE_NETWORK_NAME,
+        import.meta.env.VITE_ALCHEMY_API_KEY
+      )
 
-      for (const nfts of ownedNfts) {
-        const provifyContract = new Contract(contractAddress, contract.abi, provider);
+      const provifyContract = new Contract(contractAddress, contract.abi, provider);
 
-        const proofs = await provifyContract.proofs(1);
+      const provifyOwnedNfts = ownedNfts.filter(nft => nft.contract.address === contractAddress);
 
-        console.log(proofs);
+      const proofs = [];
+      for (const nft of provifyOwnedNfts) {
+        const proof = await provifyContract.proofs(nft.tokenId);
+
+        proofs.push({
+          id: nft.tokenId,
+          name: proof[0],
+          description: proof[1]
+        });
       }
 
-      return ownedNfts.filter(nft => nft.contract.address === contractAddress);
-    }
+      return proofs;
+    },
   });
 
   return { proofs, isSuccess, isFetching, isError };

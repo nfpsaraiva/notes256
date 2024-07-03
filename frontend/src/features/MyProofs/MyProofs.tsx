@@ -1,12 +1,12 @@
 import { useProofs } from "@/hooks";
-import { Accordion, Button, Card, Center, Group, Stack, Text, Textarea, Title } from "@mantine/core";
+import { Accordion, Button, Card, Center, Group, Loader, Stack, Text, Textarea, Title } from "@mantine/core";
 import { FC } from "react";
 import { useWalletInfo, useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
 
 const MyProofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
-  const { proofs } = useProofs(address);
+  const { proofs, isFetching } = useProofs(address);
 
   if (!isConnected) {
     return (
@@ -43,18 +43,26 @@ const MyProofs: FC = () => {
     )
   }
 
+  if (isFetching) {
+    return (
+      <Center>
+        <Loader />
+      </Center>
+    )
+  }
+
   return (
     <Accordion variant="separated">
       {
         proofs &&
         proofs.map(proof => {
           return (
-            <Accordion.Item value={proof.tokenId} key={proof.tokenId}>
+            <Accordion.Item value={proof.id} key={proof.id}>
               <Accordion.Control>
                 <Group justify="space-between">
                   <Stack gap={3}>
-                    <Title order={5}>Sample item</Title>
-                    <Text size="xs" c={"dimmed"}>Sample excerpt</Text>
+                    <Title order={5}>{proof.name}</Title>
+                    <Text size="xs" c={"dimmed"}>{proof.description}</Text>
                   </Stack>
                 </Group>
               </Accordion.Control>
