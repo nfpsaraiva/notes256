@@ -2,8 +2,7 @@ import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { BrowserProvider, Contract, ContractTransactionReceipt } from "ethers";
 import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { useMutation } from "@tanstack/react-query";
-
-const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
+import envs from "@/envs";
 
 interface Proof {
   name: string,
@@ -12,9 +11,10 @@ interface Proof {
 
 const useCreateProof = () => {
   const { walletProvider } = useWeb3ModalProvider();
+  const { CONTRACT_ADDRESS } = envs;
 
   const mutation = useMutation({
-    mutationFn: async ({name, description}: Proof) => {
+    mutationFn: async ({ name, description }: Proof) => {
       if (!walletProvider) return;
 
       const ethersProvider = new BrowserProvider(walletProvider)
