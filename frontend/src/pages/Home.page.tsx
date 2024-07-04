@@ -1,4 +1,4 @@
-import { AppShell, Box, Burger, Button, Center, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Center, Container, Group, Stack, Text, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
@@ -32,7 +32,7 @@ export function HomePage() {
               {opened && <SidebarToggle toggle={toggle} />}
               <Title size={"h3"}>My Ideas</Title>
             </Group>
-            <WalletButton />
+            {isConnected && <WalletButton />}
           </Group>
         </Group>
       </AppShell.Header>
@@ -70,7 +70,6 @@ export function HomePage() {
       </AppShell.Main>
       <AppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
         <Center>
-          
           <Text size='xs'><strong>{import.meta.env.VITE_CHAIN_NAME}</strong> Blockchain Network</Text>
         </Center>
       </AppShell.Footer>

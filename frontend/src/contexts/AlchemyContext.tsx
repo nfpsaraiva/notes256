@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, ReactNode } from 'react';
+import React, { createContext, useContext, useMemo, ReactNode, FC } from 'react';
 import { Alchemy, Network } from 'alchemy-sdk';
 
 interface AlchemyProviderProps {
@@ -12,7 +12,9 @@ const config = {
   network: Network.ETH_SEPOLIA,
 };
 
-export const AlchemyProvider: React.FC<AlchemyProviderProps> = ({ children }) => {
+export const AlchemyProvider: FC<AlchemyProviderProps> = ({ 
+  children 
+}: AlchemyProviderProps) => {
   const alchemy = useMemo(() => new Alchemy(config), []);
 
   return (
