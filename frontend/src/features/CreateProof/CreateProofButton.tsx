@@ -2,7 +2,7 @@ import { ActionIcon, Affix, Tooltip } from "@mantine/core";
 import { FC } from "react";
 import CreateProofModal from "./CreateProofModal";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBulbFilled } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 
 const CreateProofButton: FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -12,7 +12,7 @@ const CreateProofButton: FC = () => {
       <Affix position={{ bottom: 20, right: 20 }}>
         <Tooltip label="New idea">
           <ActionIcon onClick={open} radius={"xl"} size={"xl"}>
-            <IconBulbFilled stroke={3} />
+            <IconPlus stroke={3} />
           </ActionIcon>
         </Tooltip>
       </Affix>

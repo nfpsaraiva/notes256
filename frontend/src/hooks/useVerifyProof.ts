@@ -15,7 +15,9 @@ const useVerifyProof = (proofId: number, address: string) => {
 
       const mintAddress = tokenMetadata.mint?.mintAddress;
 
-      setVerified(mintAddress === address);
+      if (mintAddress === undefined) return false;
+
+      setVerified(mintAddress.toLowerCase() === address.toLowerCase());
 
       return true;
     },
