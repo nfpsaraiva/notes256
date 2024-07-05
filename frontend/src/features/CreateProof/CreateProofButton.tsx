@@ -10,11 +10,9 @@ const CreateProofButton: FC = () => {
   return (
     <>
       <Affix position={{ bottom: 20, right: 20 }}>
-        <Tooltip label="New idea">
-          <ActionIcon onClick={open} radius={"xl"} size={"xl"}>
-            <IconPlus stroke={3} />
-          </ActionIcon>
-        </Tooltip>
+        <ActionIcon onClick={open} radius={"xl"} size={"xl"}>
+          <IconPlus stroke={3} />
+        </ActionIcon>
       </Affix>
       <CreateProofModal opened={opened} close={close} />
     </>

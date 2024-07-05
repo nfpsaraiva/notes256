@@ -1,4 +1,4 @@
-import { AppShell, Box, Burger, Center, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Button, Center, Container, Group, Stack, Text, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
@@ -31,6 +31,7 @@ export function HomePage() {
             <Group>
               {opened && <SidebarToggle toggle={toggle} />}
               <Title size={"h3"}>My Ideas</Title>
+              {/* <Button size='sm' my={"md"}>New Idea</Button> */}
             </Group>
             {isConnected && <WalletButton />}
           </Group>

@@ -51,5 +51,5 @@ export const theme = createTheme({
       "#ad6300"
     ],
   },
-  primaryColor: "provify-orange"
+  primaryColor: "provify-light-blue"
 });
