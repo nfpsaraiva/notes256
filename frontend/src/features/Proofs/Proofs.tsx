@@ -3,6 +3,7 @@ import { Accordion, Button, Center, Group, Stack, Text, Title } from "@mantine/c
 import { FC } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
+import classes from "./Proofs.module.css"
 
 const Proofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
@@ -49,7 +50,7 @@ const Proofs: FC = () => {
         proofs &&
         proofs.map(proof => {
           return (
-            <Accordion.Item value={proof.id} key={proof.id}>
+            <Accordion.Item className={classes.proof} value={proof.id} key={proof.id}>
               <Accordion.Control>
                 <Group justify="space-between">
                   <Stack gap={3}>

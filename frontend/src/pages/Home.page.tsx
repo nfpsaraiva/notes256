@@ -15,6 +15,7 @@ export function HomePage() {
     chains: [mainnet],
     projectId,
     enableAnalytics: true,
+    themeMode: "light"
   });
 
   return (

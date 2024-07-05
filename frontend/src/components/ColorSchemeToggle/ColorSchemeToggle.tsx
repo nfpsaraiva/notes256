@@ -2,14 +2,21 @@ import { ActionIcon, useMantineColorScheme, useComputedColorScheme } from '@mant
 import { IconSun, IconMoon } from '@tabler/icons-react';
 import cx from 'clsx';
 import classes from './ColorSchemeToggle.module.css';
+import { useWeb3ModalTheme } from '@web3modal/ethers/react';
 
 function ColorSchemeToggle() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+  const { setThemeMode } = useWeb3ModalTheme();
+
+  const toggleTheme = (mode: 'light' | 'dark') => {
+    setColorScheme(mode);
+    setThemeMode(mode);
+  }
 
   return (
     <ActionIcon
-      onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
+      onClick={() => toggleTheme(computedColorScheme === 'light' ? 'dark' : 'light')}
       variant="subtle"
       size="lg"
       aria-label="Toggle color scheme"
