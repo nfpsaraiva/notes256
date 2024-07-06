@@ -2,7 +2,7 @@ import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FC } from "react";
 import VerifyProofModal from "./VerifyProofModal";
-import { IconCheck, IconSearch } from "@tabler/icons-react";
+import { IconCheck } from "@tabler/icons-react";
 
 const VerifyProofButton: FC = () => {
   const [opened, { open, close }] = useDisclosure(false);

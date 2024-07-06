@@ -34,7 +34,8 @@ const useProofs = (owner: string | undefined) => {
         proofs.push({
           id: nft.tokenId,
           name: proof[0],
-          description: proof[1]
+          description: proof[1],
+          timestamp: new Date(Number(proof[3])).toLocaleDateString()
         });
       }
 

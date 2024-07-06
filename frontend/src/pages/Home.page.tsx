@@ -1,4 +1,4 @@
-import { AppShell, Box, Burger, Button, Center, Container, Group, Stack, Text, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Button, Center, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
@@ -22,7 +22,7 @@ export function HomePage() {
     <AppShell
       layout="alt"
       header={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: 'md', collapsed: { desktop: opened, mobile: !opened } }}
+      navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}
       padding="md"
     >
       <AppShell.Header className={classes.header} withBorder={false}>
@@ -31,8 +31,7 @@ export function HomePage() {
           <Group gap={0} justify="space-between" style={{ flex: 1 }}>
             <Group>
               {opened && <SidebarToggle toggle={toggle} />}
-              <Title size={"h3"}>My Ideas</Title>
-              {/* <Button size='sm' my={"md"}>New Idea</Button> */}
+              <Title size={"h3"}>My proofs</Title>
             </Group>
             {isConnected && <WalletButton />}
           </Group>
