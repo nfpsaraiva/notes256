@@ -1,6 +1,6 @@
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
-import { BrowserProvider, Contract, ContractTransactionReceipt } from "ethers";
-import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
+import { BrowserProvider, Contract } from "ethers";
+import contractArtifact from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import envs from "@/envs";
 
@@ -12,21 +12,23 @@ interface Proof {
 const useCreateProof = () => {
   const queryClient = useQueryClient()
   const { walletProvider } = useWeb3ModalProvider();
-  const { CONTRACT_ADDRESS, PROOF_TOKKEN_URI } = envs;
+  const { CONTRACT_ADDRESS, PROOF_TOKEN_URI } = envs;
 
   const {
     mutate: createProof,
-    isSuccess: proofCreated
+    isSuccess: proofCreated,
+    isPending: creatingProof
   } = useMutation({
     mutationFn: async ({ name, description }: Proof) => {
       if (!walletProvider) return;
 
-      const ethersProvider = new BrowserProvider(walletProvider)
+      const ethersProvider = new BrowserProvider(walletProvider);
+
       const signer = await ethersProvider.getSigner();
 
-      const provifyContract = new Contract(CONTRACT_ADDRESS, contract.abi, signer);
+      const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
 
-      const response = await provifyContract.createProof(name, description, PROOF_TOKKEN_URI);
+      const response = await contract.createProof(name, description, PROOF_TOKEN_URI);
 
       await response.wait();
     },
@@ -35,6 +37,7 @@ const useCreateProof = () => {
 
   return {
     createProof,
+    creatingProof,
     proofCreated
   };
 }

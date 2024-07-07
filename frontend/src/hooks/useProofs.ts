@@ -31,6 +31,8 @@ const useProofs = (owner: string | undefined) => {
       for (const nft of provifyOwnedNfts) {
         const proof = await provifyContract.proofs(nft.tokenId);
 
+        console.log(proof);
+
         proofs.push({
           id: nft.tokenId,
           name: proof[0],

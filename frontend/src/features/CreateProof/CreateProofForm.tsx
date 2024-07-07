@@ -2,9 +2,9 @@ import { Button, Stack, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { FC, useEffect } from "react";
 import { IconCertificate } from "@tabler/icons-react";
-import WalletButton from "../Wallet/WalletButton";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { useCreateProof } from "@/hooks";
+import WalletButton from "../Wallet/WalletButton";
 
 interface CreateProofFormProps {
   modalOpened: boolean,
@@ -16,7 +16,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
   closeModal
 }: CreateProofFormProps) => {
   const { isConnected } = useWeb3ModalAccount();
-  const { createProof, proofCreated } = useCreateProof();
+  const { createProof, creatingProof, proofCreated } = useCreateProof();
 
   const form = useForm({
     initialValues: {
@@ -63,7 +63,11 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
         />
         {
           isConnected
-            ? <Button leftSection={<IconCertificate size={18} />} type="submit">Submit</Button>
+            ? (
+              creatingProof
+                ? <Button leftSection={<IconCertificate size={18} />} disabled>Creating Proof</Button>
+                : <Button leftSection={<IconCertificate size={18} />} type="submit">Submit</Button>
+            )
             : <WalletButton />
         }
       </Stack>

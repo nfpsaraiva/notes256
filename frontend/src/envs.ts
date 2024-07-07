@@ -6,7 +6,7 @@ const config = {
   CHAIN_ETHERSCAN_URL: import.meta.env.VITE_CHAIN_ETHERSCAN_URL,
   CHAIN_RPC_URL: import.meta.env.VITE_CHAIN_RPC_URL,
   ALCHEMY_API_KEY: import.meta.env.VITE_ALCHEMY_API_KEY,
-  PROOF_TOKKEN_URI: import.meta.env.VITE_PROOF_TOKKEN_URI
+  PROOF_TOKEN_URI: import.meta.env.VITE_PROOF_TOKEN_URI
 };
 
 export default config;
