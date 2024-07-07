@@ -16,7 +16,7 @@ describe("Create Proof", () => {
   it("Should emit ProofCreated event", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture)
 
-    const createProof = provifyContract.createProof('foo', 'bar');
+    const createProof = provifyContract.createProof('foo', 'bar', "https://gateway/foo");
 
     await expect(await createProof)
       .to.emit(provifyContract, "ProofCreated")
@@ -26,7 +26,7 @@ describe("Create Proof", () => {
   it("Should emit NFTIssued event", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
 
-    const createProof = provifyContract.createProof('foo', 'bar');
+    const createProof = provifyContract.createProof('foo', 'bar', "https://gateway/foo");
 
     await expect(await createProof)
       .to.emit(provifyContract, "NFTIssued")
@@ -36,9 +36,9 @@ describe("Create Proof", () => {
   it("Should create 2 proofs", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
 
-    await provifyContract.createProof('foo1', 'bar');
+    await provifyContract.createProof('foo1', 'bar', "https://gateway/foo");
 
-    const secondProof = provifyContract.createProof('foo2', 'bar');
+    const secondProof = provifyContract.createProof('foo2', 'bar', "https://gateway/foo");
 
     await expect(await secondProof)
       .to.emit(provifyContract, "ProofCreated")

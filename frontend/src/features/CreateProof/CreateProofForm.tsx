@@ -1,18 +1,22 @@
 import { Button, Stack, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { IconCertificate } from "@tabler/icons-react";
 import WalletButton from "../Wallet/WalletButton";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { useCreateProof } from "@/hooks";
 
 interface CreateProofFormProps {
+  modalOpened: boolean,
   closeModal: () => void
 }
 
-const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFormProps) => {
+const CreateProofForm: FC<CreateProofFormProps> = ({
+  modalOpened,
+  closeModal
+}: CreateProofFormProps) => {
   const { isConnected } = useWeb3ModalAccount();
-  const { createProof } = useCreateProof();
+  const { createProof, proofCreated } = useCreateProof();
 
   const form = useForm({
     initialValues: {
@@ -25,15 +29,18 @@ const CreateProofForm: FC<CreateProofFormProps> = ({ closeModal }: CreateProofFo
     }
   });
 
-
   const handleSubmit = async (values: typeof form.values) => {
     createProof({
       name: values.name,
       description: values.description
     });
-
-    closeModal();
   };
+
+  useEffect(() => {
+    if (modalOpened && proofCreated) {
+      closeModal();
+    }
+  }, [modalOpened, proofCreated]);
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>

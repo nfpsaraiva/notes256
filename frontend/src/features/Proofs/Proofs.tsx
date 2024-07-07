@@ -1,9 +1,9 @@
 import { useProofs } from "@/hooks";
-import { Accordion, Button, Center, Divider, Group, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Accordion, Button, Center, Divider, Group, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
-import classes from "./Proofs.module.css"
+import classes from "./Proofs.module.css";
 import { IconCopy, IconDownload, IconShare } from "@tabler/icons-react";
 
 const Proofs: FC = () => {
@@ -28,20 +28,13 @@ const Proofs: FC = () => {
     )
   }
 
-  if (!proofs) {
+  if (!proofs || proofs.length === 0) {
     return (
       <Center h={"70vh"}>
-        <Stack>
-          <Stack gap={3} align='center'>
-            <Title ta={"center"} fw={500} order={2}>
-              No proofs here!
-            </Title>
-            <Text ta={"center"} c={"dimmed"}>
-              Start by creating drafts and then publish them
-            </Text>
-          </Stack>
-        </Stack>
-      </Center>
+        <Title ta={"center"} fw={500} order={2}>
+          No proofs here!
+        </Title>
+      </Center> 
     )
   }
 

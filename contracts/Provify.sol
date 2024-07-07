@@ -1,18 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract Provify is ERC721 {
+contract Provify is ERC721URIStorage {
     struct Proof {
         string name;
         string description;
         address issuer;
         uint256 timestamp;
     }
-    
+
     mapping(uint256 => Proof) public proofs;
-    
+
     uint256 public proofCounter;
 
     event ProofCreated(
@@ -30,7 +30,11 @@ contract Provify is ERC721 {
 
     constructor() ERC721("Proof", "PRF") {}
 
-    function createProof(string memory _name, string memory _description) external {
+    function createProof(
+        string memory _name,
+        string memory _description,
+        string memory tokenURI
+    ) external {
         proofCounter++;
 
         proofs[proofCounter] = Proof(
@@ -44,6 +48,7 @@ contract Provify is ERC721 {
 
         // Mint an NFT as proof
         _safeMint(msg.sender, proofCounter);
+        _setTokenURI(proofCounter, tokenURI);
         emit NFTIssued(proofCounter, msg.sender, proofCounter);
     }
 }
