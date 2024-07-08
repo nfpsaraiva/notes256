@@ -38,7 +38,7 @@ const Proofs: FC = () => {
   }
 
   return (
-    <Group align="baseline" justify="space-around">
+    <Group align="baseline" justify="space-between">
       {
         proofs &&
         proofs.map(proof => {
