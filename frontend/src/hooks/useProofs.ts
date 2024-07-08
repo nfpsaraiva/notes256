@@ -30,14 +30,20 @@ const useProofs = (owner: string | undefined) => {
       const proofs = [];
       for (const nft of provifyOwnedNfts) {
         const proof = await provifyContract.proofs(nft.tokenId);
+        const tokenURI = await provifyContract.tokenURI(nft.tokenId);
+        const metadata = await fetch(tokenURI);
+        const {image} = await metadata.json();
 
-        console.log(proof);
+        const timestamp = Number(proof[3]);
+        const date = new Date(timestamp * 1000).toLocaleDateString();
+        console.log(date);
 
         proofs.push({
           id: nft.tokenId,
           name: proof[0],
           description: proof[1],
-          timestamp: new Date(Number(proof[3])).toLocaleDateString()
+          image,
+          date
         });
       }
 

@@ -27,7 +27,7 @@ const useCreateProof = () => {
       const signer = await ethersProvider.getSigner();
 
       const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
-
+      
       const response = await contract.createProof(name, description, PROOF_TOKEN_URI);
 
       await response.wait();

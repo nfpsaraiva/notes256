@@ -1,9 +1,9 @@
-import { AppShell, Box, Burger, Button, Center, Container, Divider, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Button, Card, Center, Container, Divider, Group, ScrollArea, Stack, Text, TextInput, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
-import { ColorSchemeToggle, CreateProofButton, Menu, Proofs, VerifyProofButton, WalletButton } from '@/features';
+import { ColorSchemeToggle, CreateProofButton, Menu, Proofs, SearchProofButton, VerifyProofButton, WalletButton } from '@/features';
 import { SidebarToggle } from '@/components';
 import Markdown from "react-markdown";
 import howItWorks from "./how-it-works.md";
@@ -64,10 +64,9 @@ export function HomePage() {
       </AppShell.Navbar>
 
       <AppShell.Main className={classes.main}>
-        <Container maw={800} mx={"auto"}>
-          <Proofs />
-          {isConnected && <CreateProofButton />}
-        </Container>
+        <Proofs />
+        {isConnected && <CreateProofButton />}
+        {isConnected && <SearchProofButton />}
       </AppShell.Main>
       <AppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
         <Center>

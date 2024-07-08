@@ -21,7 +21,7 @@ const useVerifyProof = (proofId: number, address: string) => {
 
       return true;
     },
-    enabled: proofId > 0
+    enabled: proofId > 0 && address.length > 0
   });
 
   return { verified, isSuccess, isFetching, isError };
