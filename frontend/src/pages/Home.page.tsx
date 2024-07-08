@@ -1,10 +1,12 @@
-import { AppShell, Box, Burger, Button, Center, Container, Divider, Group, Stack, Text, Title } from '@mantine/core';
+import { AppShell, Box, Burger, Button, Center, Container, Divider, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
 import classes from './Home.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
 import { ColorSchemeToggle, CreateProofButton, Menu, Proofs, VerifyProofButton, WalletButton } from '@/features';
 import { SidebarToggle } from '@/components';
+import Markdown from "react-markdown";
+import howItWorks from "./how-it-works.md";
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
@@ -43,7 +45,7 @@ export function HomePage() {
           <Group justify='space-between'>
             <Group>
               <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-              <Title size={"h3"}>Options</Title>
+              <Title size={"h3"}>How it works</Title>
             </Group>
             <Group>
               <ColorSchemeToggle />
@@ -53,10 +55,8 @@ export function HomePage() {
             </Group>
           </Group>
         </AppShell.Section>
-        <AppShell.Section grow p={"md"}>
-          <Stack>
-            <VerifyProofButton />
-          </Stack>
+        <AppShell.Section grow px={"md"} component={ScrollArea}>
+          <Markdown children={howItWorks} />
         </AppShell.Section>
         <AppShell.Section p={"md"}>
           <Menu />
