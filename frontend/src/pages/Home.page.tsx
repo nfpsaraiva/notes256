@@ -48,7 +48,7 @@ export function HomePage() {
           <Group justify='space-between'>
             <Group>
               <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-              <Title size={"h3"}>How it works</Title>
+              <Title size={"h3"}>Options</Title>
             </Group>
             <Group>
               <ColorSchemeToggle />
@@ -73,7 +73,6 @@ export function HomePage() {
           isConnected &&
           <>
             <CreateProofButton />
-            <SearchProofButton />
           </>
         }
       </AppShell.Main>

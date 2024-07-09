@@ -3,7 +3,7 @@ import { ActionIcon, Button, Card, Center, CopyButton, Group, Image, Menu, Stack
 import { FC } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
-import { IconDots, IconDownload, IconFilter, IconShare, IconTrash } from "@tabler/icons-react";
+import { IconCopy, IconDots, IconDownload, IconFilter, IconShare, IconTrash } from "@tabler/icons-react";
 
 const Proofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
@@ -38,7 +38,7 @@ const Proofs: FC = () => {
   }
 
   return (
-    <Stack>
+    <Stack gap={"xl"}>
       <Group wrap="nowrap">
         <TextInput
           flex={1}
@@ -68,6 +68,7 @@ const Proofs: FC = () => {
                           </ActionIcon>
                         </Menu.Target>
                         <Menu.Dropdown>
+                          <Menu.Item leftSection={<IconCopy size={16} />}>Copy ID</Menu.Item>
                           <Menu.Item leftSection={<IconDownload size={16} />}>Download</Menu.Item>
                           <Menu.Item leftSection={<IconShare size={16} />}>Share</Menu.Item>
                           <Menu.Item color="red" leftSection={<IconTrash size={16} />}>Delete</Menu.Item>
@@ -78,23 +79,7 @@ const Proofs: FC = () => {
                       {proof.description}
                     </Text>
                   </Stack>
-                  <Stack>
-                    <Group>
-
-                      <CopyButton value={proof.id} timeout={2000}>
-                        {({ copied, copy }) => (
-                          <UnstyledButton onClick={copy}>
-                            {
-                              copied
-                                ? <Text size="xs" c={"dimmed"}>Copied</Text>
-                                : <Text size="xs" c={"dimmed"}>ID: {proof.id}</Text>
-                            }
-                          </UnstyledButton>
-                        )}
-                      </CopyButton>
-                    </Group>
-                    <Button >Open</Button>
-                  </Stack>
+                  <Button size="xs" fw={500}>Open</Button>
                 </Stack>
               </Card>
             )
