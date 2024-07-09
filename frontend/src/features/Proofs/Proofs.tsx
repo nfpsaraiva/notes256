@@ -1,13 +1,13 @@
 import { useProofs } from "@/hooks";
-import { ActionIcon, Button, Card, Center, CopyButton, Grid, Group, Image, Menu, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, UnstyledButton } from "@mantine/core";
+import { Center, Loader, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { FC, useState } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
-import { IconCopy, IconDots, IconDownload, IconFilter, IconSend, IconShare, IconTrash } from "@tabler/icons-react";
+import ProofCard from "./ProofCard";
 
 const Proofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
-  const { proofs } = useProofs(address);
+  const { proofs, isLoading } = useProofs(address);
   const [searchValue, setSearchValue] = useState('');
 
   if (!isConnected) {
@@ -28,6 +28,14 @@ const Proofs: FC = () => {
     )
   }
 
+  if (isLoading) {
+    return (
+      <Center>
+        <Loader />
+      </Center>
+    )
+  }
+
   if (!proofs || proofs.length === 0) {
     return (
       <Center h={"70vh"}>
@@ -39,7 +47,8 @@ const Proofs: FC = () => {
   }
 
   const filteredProofs = proofs.filter(proof => {
-    return proof.name.includes(searchValue) || proof.description.includes(searchValue);
+    return proof.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
+      || proof.description.toLowerCase().includes(searchValue.toLowerCase());
   });
 
   return (
@@ -47,44 +56,13 @@ const Proofs: FC = () => {
       <TextInput
         placeholder="Search"
         size="md"
+        radius={"md"}
         value={searchValue}
         onChange={e => setSearchValue(e.target.value)}
       />
       <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }}>
         {
-          filteredProofs.map(proof => {
-            return (
-              <Card radius={"md"} h={290} key={proof.id} padding={"lg"} withBorder shadow="sm">
-                <Card.Section>
-                  <Image height={50} src={proof.image} />
-                </Card.Section>
-                <Stack mt={"md"} justify="space-between" h={"100%"}>
-                  <Stack gap={"xs"}>
-                    <Group justify="space-between" wrap="nowrap" align="baseline">
-                      <Text fw={500}>{proof.name}</Text>
-                      <Menu>
-                        <Menu.Target>
-                          <ActionIcon variant="subtle" color="var(--mantine-color-text)">
-                            <IconDots size={18} />
-                          </ActionIcon>
-                        </Menu.Target>
-                        <Menu.Dropdown>
-                          <Menu.Item leftSection={<IconCopy size={16} />}>Copy ID</Menu.Item>
-                          <Menu.Item leftSection={<IconDownload size={16} />}>Download</Menu.Item>
-                          <Menu.Item leftSection={<IconSend size={16} />}>Transfer</Menu.Item>
-                          <Menu.Item color="red" leftSection={<IconTrash size={16} />}>Delete</Menu.Item>
-                        </Menu.Dropdown>
-                      </Menu>
-                    </Group>
-                    <Text lineClamp={3} c={"dimmed"} size="sm">
-                      {proof.description}
-                    </Text>
-                  </Stack>
-                  <Button size="xs" fw={700}>Open</Button>
-                </Stack>
-              </Card>
-            )
-          })
+          filteredProofs.map(proof => <ProofCard proof={proof} />)
         }
       </SimpleGrid>
     </Stack>

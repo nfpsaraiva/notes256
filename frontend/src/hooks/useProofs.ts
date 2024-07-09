@@ -11,8 +11,8 @@ const useProofs = (owner: string | undefined) => {
   const { isConnected } = useWeb3ModalAccount();
   const { CONTRACT_ADDRESS } = envs;
 
-  const { data: proofs, isSuccess, isFetching, isError } = useQuery({
-    queryKey: ["proofs", CONTRACT_ADDRESS],
+  const { data: proofs, isSuccess, isLoading, isError } = useQuery({
+    queryKey: ["proofs", owner],
     queryFn: async () => {
       if (owner === undefined) return [];
 
@@ -53,7 +53,7 @@ const useProofs = (owner: string | undefined) => {
     enabled: isConnected
   });
 
-  return { proofs, isSuccess, isFetching, isError };
+  return { proofs, isSuccess, isLoading, isError };
 }
 
 export default useProofs;
