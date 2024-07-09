@@ -7,10 +7,12 @@ import { ColorSchemeToggle, CreateProofButton, Menu, Proofs, SearchProofButton, 
 import { SidebarToggle } from '@/components';
 import Markdown from "react-markdown";
 import howItWorks from "./how-it-works.md";
+import envs from "@/envs";
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
   const { isConnected } = useWeb3ModalAccount();
+  const { APP_VERSION } = envs;
 
   createWeb3Modal({
     ethersConfig,
@@ -25,6 +27,7 @@ export function HomePage() {
       layout="alt"
       header={{ height: 60 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}
+      footer={{ height: 60 }}
       padding="md"
     >
       <AppShell.Header className={classes.header} withBorder={false}>
@@ -64,13 +67,20 @@ export function HomePage() {
       </AppShell.Navbar>
 
       <AppShell.Main className={classes.main}>
-        <Proofs />
-        {isConnected && <CreateProofButton />}
-        {isConnected && <SearchProofButton />}
+        <Container maw={"100%"}>
+          <Proofs />
+        </Container>
+        {
+          isConnected &&
+          <>
+            <CreateProofButton />
+            <SearchProofButton />
+          </>
+        }
       </AppShell.Main>
       <AppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
-        <Center>
-          <Text size='xs'><strong>{import.meta.env.VITE_CHAIN_NAME}</strong> Blockchain Network</Text>
+        <Center h={"100%"}>
+          <Text size='xs'>Version <strong>{APP_VERSION}</strong> on <strong>{import.meta.env.VITE_CHAIN_NAME}</strong> Blockchain Network</Text>
         </Center>
       </AppShell.Footer>
     </AppShell>

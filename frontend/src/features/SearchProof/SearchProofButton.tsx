@@ -2,6 +2,7 @@ import { ActionIcon, Affix } from "@mantine/core";
 import { FC } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { IconSearch } from "@tabler/icons-react";
+import SearchProofModal from "./SearchProofModal";
 
 const SearchProofButton: FC = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -13,6 +14,7 @@ const SearchProofButton: FC = () => {
           <IconSearch stroke={3} />
         </ActionIcon>
       </Affix>
+      <SearchProofModal opened={opened} close={close} />
     </>
   )
 }
