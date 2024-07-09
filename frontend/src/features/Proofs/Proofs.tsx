@@ -1,13 +1,14 @@
 import { useProofs } from "@/hooks";
-import { ActionIcon, Button, Card, Center, CopyButton, Group, Image, Menu, Stack, Text, TextInput, Title, Tooltip, UnstyledButton } from "@mantine/core";
-import { FC } from "react";
+import { ActionIcon, Button, Card, Center, CopyButton, Grid, Group, Image, Menu, SimpleGrid, Stack, Text, TextInput, Title, Tooltip, UnstyledButton } from "@mantine/core";
+import { FC, useState } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
-import { IconCopy, IconDots, IconDownload, IconFilter, IconShare, IconTrash } from "@tabler/icons-react";
+import { IconCopy, IconDots, IconDownload, IconFilter, IconSend, IconShare, IconTrash } from "@tabler/icons-react";
 
 const Proofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
   const { proofs } = useProofs(address);
+  const [searchValue, setSearchValue] = useState('');
 
   if (!isConnected) {
     return (
@@ -37,29 +38,29 @@ const Proofs: FC = () => {
     )
   }
 
+  const filteredProofs = proofs.filter(proof => {
+    return proof.name.includes(searchValue) || proof.description.includes(searchValue);
+  });
+
   return (
     <Stack gap={"xl"}>
-      <Group wrap="nowrap">
-        <TextInput
-          flex={1}
-          placeholder="Search"
-        />
-        <ActionIcon size={"lg"} variant="light">
-          <IconFilter size={18} />
-        </ActionIcon>
-      </Group>
-      <Group align="baseline" justify="space-between">
+      <TextInput
+        placeholder="Search"
+        size="md"
+        value={searchValue}
+        onChange={e => setSearchValue(e.target.value)}
+      />
+      <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }}>
         {
-          proofs &&
-          proofs.map(proof => {
+          filteredProofs.map(proof => {
             return (
-              <Card radius={"md"} w={200} h={250} key={proof.id} padding={"lg"} withBorder shadow="sm">
+              <Card radius={"md"} h={290} key={proof.id} padding={"lg"} withBorder shadow="sm">
                 <Card.Section>
                   <Image height={50} src={proof.image} />
                 </Card.Section>
                 <Stack mt={"md"} justify="space-between" h={"100%"}>
                   <Stack gap={"xs"}>
-                    <Group justify="space-between" wrap="nowrap">
+                    <Group justify="space-between" wrap="nowrap" align="baseline">
                       <Text fw={500}>{proof.name}</Text>
                       <Menu>
                         <Menu.Target>
@@ -70,7 +71,7 @@ const Proofs: FC = () => {
                         <Menu.Dropdown>
                           <Menu.Item leftSection={<IconCopy size={16} />}>Copy ID</Menu.Item>
                           <Menu.Item leftSection={<IconDownload size={16} />}>Download</Menu.Item>
-                          <Menu.Item leftSection={<IconShare size={16} />}>Share</Menu.Item>
+                          <Menu.Item leftSection={<IconSend size={16} />}>Transfer</Menu.Item>
                           <Menu.Item color="red" leftSection={<IconTrash size={16} />}>Delete</Menu.Item>
                         </Menu.Dropdown>
                       </Menu>
@@ -79,13 +80,13 @@ const Proofs: FC = () => {
                       {proof.description}
                     </Text>
                   </Stack>
-                  <Button size="xs" fw={500}>Open</Button>
+                  <Button size="xs" fw={700}>Open</Button>
                 </Stack>
               </Card>
             )
           })
         }
-      </Group>
+      </SimpleGrid>
     </Stack>
   )
 }

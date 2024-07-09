@@ -4,6 +4,7 @@ import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { Contract } from "alchemy-sdk";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import envs from "@/envs";
+import { Proof } from "@/types";
 
 const useProofs = (owner: string | undefined) => {
   const alchemy = useAlchemy();
@@ -27,7 +28,7 @@ const useProofs = (owner: string | undefined) => {
         alchemyProvider
       )
 
-      const proofs = [];
+      const proofs: Proof[] = [];
       for (const nft of provifyOwnedNfts) {
         const proof = await provifyContract.proofs(nft.tokenId);
         const tokenURI = await provifyContract.tokenURI(nft.tokenId);
@@ -35,7 +36,7 @@ const useProofs = (owner: string | undefined) => {
         const {image} = await metadata.json();
 
         const timestamp = Number(proof[3]);
-        const date = new Date(timestamp * 1000).toLocaleDateString();
+        const date = new Date(timestamp * 1000);
         console.log(date);
 
         proofs.push({

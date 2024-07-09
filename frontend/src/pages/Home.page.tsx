@@ -66,7 +66,7 @@ export function HomePage() {
       </AppShell.Navbar>
 
       <AppShell.Main className={classes.main}>
-        <Container maw={"100%"}>
+        <Container maw={800} mx={"auto"}>
           <Proofs />
         </Container>
         {
