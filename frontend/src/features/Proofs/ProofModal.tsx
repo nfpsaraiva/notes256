@@ -10,7 +10,7 @@ interface ProofModalProps {
 
 const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalProps) => {
   return (
-    <Modal opened={opened} onClose={close} title={proof.name}>
+    <Modal opened={opened} onClose={close} withCloseButton={false} >
       <Stack>
         <Text size="sm">
           {proof.description}
