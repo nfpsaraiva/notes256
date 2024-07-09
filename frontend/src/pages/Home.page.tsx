@@ -59,7 +59,6 @@ export function HomePage() {
           </Group>
         </AppShell.Section>
         <AppShell.Section grow px={"md"} component={ScrollArea}>
-          <Markdown children={howItWorks} />
         </AppShell.Section>
         <AppShell.Section p={"md"}>
           <Menu />
