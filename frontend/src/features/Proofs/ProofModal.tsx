@@ -1,5 +1,5 @@
 import { Proof } from "@/types";
-import { Button, Divider, Group, Modal, Stack, Text } from "@mantine/core";
+import { Button, Divider, Group, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
 interface ProofModalProps {
@@ -10,8 +10,16 @@ interface ProofModalProps {
 
 const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalProps) => {
   return (
-    <Modal opened={opened} onClose={close} withCloseButton={false} >
-      <Stack>
+    <Modal
+      padding={0}
+      opened={opened}
+      onClose={close}
+      withCloseButton={false}
+      scrollAreaComponent={ScrollArea.Autosize}
+    >
+      <Image src={proof.image} />
+      <Stack p={"md"}>
+        <Title order={2} size={"h3"}>{proof.name}</Title>
         <Text size="sm">
           {proof.description}
         </Text>
@@ -20,7 +28,7 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
         </Text>
         <Divider />
         <Group>
-          <Button>Send</Button>
+          <Button>Transfer</Button>
           <Button>Copy ID</Button>
           <Button>Download</Button>
           <Button color="red">Delete</Button>

@@ -8,6 +8,7 @@ import { SidebarToggle } from '@/components';
 import Markdown from "react-markdown";
 import howItWorks from "./how-it-works.md";
 import envs from "@/envs";
+import VerifyProofForm from '@/features/VerifyProof/VerifyProofForm';
 
 export function HomePage() {
   const [opened, { toggle }] = useDisclosure();
@@ -58,7 +59,8 @@ export function HomePage() {
             </Group>
           </Group>
         </AppShell.Section>
-        <AppShell.Section grow px={"md"} component={ScrollArea}>
+        <AppShell.Section grow p={"md"} component={ScrollArea}>
+          <VerifyProofButton />
         </AppShell.Section>
         <AppShell.Section p={"md"}>
           <Menu />

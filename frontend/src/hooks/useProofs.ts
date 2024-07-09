@@ -37,7 +37,6 @@ const useProofs = (owner: string | undefined) => {
 
         const timestamp = Number(proof[3]);
         const date = new Date(timestamp * 1000);
-        console.log(date);
 
         proofs.push({
           id: nft.tokenId,

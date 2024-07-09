@@ -13,7 +13,7 @@ contract Provify is ERC721URIStorage {
 
     mapping(uint256 => Proof) public proofs;
 
-    uint256 public proofCounter;
+    uint256 public tokenIdCounter;
 
     event ProofCreated(
         uint256 indexed proofId,
@@ -22,33 +22,35 @@ contract Provify is ERC721URIStorage {
         address indexed issuer
     );
 
-    event NFTIssued(
-        uint256 indexed proofId,
-        address indexed recipient,
-        uint256 tokenId
-    );
-
-    constructor() ERC721("Proof", "PRF") {}
+    constructor() ERC721("Proof", "PRF") {
+        // tokenIdCounter = 1;
+    }
 
     function createProof(
         string memory _name,
         string memory _description,
-        string memory tokenURI
+        string memory _tokenURI
     ) external {
-        proofCounter++;
+        // bytes32 proofId = keccak256(
+        //     abi.encodePacked(_name, _description, msg.sender, block.timestamp)
+        // );
 
-        proofs[proofCounter] = Proof(
+        // require(proofs[proofId].timestamp == 0, "Proof already exists");
+
+        proofs[tokenIdCounter] = Proof(
             _name,
             _description,
             msg.sender,
             block.timestamp
         );
 
-        emit ProofCreated(proofCounter, _name, _description, msg.sender);
+        uint256 tokenId = tokenIdCounter;
 
-        // Mint an NFT as proof
-        _safeMint(msg.sender, proofCounter);
-        _setTokenURI(proofCounter, tokenURI);
-        emit NFTIssued(proofCounter, msg.sender, proofCounter);
+        tokenIdCounter++;
+
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, _tokenURI);
+
+        emit ProofCreated(tokenId, _name, _description, msg.sender);
     }
 }

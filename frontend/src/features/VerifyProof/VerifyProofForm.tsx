@@ -3,25 +3,18 @@ import { FC, useState } from "react";
 import { useVerifyProof } from "@/hooks";
 
 const VerifyProofForm: FC = () => {
-  const [proofId, setProofId] = useState<number>(0);
-  const [address, setAddress] = useState<string>("");
-  const { verified, isSuccess, isFetching } = useVerifyProof(Number(proofId), address);
+  const [proofId, setProofId] = useState<string>('');
+  const { address, isSuccess, isFetching } = useVerifyProof(proofId);
+
 
   return (
     <Stack>
       <TextInput
         withAsterisk
-        label="Owner Address"
-        placeholder="Type the owner address"
-        value={address}
-        onChange={e => setAddress(e.target.value)}
-      />
-      <NumberInput
-        withAsterisk
         label="Proof ID"
         placeholder="Enter the proof ID"
         value={proofId}
-        onChange={e => setProofId(Number(e))}
+        onChange={e => setProofId(e.target.value)}
       />
 
       {
@@ -29,9 +22,9 @@ const VerifyProofForm: FC = () => {
           ? <Center><Loader /></Center>
           : (
             isSuccess && (
-              verified
-                ? <Center><Text c={"teal"} fw={700}>Verified</Text></Center>
-                : <Center><Text c={"red"} fw={700}>Not Verified</Text></Center>
+              address !== null
+                ? <Center><Text c={"teal"} fw={700}>Belongs to: {address}</Text></Center>
+                : <Center><Text c={"red"} fw={700}>Does not exist yet</Text></Center>
             )
           )
       }

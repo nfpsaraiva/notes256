@@ -1,7 +1,7 @@
 import { Group, Stack, Text, UnstyledButton } from "@mantine/core";
 import { FC } from "react";
 import classes from "./Menu.module.css";
-import { IconHeadset, IconInfoCircle, IconQuestionMark } from "@tabler/icons-react";
+import { IconHeadset, IconInfoCircle, IconQuestionMark, IconTimeline } from "@tabler/icons-react";
 
 const Menu: FC = () => {
   return (
@@ -10,6 +10,12 @@ const Menu: FC = () => {
         <Group align="center">
           <IconQuestionMark size={20} />
           <Text fw={700}>How it works</Text>
+        </Group>
+      </UnstyledButton>
+      <UnstyledButton>
+        <Group align="center">
+          <IconTimeline size={20} />
+          <Text fw={700}>Roadmap</Text>
         </Group>
       </UnstyledButton>
       <UnstyledButton>

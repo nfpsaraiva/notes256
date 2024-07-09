@@ -1,5 +1,5 @@
-import { ActionIcon, Box, Card, Group, Image, Menu, Stack, Text } from "@mantine/core";
-import { IconCopy, IconDots, IconDownload, IconSend, IconTrash } from "@tabler/icons-react";
+import { ActionIcon, Box, Card, Center, Group, Image, Menu, Stack, Text } from "@mantine/core";
+import { IconCopy, IconDots, IconDownload, IconPrinter, IconSend, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
 import classes from "./ProofCard.module.css";
 import { Proof } from "@/types";
@@ -32,15 +32,20 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
                 <Menu.Dropdown>
                   <Menu.Item leftSection={<IconCopy size={16} />}>Copy ID</Menu.Item>
                   <Menu.Item leftSection={<IconDownload size={16} />}>Download</Menu.Item>
+                  <Menu.Item leftSection={<IconPrinter size={16} />}>Print</Menu.Item>
                   <Menu.Item leftSection={<IconSend size={16} />}>Transfer</Menu.Item>
                   <Menu.Item color="red" leftSection={<IconTrash size={16} />}>Delete</Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             </Group>
-            <Text lineClamp={7} c={"dimmed"} size="sm">
+            <Text lineClamp={4} c={"dimmed"} size="sm">
               {proof.description}
             </Text>
           </Stack>
+          <Group justify="space-between">
+            <Text size="xs">{proof.date.toLocaleDateString()}</Text>
+            <Text size="xs">{proof.date.toLocaleTimeString()}</Text>
+          </Group>
         </Stack>
       </Card>
       <ProofModal opened={opened} close={close} proof={proof} />

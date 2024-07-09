@@ -23,16 +23,6 @@ describe("Create Proof", () => {
       .withArgs(1, 'foo', 'bar', owner.address);
   });
 
-  it("Should emit NFTIssued event", async () => {
-    const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
-
-    const createProof = provifyContract.createProof('foo', 'bar', "https://gateway/foo");
-
-    await expect(await createProof)
-      .to.emit(provifyContract, "NFTIssued")
-      .withArgs(1, owner.address, 1);
-  });
-
   it("Should create 2 proofs", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
 

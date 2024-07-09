@@ -9,7 +9,7 @@ const VerifyProofButton: FC = () => {
 
   return (
     <>
-      <Button color="var(--mantine-color-provify-light-blue-9)" leftSection={<IconCheck size={16} stroke={3} />} fw={700} onClick={open}>
+      <Button fullWidth leftSection={<IconCheck size={16} stroke={3} />} fw={700} onClick={open}>
         Verify Proof
       </Button>
       <VerifyProofModal opened={opened} close={close} />

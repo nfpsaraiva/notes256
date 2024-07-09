@@ -3,28 +3,35 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import envs from "@/envs";
 
-const useVerifyProof = (proofId: number, address: string) => {
+const useVerifyProof = (proofId: string) => {
   const alchemy = useAlchemy();
-  const [verified, setVerified] = useState<boolean>();
+  const [address, setAddress] = useState<string | null>(null);
   const { CONTRACT_ADDRESS } = envs;
 
   const { isSuccess, isFetching, isError } = useQuery({
     queryKey: ["verify_proof", proofId],
     queryFn: async () => {
-      const tokenMetadata = await alchemy.nft.getNftMetadata(CONTRACT_ADDRESS, proofId);
+      if (isNaN(Number(proofId))) {
+        setAddress(null);
+        return false;
+      }
+
+      const tokenMetadata = await alchemy.nft.getNftMetadata(CONTRACT_ADDRESS, Number(proofId));
 
       const mintAddress = tokenMetadata.mint?.mintAddress;
 
-      if (mintAddress === undefined) return false;
+      if (mintAddress === undefined) {
+        setAddress(null);
+        return false;
+      }
 
-      setVerified(mintAddress.toLowerCase() === address.toLowerCase());
-
+      setAddress(mintAddress);
       return true;
     },
-    enabled: proofId > 0 && address.length > 0
+    enabled: proofId.length > 0
   });
 
-  return { verified, isSuccess, isFetching, isError };
+  return { address, isSuccess, isFetching, isError };
 }
 
 export default useVerifyProof;  
