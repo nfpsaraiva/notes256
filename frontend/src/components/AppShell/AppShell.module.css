@@ -1,0 +1,11 @@
+.header, .main, .footer {
+  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-8));
+}
+
+.main {
+  margin: 10px auto;
+}
+
+.navbar {
+  background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-9));
+}

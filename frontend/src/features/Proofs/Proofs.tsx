@@ -62,7 +62,7 @@ const Proofs: FC = () => {
       />
       <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }}>
         {
-          filteredProofs.map(proof => <ProofCard proof={proof} />)
+          filteredProofs.map(proof => <ProofCard key={proof.id} proof={proof} />)
         }
       </SimpleGrid>
     </Stack>

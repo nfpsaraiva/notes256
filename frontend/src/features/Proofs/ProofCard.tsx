@@ -14,7 +14,7 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box key={proof.id}>
+    <Box>
       <Card onClick={open} className={classes.proofCard} radius={"md"} h={300} padding={"lg"} withBorder shadow="md">
         <Card.Section>
           <Image height={50} src={proof.image} />

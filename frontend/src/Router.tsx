@@ -4,8 +4,10 @@ import { HomePage } from './pages/Home.page';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
-  },
+    element: (
+        <HomePage />
+    ),
+  }
 ]);
 
 export function Router() {

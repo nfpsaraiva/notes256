@@ -1,5 +1,5 @@
-import { AppShell, Box, Burger, Center, Container, Divider, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
-import classes from './Home.module.css';
+import { AppShell as MantineAppShell, Box, Burger, Center, Container, Divider, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
+import classes from './AppShell.module.css';
 import { useDisclosure } from '@mantine/hooks';
 import { createWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
@@ -7,21 +7,16 @@ import { ColorSchemeToggle, CreateProofButton, Menu, Proofs, WalletButton } from
 import { SidebarToggle } from '@/components';
 import envs from "@/envs";
 import TopMenu from '@/features/Menu/TopMenu';
-import Trash from '@/features/Trash/Trash';
-import useStore from '@/stores/provifyStore';
-import { useShallow } from "zustand/react/shallow";
+import { FC } from 'react';
 
-export function HomePage() {
+interface AppShellProps {
+  children: any
+}
+
+const AppShell: FC<AppShellProps> = ({ children }: AppShellProps) => {
   const [opened, { toggle }] = useDisclosure();
   const { isConnected } = useWeb3ModalAccount();
   const { APP_VERSION } = envs;
-
-  const [
-    panel
-  ] = useStore(useShallow(state => [
-    state.panel,
-  ]));
-
 
   createWeb3Modal({
     ethersConfig,
@@ -32,14 +27,14 @@ export function HomePage() {
   });
 
   return (
-    <AppShell
+    <MantineAppShell
       layout="alt"
       header={{ height: 60 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}
       footer={{ height: 60 }}
       padding="md"
     >
-      <AppShell.Header className={classes.header} withBorder={false}>
+      <MantineAppShell.Header className={classes.header} withBorder={false}>
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group gap={0} justify="space-between" style={{ flex: 1 }}>
@@ -50,10 +45,10 @@ export function HomePage() {
             {isConnected && <WalletButton />}
           </Group>
         </Group>
-      </AppShell.Header>
+      </MantineAppShell.Header>
 
-      <AppShell.Navbar withBorder={false} className={classes.navbar}>
-        <AppShell.Section p={"md"}>
+      <MantineAppShell.Navbar withBorder={false} className={classes.navbar}>
+        <MantineAppShell.Section p={"md"}>
           <Group justify='space-between'>
             <Group>
               <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
@@ -66,42 +61,29 @@ export function HomePage() {
               </Box>
             </Group>
           </Group>
-        </AppShell.Section>
-        <AppShell.Section grow p={"md"} component={ScrollArea}>
+        </MantineAppShell.Section>
+        <MantineAppShell.Section grow p={"md"} component={ScrollArea}>
           <TopMenu />
-        </AppShell.Section>
-        <AppShell.Section p={"md"}>
+        </MantineAppShell.Section>
+        <MantineAppShell.Section p={"md"}>
           <Stack>
             <Divider />
             <Menu />
           </Stack>
-        </AppShell.Section>
-      </AppShell.Navbar>
+        </MantineAppShell.Section>
+      </MantineAppShell.Navbar>
 
-      <AppShell.Main className={classes.main}>
-        {
-          panel === "trash" && <Trash />
-        }
-        {
-          panel === "home" && (
-            <Container maw={800} mx={"auto"}>
-              <Proofs />
-              {
-                isConnected &&
-                <>
-                  <CreateProofButton />
-                </>
-              }
-            </Container>
-          )
-        }
+      <MantineAppShell.Main className={classes.main}>
+        {children}
+      </MantineAppShell.Main>
 
-      </AppShell.Main>
-      <AppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
+      <MantineAppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
         <Center h={"100%"}>
           <Text size='xs'>Version <strong>{APP_VERSION}</strong> on <strong>{import.meta.env.VITE_CHAIN_NAME}</strong> Blockchain Network</Text>
         </Center>
-      </AppShell.Footer>
-    </AppShell>
+      </MantineAppShell.Footer>
+    </MantineAppShell>
   );
 }
+
+export default AppShell;

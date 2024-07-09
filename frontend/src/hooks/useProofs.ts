@@ -47,7 +47,11 @@ const useProofs = (owner: string | undefined) => {
         });
       }
 
-      return proofs;
+      return proofs.sort((a, b) => {
+        if (a.date.getTime() < b.date.getTime()) return 1;
+        if (a.date.getTime() > b.date.getTime()) return -1;
+        return 0
+      });
     },
     enabled: isConnected
   });
