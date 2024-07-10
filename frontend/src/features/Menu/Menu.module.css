@@ -3,9 +3,10 @@
   border-radius: 4px;
   font-weight: 600;
   
-  &:hover {
-    background-color: light-dark(var(--mantine-color-dark-5), var(--mantine-color-dark-5));
+  &:hover, &.selected {
+    background-color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-6));
     color: #FFF;
     font-weight: 700;
   }
 }
+

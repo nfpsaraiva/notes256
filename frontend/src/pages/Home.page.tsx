@@ -45,7 +45,7 @@ export function HomePage() {
           <Group gap={0} justify="space-between" style={{ flex: 1 }}>
             <Group>
               {opened && <SidebarToggle toggle={toggle} />}
-              <Title size={"h3"}>My proofs</Title>
+              <Title size={"h3"}>{panel}</Title>
             </Group>
             {isConnected && <WalletButton />}
           </Group>
