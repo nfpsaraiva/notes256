@@ -56,6 +56,7 @@ const Proofs: FC = () => {
     <Stack gap={"xl"}>
       <TextInput
         placeholder="Search"
+        autoFocus
         size="md"
         radius={"md"}
         value={searchValue}

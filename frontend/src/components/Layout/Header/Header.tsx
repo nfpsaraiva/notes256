@@ -16,12 +16,12 @@ const Header: FC<HeaderProps> = ({ sidebarOpened, sidebarToggle }: HeaderProps) 
   const [panel] = useStore(useShallow(state => [state.panel]));
 
   return (
-    <Group h="100%" px="md">
+    <Group h="100%" px="md" wrap="nowrap">
       <Burger opened={sidebarOpened} onClick={sidebarToggle} hiddenFrom="sm" size="sm" />
-      <Group gap={0} justify="space-between" style={{ flex: 1 }}>
+      <Group wrap="nowrap" gap={0} justify="space-between" style={{ flex: 1 }}>
         <Group>
           {sidebarOpened && <SidebarToggle toggle={sidebarToggle} />}
-          <Title size={"h3"}>{panel}</Title>
+          <Title lineClamp={1} size={"h3"}>{panel}</Title>
         </Group>
         {isConnected && <WalletButton />}
       </Group>

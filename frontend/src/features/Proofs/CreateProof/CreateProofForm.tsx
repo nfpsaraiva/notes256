@@ -4,7 +4,7 @@ import { FC, useEffect } from "react";
 import { IconCertificate } from "@tabler/icons-react";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { useCreateProof } from "@/hooks";
-import WalletButton from "../Wallet/WalletButton";
+import WalletButton from "@/features/Wallet/WalletButton";
 
 interface CreateProofFormProps {
   modalOpened: boolean,

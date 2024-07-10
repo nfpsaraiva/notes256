@@ -23,15 +23,13 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
         <Text size="sm">
           {proof.description}
         </Text>
-        <Text c={"dimmed"} size="xs">
-          ID: {proof.id}
-        </Text>
-        <Divider />
-        <Group>
-          <Button>Transfer</Button>
-          <Button>Copy ID</Button>
-          <Button>Download</Button>
-          <Button color="red">Delete</Button>
+        <Group justify="space-between">
+          <Text c={"dimmed"} size="xs">
+            #{proof.id}
+          </Text>
+          <Text size="xs">
+            {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
+          </Text>
         </Group>
       </Stack>
     </Modal>

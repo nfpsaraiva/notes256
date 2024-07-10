@@ -1,5 +1,5 @@
 import { MenuEnum } from "@/enums";
-import { Proofs } from "@/features";
+import { HowItWorks, Proofs, Roadmap } from "@/features";
 import VerifyProofForm from "@/features/VerifyProof/VerifyProofForm";
 import useStore from "@/stores/store";
 import { Container } from "@mantine/core";
@@ -13,6 +13,8 @@ const Main: FC = () => {
     <Container maw={800} mx={"auto"}>
       {panel === MenuEnum.MY_PROOFS && <Proofs />}
       {panel === MenuEnum.VERIFY && <VerifyProofForm />}
+      {panel === MenuEnum.HOW_IT_WORKS && <HowItWorks />}
+      {panel === MenuEnum.ROADMAP && <Roadmap />}
     </Container>
   )
 }
