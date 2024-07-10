@@ -11,7 +11,8 @@ contract Provify is ERC721URIStorage {
         uint256 timestamp;
     }
 
-    mapping(uint256 => Proof) public proofs;
+    mapping(bytes32 => Proof) public proofs;
+    mapping(uint256 => bytes32) public tokenIdToProofId;
 
     uint256 public tokenIdCounter;
 
@@ -31,16 +32,25 @@ contract Provify is ERC721URIStorage {
     ) external {
         tokenIdCounter++;
 
-        proofs[tokenIdCounter] = Proof(
+        bytes32 proofId = keccak256(
+            abi.encodePacked(_name, _description, msg.sender, block.timestamp)
+        );
+        require(proofs[proofId].timestamp == 0, "Proof already exists");
+
+        proofs[proofId] = Proof(
             _name,
             _description,
             msg.sender,
             block.timestamp
         );
 
-        _safeMint(msg.sender, tokenIdCounter);
-        _setTokenURI(tokenIdCounter, _tokenURI);
-
         emit ProofCreated(tokenIdCounter, _name, _description, msg.sender);
+
+        // Mint an NFT as proof
+        uint256 newTokenId = tokenIdCounter;
+        
+        _safeMint(msg.sender, newTokenId);
+        _setTokenURI(newTokenId, _tokenURI);
+        tokenIdToProofId[newTokenId] = proofId;
     }
 }

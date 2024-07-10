@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { loadFixture } from "@nomicfoundation/hardhat-network-helpers"
+import { loadFixture} from "@nomicfoundation/hardhat-network-helpers"
 
 async function deployProvifyFixture() {
   const [owner] = await ethers.getSigners();
@@ -34,4 +34,16 @@ describe("Create Proof", () => {
       .to.emit(provifyContract, "ProofCreated")
       .withArgs(2, 'foo2', 'bar', owner.address)
   });
+
+  it("Should get 1 proof", async () => {
+    const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
+
+    await provifyContract.createProof('foo', 'bar', "https://gateway/foo");
+    
+    const proofId = await provifyContract.tokenIdToProofId(1);
+
+    const proof = await provifyContract.proofs(proofId);
+
+    expect(proof[0]).to.be.equals('foo');
+  })
 });
