@@ -1,5 +1,5 @@
 import { Proof } from "@/types";
-import { Button, Divider, Group, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { Group, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
 interface ProofModalProps {
@@ -17,7 +17,7 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
       withCloseButton={false}
       scrollAreaComponent={ScrollArea.Autosize}
     >
-      <Image src={proof.image} />
+      <Image h={200} src={proof.image} />
       <Stack p={"md"}>
         <Title order={2} size={"h3"}>{proof.name}</Title>
         <Text size="sm">
