@@ -43,6 +43,9 @@ const Proofs: FC = () => {
         <Title ta={"center"} fw={500} order={2}>
           No proofs here!
         </Title>
+        {
+          isConnected && <CreateProofButton />
+        }
       </Center>
     )
   }
