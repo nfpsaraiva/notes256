@@ -22,20 +22,14 @@ contract Provify is ERC721URIStorage {
         address indexed issuer
     );
 
-    constructor() ERC721("Proof", "PRF") {
-        // tokenIdCounter = 1;
-    }
+    constructor() ERC721("Proof", "PRF") {}
 
     function createProof(
         string memory _name,
         string memory _description,
         string memory _tokenURI
     ) external {
-        // bytes32 proofId = keccak256(
-        //     abi.encodePacked(_name, _description, msg.sender, block.timestamp)
-        // );
-
-        // require(proofs[proofId].timestamp == 0, "Proof already exists");
+        tokenIdCounter++;
 
         proofs[tokenIdCounter] = Proof(
             _name,
@@ -44,13 +38,9 @@ contract Provify is ERC721URIStorage {
             block.timestamp
         );
 
-        uint256 tokenId = tokenIdCounter;
+        _safeMint(msg.sender, tokenIdCounter);
+        _setTokenURI(tokenIdCounter, _tokenURI);
 
-        tokenIdCounter++;
-
-        _safeMint(msg.sender, tokenId);
-        _setTokenURI(tokenId, _tokenURI);
-
-        emit ProofCreated(tokenId, _name, _description, msg.sender);
+        emit ProofCreated(tokenIdCounter, _name, _description, msg.sender);
     }
 }
