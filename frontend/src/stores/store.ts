@@ -1,3 +1,4 @@
+import { MenuEnum } from '@/enums';
 import { create } from 'zustand'
 
 interface provifyStore {
@@ -6,7 +7,7 @@ interface provifyStore {
 }
 
 const useStore = create<provifyStore>()(set => ({
-  panel: 'home',
+  panel: MenuEnum.MY_PROOFS,
   setPanel: panel => set(() => ({ panel })),
 }));
 

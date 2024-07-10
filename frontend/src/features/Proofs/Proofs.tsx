@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import WalletButton from "../Wallet/WalletButton";
 import ProofCard from "./ProofCard";
+import CreateProofButton from "./CreateProof/CreateProofButton";
 
 const Proofs: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
@@ -65,6 +66,9 @@ const Proofs: FC = () => {
           filteredProofs.map(proof => <ProofCard key={proof.id} proof={proof} />)
         }
       </SimpleGrid>
+      {
+        isConnected && <CreateProofButton />
+      }
     </Stack>
   )
 }
