@@ -3,13 +3,13 @@ import { ethers } from "hardhat";
 import { loadFixture} from "@nomicfoundation/hardhat-network-helpers"
 
 async function deployProvifyFixture() {
-  const [owner] = await ethers.getSigners();
+  const [owner, otherAccount] = await ethers.getSigners();
 
   const provifyContract = await ethers.deployContract('Provify', owner);
 
   await provifyContract.waitForDeployment();
 
-  return { owner, provifyContract };
+  return { owner, otherAccount, provifyContract };
 }
 
 describe("Create Proof", () => {
@@ -36,14 +36,18 @@ describe("Create Proof", () => {
   });
 
   it("Should get 1 proof", async () => {
-    const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
+    const { otherAccount, provifyContract } = await loadFixture(deployProvifyFixture);
 
-    await provifyContract.createProof('foo', 'bar', "https://gateway/foo");
+    const otherAccountProvify = provifyContract.connect(otherAccount);
+
+    await otherAccountProvify.createProof('foo', 'bar', "https://gateway/foo");
     
-    const proofId = await provifyContract.tokenIdToProofId(1);
+    const proofId = await otherAccountProvify.tokenIdToProofId(1);
 
-    const proof = await provifyContract.proofs(proofId);
+    const proof = await otherAccountProvify.proofs(proofId);
 
     expect(proof[0]).to.be.equals('foo');
-  })
+    expect(proof[1]).to.be.equals('bar');
+    expect(proof[2]).to.be.equals(otherAccount.address);
+  });
 });

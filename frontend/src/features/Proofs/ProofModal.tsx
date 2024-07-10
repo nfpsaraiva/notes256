@@ -25,7 +25,7 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
         </Text>
         <Group justify="space-between">
           <Text c={"dimmed"} size="xs">
-            #{proof.id}
+            {proof.id}
           </Text>
           <Text size="xs">
             {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}

@@ -2,6 +2,8 @@ import { useAlchemy } from "@/contexts/AlchemyContext";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import envs from "@/envs";
+import { Contract } from "alchemy-sdk";
+import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 
 const useVerifyProof = (proofId: string) => {
   const alchemy = useAlchemy();
@@ -16,16 +18,17 @@ const useVerifyProof = (proofId: string) => {
         return false;
       }
 
-      const tokenMetadata = await alchemy.nft.getNftMetadata(CONTRACT_ADDRESS, Number(proofId));
+      const alchemyProvider = await alchemy.config.getProvider();
 
-      const mintAddress = tokenMetadata.mint?.mintAddress;
+      const provifyContract = new Contract(
+        CONTRACT_ADDRESS,
+        contract.abi,
+        alchemyProvider
+      )
 
-      if (mintAddress === undefined) {
-        setAddress(null);
-        return false;
-      }
+      const proof = await provifyContract.proofs(proofId);
 
-      setAddress(mintAddress);
+      setAddress(proof[2]);
       return true;
     },
     enabled: proofId.length > 0

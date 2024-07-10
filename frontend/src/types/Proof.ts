@@ -3,6 +3,7 @@ interface Proof {
   name: string,
   description: string,
   date: Date,
+  tokenId: bigint,
   image: string
 }
 
