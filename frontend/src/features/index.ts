@@ -1,13 +1,15 @@
-import ColorSchemeToggle from "../components/ColorSchemeToggle/ColorSchemeToggle";
+import About from "./About/About";
 import HowItWorks from "./HowItWorks/HowItWorks";
-import Proofs from "./Proofs/Proofs"
+import ProofsPanel from "./Proofs/ProofsPanel/ProofsPanel"
+import VerifyPanel from "./Verify/VerifyPanel/VerifyPanel";
 import Roadmap from "./Roadmap/Roadmap";
 import WalletButton from "./Wallet/WalletButton";
 
 export {
-    ColorSchemeToggle,
+    About,
     HowItWorks,
-    Proofs,
+    ProofsPanel,
+    VerifyPanel,
     Roadmap,
     WalletButton
 }

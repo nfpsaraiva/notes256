@@ -1,15 +1,17 @@
-import { useProofs } from "@/hooks";
-import { Center, Loader, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { FC, useState } from "react";
+import ProofsList from "../ProofsList/ProofList";
+import { Center, Loader, Stack, Text, Title } from "@mantine/core";
+import WalletButton from "@/features/Wallet/WalletButton";
+import CreateProofButton from "../CreateProof/CreateProofButton";
+import { useOwnerProofs } from "@/hooks";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-import WalletButton from "../Wallet/WalletButton";
-import ProofCard from "./ProofCard";
-import CreateProofButton from "./CreateProof/CreateProofButton";
+import ProofSearch from "../ProofSearch/ProofSearch";
 
-const Proofs: FC = () => {
+const ProofsPanel: FC = () => {
   const { address, isConnected } = useWeb3ModalAccount();
-  const { proofs, isLoading } = useProofs(address);
+  const { proofs, isLoading } = useOwnerProofs(address);
   const [searchValue, setSearchValue] = useState('');
+
 
   if (!isConnected) {
     return (
@@ -57,24 +59,11 @@ const Proofs: FC = () => {
 
   return (
     <Stack gap={"xl"}>
-      <TextInput
-        placeholder="Search"
-        autoFocus
-        size="md"
-        radius={"md"}
-        value={searchValue}
-        onChange={e => setSearchValue(e.target.value)}
-      />
-      <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }}>
-        {
-          filteredProofs.map(proof => <ProofCard key={proof.id} proof={proof} />)
-        }
-      </SimpleGrid>
-      {
-        isConnected && <CreateProofButton />
-      }
+      <ProofSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+      <ProofsList proofs={filteredProofs} />
+      <CreateProofButton />
     </Stack>
   )
 }
 
-export default Proofs;
+export default ProofsPanel;

@@ -1,9 +1,10 @@
 import { Center, Loader, NumberInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { FC, useState } from "react";
-import { useVerifyProof } from "@/hooks";
+import { useProof, useVerifyProof } from "@/hooks";
 
 const VerifyProofForm: FC = () => {
   const [proofId, setProofId] = useState<string>('');
+  const { proof } = useProof(proofId);
   const { address, isSuccess, isFetching } = useVerifyProof(proofId);
 
   return (

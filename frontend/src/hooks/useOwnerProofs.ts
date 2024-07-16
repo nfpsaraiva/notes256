@@ -6,7 +6,7 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import envs from "@/envs";
 import { Proof } from "@/types";
 
-const useProofs = (owner: string | undefined) => {
+const useOwnerProofs = (owner: string | undefined) => {
   const alchemy = useAlchemy();
   const { isConnected } = useWeb3ModalAccount();
   const { CONTRACT_ADDRESS } = envs;
@@ -45,7 +45,8 @@ const useProofs = (owner: string | undefined) => {
           description: proof[1],
           tokenId: BigInt(nft.tokenId),
           image,
-          date
+          date,
+          issuer: proof[2]
         });
       }
 
@@ -61,4 +62,4 @@ const useProofs = (owner: string | undefined) => {
   return { proofs, isSuccess, isLoading, isError };
 }
 
-export default useProofs;
+export default useOwnerProofs;

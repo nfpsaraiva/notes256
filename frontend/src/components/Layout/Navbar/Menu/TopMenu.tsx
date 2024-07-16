@@ -11,7 +11,7 @@ interface TopMenuProps {
 
 const TopMenu: FC<TopMenuProps> = ({closeMobileSidebar}: TopMenuProps) => {
   return (
-    <Stack gap="xs" className={classes.menu}>
+    <Stack gap={0} className={classes.menu}>
       <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.MY_PROOFS} icon={<IconList size={20} />} />
       <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.VERIFY} icon={<IconCheck size={20} />} />
     </Stack>

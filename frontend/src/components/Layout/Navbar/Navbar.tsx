@@ -1,8 +1,8 @@
-import SidebarToggle from "@/components/SidebarToggle/SidebarToggle";
-import { ColorSchemeToggle } from "@/features";
+import SidebarToggle from "@/components/Common/SidebarToggle/SidebarToggle";
 import { AppShell, Box, Burger, Group, ScrollArea, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
+import { ColorSchemeToggle } from "@/components/Common";
 
 interface NavbarProps {
   sidebarOpened: boolean,
@@ -27,10 +27,10 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle, sidebarClose }:
           </Group>
         </Group>
       </AppShell.Section>
-      <AppShell.Section grow p={"md"} component={ScrollArea}>
+      <AppShell.Section grow py={"md"} px={0} component={ScrollArea}>
         <TopMenu closeMobileSidebar={sidebarClose} />
       </AppShell.Section>
-      <AppShell.Section p={"md"}>
+      <AppShell.Section py={"md"} px={0}>
         <BottomMenu closeMobileSidebar={sidebarClose} />
       </AppShell.Section>
     </>

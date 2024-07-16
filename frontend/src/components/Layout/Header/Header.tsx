@@ -1,4 +1,4 @@
-import SidebarToggle from "@/components/SidebarToggle/SidebarToggle";
+import SidebarToggle from "@/components/Common/SidebarToggle/SidebarToggle";
 import { WalletButton } from "@/features";
 import useStore from "@/stores/store";
 import { Burger, Group, Title } from "@mantine/core";

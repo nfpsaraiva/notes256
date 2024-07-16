@@ -4,7 +4,8 @@ interface Proof {
   description: string,
   date: Date,
   tokenId: bigint,
-  image: string
+  image: string,
+  issuer: string
 }
 
 export default Proof;

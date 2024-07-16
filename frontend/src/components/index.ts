@@ -1,5 +1,5 @@
-import ColorSchemeToggle from "./ColorSchemeToggle/ColorSchemeToggle";
-import SidebarToggle from "./SidebarToggle/SidebarToggle";
+import ColorSchemeToggle from "./Common/ColorSchemeToggle/ColorSchemeToggle";
+import SidebarToggle from "./Common/SidebarToggle/SidebarToggle";
 
 export {
   ColorSchemeToggle,

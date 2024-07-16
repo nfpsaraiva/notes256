@@ -1,5 +1,5 @@
 import { Proof } from "@/types";
-import { Group, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { Button, CopyButton, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
 interface ProofModalProps {
@@ -11,6 +11,7 @@ interface ProofModalProps {
 const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalProps) => {
   return (
     <Modal
+      size={"md"}
       padding={0}
       opened={opened}
       onClose={close}
@@ -23,14 +24,21 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
         <Text size="sm">
           {proof.description}
         </Text>
-        <Group justify="space-between">
-          <Text c={"dimmed"} size="xs">
-            {proof.id}
+        <Stack gap={"xs"}>
+          <Text size="xs">
+            Issuer: {proof.issuer}
           </Text>
           <Text size="xs">
-            {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
+            Date: {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
           </Text>
-        </Group>
+          <CopyButton value={proof.id}>
+            {({ copied, copy }) => (
+              <Button onClick={copy}>
+                {copied ? 'Copied' : 'Copy ID'}
+              </Button>
+            )}
+          </CopyButton>
+        </Stack>
       </Stack>
     </Modal>
   )

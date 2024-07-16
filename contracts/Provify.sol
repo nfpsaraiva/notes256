@@ -13,6 +13,7 @@ contract Provify is ERC721URIStorage {
 
     mapping(bytes32 => Proof) public proofs;
     mapping(uint256 => bytes32) public tokenIdToProofId;
+    mapping(bytes32 => uint256) public proofIdToTokenId;
 
     uint256 public tokenIdCounter;
 
@@ -52,5 +53,6 @@ contract Provify is ERC721URIStorage {
         _safeMint(msg.sender, newTokenId);
         _setTokenURI(newTokenId, _tokenURI);
         tokenIdToProofId[newTokenId] = proofId;
+        proofIdToTokenId[proofId] = newTokenId;
     }
 }

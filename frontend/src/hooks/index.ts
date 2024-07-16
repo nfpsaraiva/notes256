@@ -1,9 +1,11 @@
 import useCreateProof from "./useCreateProof"
-import useProofs from "./useProofs"
+import useProof from "./useProof"
+import useOwnerProofs from "./useOwnerProofs"
 import useVerifyProof from "./useVerifyProof"
 
 export {
   useCreateProof,
-  useProofs,
+  useProof,
+  useOwnerProofs,
   useVerifyProof
 }
