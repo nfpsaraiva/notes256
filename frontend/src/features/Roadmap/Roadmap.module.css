@@ -1,0 +1,9 @@
+.roadmap {
+  & .item {
+    --item-border-color: light-dark(var(--mantine-color-dark-4), var(--mantine-color-dark-2));
+  }
+  
+  & .bullet:not([data-active="true"]) {
+    border-color: light-dark(var(--mantine-color-dark-4), var(--mantine-color-dark-2));
+  }
+}

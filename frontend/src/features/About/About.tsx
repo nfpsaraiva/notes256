@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { Center } from "@mantine/core";
+import Markdown from "react-markdown";
+import about from "./about.md";
 
 const About: FC = () => {
   return (
-    <Center>
-      In construction
-    </Center>
+    <Markdown children={about} />
   )
 }
 
