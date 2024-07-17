@@ -1,6 +1,6 @@
-import { expect } from "chai";
+import { expect, assert } from "chai";
 import { ethers } from "hardhat";
-import { loadFixture} from "@nomicfoundation/hardhat-network-helpers"
+import { loadFixture, time} from "@nomicfoundation/hardhat-network-helpers"
 
 async function deployProvifyFixture() {
   const [owner, otherAccount] = await ethers.getSigners();
@@ -16,11 +16,19 @@ describe("Create Proof", () => {
   it("Should emit ProofCreated event", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture)
 
-    const createProof = provifyContract.createProof('foo', 'bar', "https://gateway/foo");
+    const createProof = await provifyContract.createProof('foo', 'bar', "https://gateway/foo");
+    const latestBlock = await ethers.provider.getBlock('latest');
 
-    await expect(await createProof)
+    if (!latestBlock) assert.fail('latestBlock expected to not be null');
+
+    const proofId = ethers.solidityPackedKeccak256(
+      ["string", "string", "address", "uint256"], 
+      ['foo', 'bar', owner.address, BigInt(latestBlock.timestamp)]
+    ); 
+
+    await expect(createProof)
       .to.emit(provifyContract, "ProofCreated")
-      .withArgs(1, 'foo', 'bar', owner.address);
+      .withArgs(proofId, 'foo', 'bar', owner.address);
   });
 
   it("Should create 2 proofs", async () => {
@@ -28,11 +36,19 @@ describe("Create Proof", () => {
 
     await provifyContract.createProof('foo1', 'bar', "https://gateway/foo");
 
-    const secondProof = provifyContract.createProof('foo2', 'bar', "https://gateway/foo");
+    const secondProof = await provifyContract.createProof('foo2', 'bar', "https://gateway/foo");
+    const latestBlock = await ethers.provider.getBlock('latest');
 
-    await expect(await secondProof)
+    if (!latestBlock) assert.fail('latestBlock expected to not be null');
+
+    const proofId = ethers.solidityPackedKeccak256(
+      ["string", "string", "address", "uint256"], 
+      ['foo2', 'bar', owner.address, BigInt(latestBlock.timestamp)]
+    ); 
+
+    await expect(secondProof)
       .to.emit(provifyContract, "ProofCreated")
-      .withArgs(2, 'foo2', 'bar', owner.address)
+      .withArgs(proofId, 'foo2', 'bar', owner.address)
   });
 
   it("Should get 1 proof", async () => {
@@ -42,7 +58,7 @@ describe("Create Proof", () => {
 
     await otherAccountProvify.createProof('foo', 'bar', "https://gateway/foo");
     
-    const proofId = await otherAccountProvify.tokenIdToProofId(1);
+    const proofId = await otherAccountProvify.proofsIds(1);
 
     const proof = await otherAccountProvify.proofs(proofId);
 

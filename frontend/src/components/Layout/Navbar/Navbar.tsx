@@ -1,5 +1,5 @@
 import SidebarToggle from "@/components/Common/SidebarToggle/SidebarToggle";
-import { AppShell, Box, Burger, Group, ScrollArea, Title } from "@mantine/core";
+import { AppShell, Box, Burger, Button, Group, ScrollArea, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
 import { ColorSchemeToggle } from "@/components/Common";
@@ -15,7 +15,7 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle, sidebarClose }:
     <>
       <AppShell.Section p={"md"}>
         <Group justify='space-between'>
-          <Group>
+          <Group flex={1}>
             <Burger opened={sidebarOpened} onClick={sidebarToggle} hiddenFrom="sm" size="sm" />
             <Title size={"h3"}>Provify</Title>
           </Group>

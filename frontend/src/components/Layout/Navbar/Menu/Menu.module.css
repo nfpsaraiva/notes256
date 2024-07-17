@@ -4,15 +4,13 @@
   font-weight: 600;
   
   &.selected {
-    background-color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-5));
+    background-color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-7));
     color: #FFF;
     font-weight: 700;
   }
-
+  
   &:not(.selected):hover {
-    background-color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-7));
-    color: #FFF;
-    font-weight: 700;
+    border-left: 5px solid light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-7));
   }
 }
 

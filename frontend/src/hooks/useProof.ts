@@ -25,7 +25,7 @@ const useProof = (proofId: string) => {
       if (proof === undefined) return null;
       
       // Get tokenId
-      const tokenId: bigint = await provifyContract.proofIdToTokenId(proofId);
+      const tokenId: bigint = await provifyContract.tokensIds(proofId);
       const tokenURI: string = await provifyContract.tokenURI(tokenId);
       const metadata = await fetch(tokenURI);
       const { image } = await metadata.json();

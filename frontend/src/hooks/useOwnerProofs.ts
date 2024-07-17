@@ -30,7 +30,7 @@ const useOwnerProofs = (owner: string | undefined) => {
 
       const proofs: Proof[] = [];
       for (const nft of provifyOwnedNfts) {
-        const proofId = await provifyContract.tokenIdToProofId(nft.tokenId);
+        const proofId = await provifyContract.proofsIds(nft.tokenId);
         const proof = await provifyContract.proofs(proofId);
         const tokenURI = await provifyContract.tokenURI(nft.tokenId);
         const metadata = await fetch(tokenURI);

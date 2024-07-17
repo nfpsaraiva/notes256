@@ -27,8 +27,10 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
         </Card.Section>
         <Stack mt={"md"} justify="space-between" h={"100%"}>
           <Stack gap={"xs"}>
-            <Text fw={500}>{proof.name}</Text>
-            <Text lineClamp={3} c={"dimmed"} size="sm">
+            <Text fw={700}>
+              {proof.name}
+            </Text>
+            <Text lineClamp={5} c={"dimmed"} size="sm">
               {proof.description}
             </Text>
           </Stack>
