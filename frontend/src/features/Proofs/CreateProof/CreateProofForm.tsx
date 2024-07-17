@@ -56,7 +56,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
           label="Description"
           placeholder="The proof description"
           autosize
-          minRows={3}
+          minRows={6}
           withAsterisk
           key={form.key("description")}
           {...form.getInputProps("description")}

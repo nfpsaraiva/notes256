@@ -12,7 +12,7 @@ const CreateProofModal: FC<CreateProofModalProps> = ({
   close
 }: CreateProofModalProps) => {
   return (
-    <Modal opened={opened} onClose={close} title="Create Proof">
+    <Modal size={"lg"} opened={opened} onClose={close} title="Create Proof">
       <CreateProofForm closeModal={close} modalOpened={opened} />
     </Modal>
   )

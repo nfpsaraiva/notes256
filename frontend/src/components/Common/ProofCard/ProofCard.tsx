@@ -1,4 +1,4 @@
-import { Box, Card, Group, Image, Stack, Text } from "@mantine/core";
+import { Box, Card, Divider, Group, Image, Stack, Text } from "@mantine/core";
 import { FC } from "react";
 import classes from "./ProofCard.module.css";
 import { Proof } from "@/types";
@@ -25,23 +25,20 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
         <Card.Section>
           <Image height={50} src={proof.image} />
         </Card.Section>
-        <Stack mt={"md"} justify="space-between" h={"100%"}>
+        <Stack mt={"md"} gap={"lg"} h={"100%"}>
           <Stack gap={"xs"}>
             <Text fw={700}>
               {proof.name}
             </Text>
-            <Text lineClamp={5} c={"dimmed"} size="sm">
-              {proof.description}
-            </Text>
+            <Stack gap={5}>
+              <Text size="xs" c={"dimmed"}>
+                {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
+              </Text>
+            </Stack>
           </Stack>
-          <Stack gap={"xs"}>
-            <Text size="xs">
-              Issuer: {shortifyAddress(proof.issuer)}
-            </Text>
-            <Text size="xs">
-              Date: {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
-            </Text>
-          </Stack>
+          <Text lineClamp={7} size="sm">
+            {proof.description}
+          </Text>
         </Stack>
       </Card>
       <ProofModal opened={opened} close={close} proof={proof} />
