@@ -2,11 +2,29 @@ import { MenuEnum } from "@/enums";
 import { About, HowItWorks, ProofsPanel, Roadmap, VerifyPanel } from "@/features";
 import useStore from "@/stores/store";
 import { Container } from "@mantine/core";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 const Main: FC = () => {
-  const [panel] = useStore(useShallow(state => [state.panel]));
+  const [
+    panel, 
+    setPanel,
+    setProofId,
+  ] = useStore(useShallow(state => [
+    state.panel, 
+    state.setPanel,
+    state.setProofId
+  ]));
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const proofId = params.get('proof');
+
+    if (proofId !== null) {
+      setPanel(MenuEnum.VERIFY)
+      setProofId(proofId);
+    }
+  }, [])
 
   return (
     <Container maw={800} mx={"auto"}>

@@ -14,7 +14,7 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
 
   const shortifyAddress = (address: string) => {
     const start = address.substring(0, 4);
-    const end = address.substring(address.length - 4, address.length);
+    const end = address.substring(address.length - 6, address.length);
 
     return `${start}...${end}`;
   }

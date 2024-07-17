@@ -18,11 +18,11 @@ const ProofsPanel: FC = () => {
       <Center h={"70vh"}>
         <Stack>
           <Stack gap={3} align='center'>
-            <Title ta={"center"} fw={500} order={2}>
+            <Title ta={"center"} fw={600} order={2}>
               Get your intellectual property
             </Title>
             <Text ta={"center"} c={"dimmed"}>
-              <strong>Write</strong> and <strong>Publish</strong> your original ideas to the <strong>Blockchain</strong>
+              <strong>Write</strong> statements and original ideas to the <strong>Blockchain</strong>
             </Text>
           </Stack>
           <WalletButton />

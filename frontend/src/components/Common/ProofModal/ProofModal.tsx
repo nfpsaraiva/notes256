@@ -1,5 +1,5 @@
 import { Proof } from "@/types";
-import { Button, CopyButton, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { Button, CopyButton, Divider, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
 interface ProofModalProps {
@@ -19,26 +19,29 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
       scrollAreaComponent={ScrollArea.Autosize}
     >
       <Image h={200} src={proof.image} />
-      <Stack p={"md"}>
+      <Stack gap={"lg"} p={"md"}>
         <Title order={2} size={"h3"}>{proof.name}</Title>
-        <Text size="sm">
-          {proof.description}
-        </Text>
         <Stack gap={"xs"}>
-          <Text size="xs">
+          <Text size="xs" fw={500}>
             Issuer: {proof.issuer}
           </Text>
-          <Text size="xs">
+          <Text size="xs" fw={500}>
             Date: {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
           </Text>
-          <CopyButton value={proof.id}>
-            {({ copied, copy }) => (
-              <Button onClick={copy}>
-                {copied ? 'Copied' : 'Copy ID'}
-              </Button>
-            )}
-          </CopyButton>
         </Stack>
+        <Divider />
+        <ScrollArea h={200}>
+          <Text size="sm">
+            {proof.description}
+          </Text>
+        </ScrollArea>
+        <CopyButton value={proof.id}>
+          {({ copied, copy }) => (
+            <Button onClick={copy}>
+              {copied ? 'Copied' : 'Copy ID'}
+            </Button>
+          )}
+        </CopyButton>
       </Stack>
     </Modal>
   )
