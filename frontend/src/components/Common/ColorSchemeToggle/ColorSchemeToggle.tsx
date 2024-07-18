@@ -17,7 +17,7 @@ function ColorSchemeToggle() {
   return (
     <ActionIcon
       onClick={() => toggleTheme(computedColorScheme === 'light' ? 'dark' : 'light')}
-      variant="subtle"
+      variant="transparent"
       size="lg"
       aria-label="Toggle color scheme"
       color='color="--mantine-color-text"'

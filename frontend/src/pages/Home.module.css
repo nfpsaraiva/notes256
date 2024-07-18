@@ -1,7 +1,8 @@
 .header, .main, .footer {
-  background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-8));
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8));
 }
 
 .navbar {
-  background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-9));
+  background-color: light-dark(var(--mantine-color-dark-7), var(--mantine-color-dark-9));
+  color: var(--mantine-color-gray-1);
 }
