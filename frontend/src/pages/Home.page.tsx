@@ -29,7 +29,7 @@ const HomePage: FC = () => {
         <Header sidebarOpened={opened} sidebarToggle={toggle} />
       </AppShell.Header>
 
-      <AppShell.Navbar withBorder={false} className={classes.navbar}>
+      <AppShell.Navbar withBorder={true} className={classes.navbar}>
         <Navbar sidebarOpened={opened} sidebarToggle={toggle} sidebarClose={close} />
       </AppShell.Navbar>
 

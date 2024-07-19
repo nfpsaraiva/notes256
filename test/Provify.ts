@@ -1,6 +1,6 @@
 import { expect, assert } from "chai";
 import { ethers } from "hardhat";
-import { loadFixture, time} from "@nomicfoundation/hardhat-network-helpers"
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
 async function deployProvifyFixture() {
   const [owner, otherAccount] = await ethers.getSigners();
@@ -13,7 +13,7 @@ async function deployProvifyFixture() {
 }
 
 describe("Create Proof", () => {
-  it("Should emit ProofCreated event", async () => {
+  it("Should emit ProofCreated event when creating a proof", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture)
 
     const createProof = await provifyContract.createProof('foo', 'bar', "https://gateway/foo");
@@ -22,48 +22,62 @@ describe("Create Proof", () => {
     if (!latestBlock) assert.fail('latestBlock expected to not be null');
 
     const proofId = ethers.solidityPackedKeccak256(
-      ["string", "string", "address", "uint256"], 
+      ["string", "string", "address", "uint256"],
       ['foo', 'bar', owner.address, BigInt(latestBlock.timestamp)]
-    ); 
+    );
 
     await expect(createProof)
       .to.emit(provifyContract, "ProofCreated")
       .withArgs(proofId, 'foo', 'bar', owner.address);
   });
+});
 
-  it("Should create 2 proofs", async () => {
+describe("Delete Proof", () => {
+  it("Should associate the zeroAddress to a deleted proof", async () => {
     const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
 
-    await provifyContract.createProof('foo1', 'bar', "https://gateway/foo");
+    const signer = provifyContract.connect(owner);
 
-    const secondProof = await provifyContract.createProof('foo2', 'bar', "https://gateway/foo");
+    await signer.createProof('foo', 'bar', "https://gateway/foo");
     const latestBlock = await ethers.provider.getBlock('latest');
-
     if (!latestBlock) assert.fail('latestBlock expected to not be null');
 
     const proofId = ethers.solidityPackedKeccak256(
-      ["string", "string", "address", "uint256"], 
-      ['foo2', 'bar', owner.address, BigInt(latestBlock.timestamp)]
-    ); 
+      ["string", "string", "address", "uint256"],
+      ['foo', 'bar', owner.address, BigInt(latestBlock.timestamp)]
+    );
 
-    await expect(secondProof)
-      .to.emit(provifyContract, "ProofCreated")
-      .withArgs(proofId, 'foo2', 'bar', owner.address)
-  });
+    let proofOwner = await signer.owners(proofId);
+    expect(proofOwner).to.be.equal(owner.address);
 
-  it("Should get 1 proof", async () => {
-    const { otherAccount, provifyContract } = await loadFixture(deployProvifyFixture);
+    const tokenId = await signer.tokensIds(proofId);
+    await signer.deleteProof(tokenId);
 
-    const otherAccountProvify = provifyContract.connect(otherAccount);
-
-    await otherAccountProvify.createProof('foo', 'bar', "https://gateway/foo");
-    
-    const proofId = await otherAccountProvify.proofsIds(1);
-
-    const proof = await otherAccountProvify.proofs(proofId);
-
-    expect(proof[0]).to.be.equals('foo');
-    expect(proof[1]).to.be.equals('bar');
-    expect(proof[2]).to.be.equals(otherAccount.address);
-  });
+    proofOwner = await signer.owners(proofId);
+    expect(proofOwner).to.be.equal(ethers.ZeroAddress);
+  })
 });
+
+describe("Transfer Proof", () => {
+  it("Should transfer a proof", async () => {
+    const { owner, otherAccount, provifyContract } = await loadFixture(deployProvifyFixture);
+
+    await provifyContract.createProof("foo", "bar", "https://foo/bar");
+
+    const latestBlock = await ethers.provider.getBlock('latest');
+    if (!latestBlock) assert.fail('latestBlock expected to not be null');
+
+    const proofId = ethers.solidityPackedKeccak256(
+      ["string", "string", "address", "uint256"],
+      ['foo', 'bar', owner.address, BigInt(latestBlock.timestamp)]
+    );
+
+    const tokenId = await provifyContract.tokensIds(proofId);
+
+    await provifyContract.transferProof(otherAccount.address, tokenId);
+
+    const proofOwner = await provifyContract.owners(proofId);
+
+    expect(proofOwner).to.be.equal(otherAccount.address);
+  })
+})

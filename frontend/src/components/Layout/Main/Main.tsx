@@ -27,7 +27,7 @@ const Main: FC = () => {
   }, [])
 
   return (
-    <Container maw={800} mx={"auto"}>
+    <Container maw={1000} mx={"auto"}>
       {panel === MenuEnum.MY_PROOFS && <ProofsPanel />}
       {panel === MenuEnum.VERIFY && <VerifyPanel />}
       {panel === MenuEnum.HOW_IT_WORKS && <HowItWorks />}

@@ -46,6 +46,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack>
         <TextInput
+          size="md"
           withAsterisk
           label="Name"
           placeholder="The proof name"
@@ -53,6 +54,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
           {...form.getInputProps("name")}
         />
         <Textarea
+        size="md"
           label="Description"
           placeholder="The proof description"
           autosize
@@ -65,8 +67,8 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
           isConnected
             ? (
               creatingProof
-                ? <Button leftSection={<IconCertificate size={18} />} disabled>Creating Proof</Button>
-                : <Button leftSection={<IconCertificate size={18} />} type="submit">Submit</Button>
+                ? <Button leftSection={<IconCertificate size={18} />} disabled size="md">Creating Proof</Button>
+                : <Button leftSection={<IconCertificate size={18} />} type="submit" size="md">Submit</Button>
             )
             : <WalletButton />
         }

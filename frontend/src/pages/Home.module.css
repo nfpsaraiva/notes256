@@ -3,6 +3,6 @@
 }
 
 .navbar {
-  background-color: light-dark(var(--mantine-color-dark-7), var(--mantine-color-dark-9));
-  color: var(--mantine-color-gray-1);
+  background-color: light-dark(white, var(--mantine-color-dark-9));
+  border-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-8));
 }

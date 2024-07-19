@@ -36,7 +36,7 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
               </Text>
             </Stack>
           </Stack>
-          <Text lineClamp={7} size="sm">
+          <Text lineClamp={6} size="sm">
             {proof.description}
           </Text>
         </Stack>

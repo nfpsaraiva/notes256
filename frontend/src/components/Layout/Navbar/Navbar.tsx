@@ -1,8 +1,8 @@
-import SidebarToggle from "@/components/Common/SidebarToggle/SidebarToggle";
-import { AppShell, Box, Burger, Button, Group, ScrollArea, Title } from "@mantine/core";
+import { AppShell, Burger, Group, ScrollArea, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
 import { ColorSchemeToggle } from "@/components/Common";
+import { IconCertificate } from "@tabler/icons-react";
 
 interface NavbarProps {
   sidebarOpened: boolean,
@@ -13,24 +13,24 @@ interface NavbarProps {
 const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle, sidebarClose }: NavbarProps) => {
   return (
     <>
-      <AppShell.Section p={"md"}>
+      <AppShell.Section p={"lg"}>
         <Group justify='space-between'>
           <Group flex={1}>
             <Burger opened={sidebarOpened} onClick={sidebarToggle} hiddenFrom="sm" size="sm" />
-            <Title size={"h3"}>Provify</Title>
+            <Group gap={"xs"}>
+              <IconCertificate size={20} />
+              <Title size={"h3"}>Provify</Title>
+            </Group>
           </Group>
           <Group>
             <ColorSchemeToggle />
-            <Box visibleFrom="sm">
-              <SidebarToggle toggle={sidebarToggle} />
-            </Box>
           </Group>
         </Group>
       </AppShell.Section>
-      <AppShell.Section grow py={"md"} px={0} component={ScrollArea}>
+      <AppShell.Section grow p={"lg"} component={ScrollArea}>
         <TopMenu closeMobileSidebar={sidebarClose} />
       </AppShell.Section>
-      <AppShell.Section py={"md"} px={0}>
+      <AppShell.Section p={"lg"}>
         <BottomMenu closeMobileSidebar={sidebarClose} />
       </AppShell.Section>
     </>

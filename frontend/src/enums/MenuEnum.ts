@@ -1,5 +1,5 @@
 enum MenuEnum {
-  MY_PROOFS = "My Proofs",
+  MY_PROOFS = "Proofs",
   VERIFY = "Search",
   TRASH = "Trash",
   HOW_IT_WORKS = "How it works",

@@ -10,7 +10,7 @@ const WalletButton: FC = () => {
   return (
     isConnected
       ? <w3m-button balance="hide" size='sm' />
-      : <Button leftSection={<IconWallet size={20} />} onClick={() => open()} size='sm'>Connect Wallet</Button>
+      : <Button radius={"lg"} variant="outline" leftSection={<IconWallet size={20} />} onClick={() => open()} size='sm'>Connect Wallet</Button>
   )
 }
 

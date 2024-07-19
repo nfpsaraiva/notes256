@@ -2,8 +2,9 @@
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
-contract Provify is ERC721URIStorage {
+contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
     
     // Single proof structure
     struct Proof {
@@ -19,9 +20,12 @@ contract Provify is ERC721URIStorage {
     // Proofs counter used to generate new NFT token IDs
     uint256 public proofsCount;
     
-    // Double mapping for searching by proofID and NFT token ID
+    // Double mapping for searching by proofID and token ID
     mapping(uint256 => bytes32) public proofsIds;
     mapping(bytes32 => uint256) public tokensIds;
+
+    // Mapping to track who has a given proof
+    mapping(bytes32 => address) public owners;
 
     // Event for each proof created
     event ProofCreated(
@@ -75,6 +79,57 @@ contract Provify is ERC721URIStorage {
         proofsIds[newTokenId] = proofId;
         tokensIds[proofId] = newTokenId;
 
+        owners[proofId] = msg.sender;
+
         emit ProofCreated(proofId, _name, _description, msg.sender);
+    }
+
+    /**
+     * Burn the proof and removes the owner from the corresponding proofID
+     * 
+     * @param _tokenId proof NFT token ID
+     */
+    function deleteProof(uint256 _tokenId) external {
+        bytes32 proof = proofsIds[_tokenId];
+
+        require(owners[proof] == msg.sender, "Not the proof owner");
+
+        burn(_tokenId);
+
+        owners[proof] = address(0);
+    }
+
+    /**
+     * Transfers a proof to another owner
+     * 
+     * @param to the address to where the proof is being sent
+     * @param _tokenId proof NFT token ID
+     */
+    function transferProof(address to, uint256 _tokenId) external {
+        bytes32 proof = proofsIds[_tokenId];
+
+        require(owners[proof] == msg.sender, "Not the proof owner");
+
+        safeTransferFrom(msg.sender, to, _tokenId);
+
+        owners[proof] = to;
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }

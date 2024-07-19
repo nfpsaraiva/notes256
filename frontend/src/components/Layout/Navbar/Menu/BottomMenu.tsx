@@ -11,7 +11,7 @@ interface BottomMenuProps {
 
 const BottomMenu: FC<BottomMenuProps> = ({closeMobileSidebar}: BottomMenuProps) => {
   return (
-    <Stack gap={0} className={classes.menu}>
+    <Stack gap={"xs"} className={classes.menu}>
       <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.HOW_IT_WORKS} icon={<IconQuestionMark size={20} />} />
       <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.ROADMAP} icon={<IconTimeline size={20} />} />
       <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.ABOUT} icon={<IconInfoCircle size={20} />} />

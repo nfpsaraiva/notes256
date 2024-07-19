@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import ProofsList from "../ProofsList/ProofList";
-import { Center, filterProps, Loader, Stack, Text, Title } from "@mantine/core";
+import { Button, Center, filterProps, Group, Loader, Stack, Text, Title } from "@mantine/core";
 import WalletButton from "@/features/Wallet/WalletButton";
 import CreateProofButton from "../CreateProof/CreateProofButton";
 import { useOwnerProofs } from "@/hooks";
@@ -13,23 +13,6 @@ const ProofsPanel: FC = () => {
   const { proofs, isLoading } = useOwnerProofs(address);
   const [searchValue, setSearchValue] = useState('');
 
-  if (!isConnected) {
-    return (
-      <Center h={"70vh"}>
-        <Stack>
-          <Stack gap={3} align='center'>
-            <Title ta={"center"} fw={600} order={2}>
-              Get your intellectual property
-            </Title>
-            <Text ta={"center"} c={"dimmed"}>
-              <strong>Write</strong> statements and original ideas to the <strong>Blockchain</strong>
-            </Text>
-          </Stack>
-          <WalletButton />
-        </Stack>
-      </Center>
-    )
-  }
 
   let filteredProofs: Proof[] = [];
 
@@ -42,6 +25,13 @@ const ProofsPanel: FC = () => {
 
   return (
     <Stack gap={"xl"}>
+      <Group justify="space-between" align="center">
+        <Stack gap={2}>
+          <Title>Proofs</Title>
+          <Text c={"dimmed"}>Create original ideas</Text>
+        </Stack>
+        <CreateProofButton />
+      </Group>
       <ProofSearch searchValue={searchValue} setSearchValue={setSearchValue} />
 
       {
@@ -50,7 +40,6 @@ const ProofsPanel: FC = () => {
           : <ProofsList proofs={filteredProofs} />
       }
 
-      <CreateProofButton />
     </Stack>
   )
 }

@@ -1,6 +1,8 @@
+import { useDeleteProof, useTransferProof } from "@/hooks";
 import { Proof } from "@/types";
-import { Button, CopyButton, Divider, Image, Modal, ScrollArea, Stack, Text, Title } from "@mantine/core";
-import { FC } from "react";
+import { Button, CopyButton, Divider, Image, Modal, ScrollArea, Stack, Text, TextInput, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { FC, useState } from "react";
 
 interface ProofModalProps {
   opened: boolean,
@@ -9,6 +11,11 @@ interface ProofModalProps {
 }
 
 const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalProps) => {
+  const { deleteProof } = useDeleteProof();
+  const { transferProof } = useTransferProof();
+  const [transferModalOpened, transferModalHandle] = useDisclosure(false);
+  const [transferToAddress, setTransferToAddress] = useState<string>('');
+
   return (
     <Modal
       size={"md"}
@@ -18,6 +25,13 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
       withCloseButton={false}
       scrollAreaComponent={ScrollArea.Autosize}
     >
+      <Modal opened={transferModalOpened} title="Transfer" onClose={transferModalHandle.close}>
+        <TextInput
+          value={transferToAddress}
+          onChange={e => setTransferToAddress(e.target.value)}
+        />
+        <Button onClick={() => transferProof({to: transferToAddress, tokenId: proof.tokenId})}>Send</Button>
+      </Modal>
       <Image h={200} src={proof.image} />
       <Stack gap={"lg"} p={"md"}>
         <Title order={2} size={"h3"}>{proof.name}</Title>
@@ -35,13 +49,17 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
             {proof.description}
           </Text>
         </ScrollArea>
-        <CopyButton value={proof.id}>
-          {({ copied, copy }) => (
-            <Button onClick={copy}>
-              {copied ? 'Copied' : 'Copy ID'}
-            </Button>
-          )}
-        </CopyButton>
+        <Stack gap={"xs"}>
+          <CopyButton value={proof.id}>
+            {({ copied, copy }) => (
+              <Button onClick={copy}>
+                {copied ? 'Copied' : 'Copy ID'}
+              </Button>
+            )}
+          </CopyButton>
+          <Button onClick={transferModalHandle.open}>Transfer</Button>
+          <Button color="red" onClick={() => deleteProof(Number(proof.tokenId))}>Delete</Button>
+        </Stack>
       </Stack>
     </Modal>
   )
