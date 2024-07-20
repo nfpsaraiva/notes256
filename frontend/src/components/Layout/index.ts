@@ -1,11 +1,11 @@
+import AppShell from "./AppShell/AppShell";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import Main from "./Main/Main";
 import Navbar from "./Navbar/Navbar";
 
 export {
+  AppShell,
   Header,
   Footer,
-  Main,
   Navbar
 }

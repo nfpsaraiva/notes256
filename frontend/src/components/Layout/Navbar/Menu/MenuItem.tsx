@@ -1,36 +1,30 @@
-import useStore from "@/stores/store";
-import { Group, Text, UnstyledButton } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { FC, ReactNode } from "react";
-import { useShallow } from "zustand/react/shallow";
 import classes from "./Menu.module.css";
+import { NavLink, useLocation } from "react-router-dom";
 
 interface MenuItemProps {
   name: string,
+  path: string,
   icon: ReactNode,
-  closeMobileSidebar: () => void
 }
 
 const MenuItem: FC<MenuItemProps> = ({
   name,
+  path,
   icon,
-  closeMobileSidebar
 }: MenuItemProps) => {
-  const [panel, setPanel] = useStore(useShallow(state => [state.panel, state.setPanel]));
+  const { pathname } = useLocation();
 
-  const selected = name === panel ? classes.selected : '';
-
-  const activateMenu = (name: string) => {
-    setPanel(name);
-    closeMobileSidebar();
-  }
+  const selected = path === pathname ? classes.selected : '';
 
   return (
-    <UnstyledButton className={selected} onClick={() => activateMenu(name)}>
-      <Group align="center">
+    <NavLink to={path} className={selected}>
+      <Group>
         {icon}
         <Text fw={700}>{name}</Text>
       </Group>
-    </UnstyledButton>
+    </NavLink>
   )
 }
 

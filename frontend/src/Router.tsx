@@ -1,11 +1,39 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from './pages/Home.page';
+import Proofs from './pages/Proofs/Proofs.page';
+import About from './pages/About/About.page';
+import Search from './pages/Search/Search.page';
+import HowItWorks from './pages/HowItWorks/HowItWorks.page';
+import Roadmap from './pages/Roadmap/Roadmap.page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-        <HomePage />
+        <Proofs />
+    ),
+  },
+  {
+    path: '/search',
+    element: (
+        <Search />
+    ),
+  },
+  {
+    path: '/how-it-works',
+    element: (
+        <HowItWorks />
+    ),
+  },
+  {
+    path: '/roadmap',
+    element: (
+        <Roadmap />
+    ),
+  },
+  {
+    path: '/about',
+    element: (
+        <About />
     ),
   }
 ]);

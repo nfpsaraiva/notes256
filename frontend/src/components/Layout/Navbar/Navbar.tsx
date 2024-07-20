@@ -10,7 +10,7 @@ interface NavbarProps {
   sidebarClose: () => void
 }
 
-const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle, sidebarClose }: NavbarProps) => {
+const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) => {
   return (
     <>
       <AppShell.Section p={"lg"}>
@@ -28,10 +28,10 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle, sidebarClose }:
         </Group>
       </AppShell.Section>
       <AppShell.Section grow p={"lg"} component={ScrollArea}>
-        <TopMenu closeMobileSidebar={sidebarClose} />
+        <TopMenu />
       </AppShell.Section>
       <AppShell.Section p={"lg"}>
-        <BottomMenu closeMobileSidebar={sidebarClose} />
+        <BottomMenu />
       </AppShell.Section>
     </>
   )

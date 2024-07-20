@@ -1,5 +1,3 @@
-## Welcome to Provify!
-
 Here, you can secure your original ideas and important statements on the blockchain, ensuring they are permanently recorded and verifiable by anyone.
 
 **Key Features:**

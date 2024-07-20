@@ -18,6 +18,7 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
 
   return (
     <Modal
+      radius={"xl"}
       size={"md"}
       padding={0}
       opened={opened}
@@ -30,7 +31,7 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
           value={transferToAddress}
           onChange={e => setTransferToAddress(e.target.value)}
         />
-        <Button onClick={() => transferProof({to: transferToAddress, tokenId: proof.tokenId})}>Send</Button>
+        <Button onClick={() => transferProof({ to: transferToAddress, tokenId: proof.tokenId })}>Send</Button>
       </Modal>
       <Image h={200} src={proof.image} />
       <Stack gap={"lg"} p={"md"}>
@@ -50,15 +51,15 @@ const ProofModal: FC<ProofModalProps> = ({ opened, close, proof }: ProofModalPro
           </Text>
         </ScrollArea>
         <Stack gap={"xs"}>
-          <CopyButton value={proof.id}>
+          <CopyButton value={proof.id} >
             {({ copied, copy }) => (
-              <Button onClick={copy}>
+              <Button onClick={copy} radius={"lg"}>
                 {copied ? 'Copied' : 'Copy ID'}
               </Button>
             )}
           </CopyButton>
-          <Button onClick={transferModalHandle.open}>Transfer</Button>
-          <Button color="red" onClick={() => deleteProof(Number(proof.tokenId))}>Delete</Button>
+          <Button radius={"lg"} onClick={transferModalHandle.open}>Transfer</Button>
+          <Button radius={"lg"} color="red" onClick={() => deleteProof(Number(proof.tokenId))}>Delete</Button>
         </Stack>
       </Stack>
     </Modal>

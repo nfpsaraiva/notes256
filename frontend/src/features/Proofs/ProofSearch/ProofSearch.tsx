@@ -12,7 +12,7 @@ const ProofSearch: FC<ProofSearchProps> = ({
   setSearchValue
 }: ProofSearchProps) => {
   return (
-    <Card radius={"lg"} shadow="xs">
+    <Card radius={"xl"} shadow="xs">
       <Group>
         <TextInput
           miw={200}

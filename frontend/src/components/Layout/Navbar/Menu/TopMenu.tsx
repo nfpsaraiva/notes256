@@ -1,19 +1,15 @@
 import { Stack } from "@mantine/core";
-import { IconCertificate, IconCheck, IconFile, IconFiles, IconList, IconSearch } from "@tabler/icons-react";
+import { IconFiles, IconSearch } from "@tabler/icons-react";
 import { FC } from "react";
 import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
 import { MenuEnum } from "@/enums";
 
-interface TopMenuProps {
-  closeMobileSidebar: () => void
-}
-
-const TopMenu: FC<TopMenuProps> = ({closeMobileSidebar}: TopMenuProps) => {
+const TopMenu: FC = () => {
   return (
     <Stack gap={"xs"} className={classes.menu}>
-      <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.MY_PROOFS} icon={<IconFiles size={20} />} />
-      <MenuItem closeMobileSidebar={closeMobileSidebar} name={MenuEnum.VERIFY} icon={<IconSearch size={20} />} />
+      <MenuItem name={MenuEnum.MY_PROOFS} path="/" icon={<IconFiles size={20} />} />
+      <MenuItem name={MenuEnum.VERIFY} path="/search" icon={<IconSearch size={20} />} />
     </Stack>
   )
 }
