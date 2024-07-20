@@ -4,10 +4,11 @@
   border-radius: 10px;
   text-decoration: none;
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-6));
+  
 
   &.selected {
-    background-color: var(--mantine-primary-color-filled);
-    color: #FFF;
+    background-color: var(--mantine-primary-color-light-hover);
+    color: light-dark(#000, #FFF);
     font-weight: 700;
   }
 
