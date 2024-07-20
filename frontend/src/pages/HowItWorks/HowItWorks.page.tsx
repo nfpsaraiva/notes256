@@ -2,7 +2,7 @@ import { AppShell } from "@/components/Layout";
 import { FC } from "react";
 import Markdown from "react-markdown";
 import howItWorks from "./how-it-works.md";
-import { Stack } from "@mantine/core";
+import { Box, Stack } from "@mantine/core";
 import { MainTitle } from "@/components/UI/MainTitle";
 
 
@@ -11,7 +11,9 @@ const HowItWorks: FC = () => {
     <AppShell>
       <Stack>
         <MainTitle title="How it works" />
-        <Markdown children={howItWorks} />
+        <Box>
+          <Markdown children={howItWorks} />
+        </Box>
       </Stack>
     </AppShell>
   )

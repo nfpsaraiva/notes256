@@ -19,7 +19,6 @@ const AppShell: FC<AppShellProps> = ({ children }: AppShellProps) => {
       layout="alt"
       header={{ height: 60 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: opened, mobile: !opened } }}
-      footer={{ height: 60 }}
       padding="md"
     >
       <MantineAppShell.Header className={classes.header} withBorder={false}>
@@ -36,9 +35,6 @@ const AppShell: FC<AppShellProps> = ({ children }: AppShellProps) => {
         </Container>
       </MantineAppShell.Main>
 
-      <MantineAppShell.Footer className={classes.footer} withBorder={false} py={"md"}>
-        <Footer />
-      </MantineAppShell.Footer>
     </MantineAppShell>
   )
 }

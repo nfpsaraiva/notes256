@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { AppShell } from '@/components/Layout';
-import { Center, Group, Loader, Stack, Text, Title } from '@mantine/core';
+import { Box, Center, Group, Loader, Stack, Text, Title } from '@mantine/core';
 import CreateProofButton from '@/features/Proofs/CreateProof/CreateProofButton';
 import ProofSearch from '@/features/Proofs/ProofSearch/ProofSearch';
 import ProofsList from '@/features/Proofs/ProofsList/ProofList';
@@ -27,10 +27,17 @@ const Proofs: FC = () => {
     <AppShell>
       <Stack gap={"xl"}>
         <Group justify="space-between" align="center" wrap="nowrap">
-          <MainTitle title='Proofs' subtitle='Write statements and original ideas' />
+          <Box flex={1}>
+            <MainTitle title='My Proofs' subtitle='Write statements and original ideas' />
+          </Box>
           <CreateProofButton />
         </Group>
-        <ProofSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+        <ProofSearch
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          
+        />
+
 
         {
           isLoading

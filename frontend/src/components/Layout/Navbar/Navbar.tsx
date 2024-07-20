@@ -1,7 +1,7 @@
 import { AppShell, Burger, Divider, Group, ScrollArea, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
-import { ColorSchemeToggle } from "@/components/Common";
+import { ColorSchemeToggle, NetworkSwitcher } from "@/components/Common";
 import { IconCertificate } from "@tabler/icons-react";
 
 interface NavbarProps {
@@ -22,13 +22,14 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
               <Title size={"h3"}>Provify</Title>
             </Group>
           </Group>
-          <Group>
-            <ColorSchemeToggle />
-          </Group>
+          <ColorSchemeToggle />
         </Group>
       </AppShell.Section>
-      <AppShell.Section grow p={"lg"} component={ScrollArea}>
-        <TopMenu />
+      <AppShell.Section grow px={"lg"} component={ScrollArea}>
+        <Stack py={"md"} gap={"xl"}>
+          <NetworkSwitcher />
+          <TopMenu />
+        </Stack>
       </AppShell.Section>
       <AppShell.Section p={"lg"}>
         <Stack>

@@ -6,19 +6,17 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import envs from "@/envs";
 import { Proof } from "@/types";
 
-const useOwnerProofs = (owner: string | undefined) => {
+const useProofs = () => {
   const alchemy = useAlchemy();
   const { isConnected } = useWeb3ModalAccount();
   const { CONTRACT_ADDRESS } = envs;
 
   const { data: proofs, isSuccess, isLoading, isError } = useQuery({
-    queryKey: ["proofs", owner],
+    queryKey: ["proofs"],
     queryFn: async () => {
-      if (owner === undefined) return [];
+      const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
 
-      const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
-
-      const provifyOwnedNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
+      const provifyOwnedNfts = nfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
 
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -27,13 +25,14 @@ const useOwnerProofs = (owner: string | undefined) => {
         contract.abi,
         alchemyProvider
       )
-
+      
       const proofs: Proof[] = [];
       for (const nft of provifyOwnedNfts) {
         const proofId = await provifyContract.proofsIds(nft.tokenId);
         const proof = await provifyContract.proofs(proofId);
-        const tokenURI = await provifyContract.tokenURI(nft.tokenId);
-        console.log(tokenURI)
+        const tokenURI = nft.raw.tokenUri;
+        if (!tokenURI) continue;
+        
         const metadata = await fetch(tokenURI);
         const {image} = await metadata.json();
 
@@ -51,6 +50,8 @@ const useOwnerProofs = (owner: string | undefined) => {
         });
       }
 
+      console.log(proofs);
+
       return proofs.sort((a, b) => {
         if (a.date.getTime() < b.date.getTime()) return 1;
         if (a.date.getTime() > b.date.getTime()) return -1;
@@ -63,4 +64,4 @@ const useOwnerProofs = (owner: string | undefined) => {
   return { proofs, isSuccess, isLoading, isError };
 }
 
-export default useOwnerProofs;
+export default useProofs;

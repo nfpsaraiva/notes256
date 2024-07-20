@@ -4,11 +4,11 @@ import envs from "@/envs";
 import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { Contract } from "alchemy-sdk";
 
-const useProof = (proofId: string) => {
+const useProof = (proofId: string, enabled = false) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
-  const { data: proof, isLoading, isError } = useQuery({
+  const { data: proof, isLoading, isError, refetch } = useQuery({
     queryKey: ['proof', proofId],
     queryFn: async () => {
 
@@ -44,10 +44,10 @@ const useProof = (proofId: string) => {
         issuer: proof[2]
       }
     },
-    enabled: proofId !== ""
+    enabled: false
   })
 
-  return { proof, isLoading, isError };
+  return { proof, isLoading, isError, refetch };
 }
 
 export default useProof;

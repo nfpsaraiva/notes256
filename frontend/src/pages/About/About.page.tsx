@@ -2,7 +2,7 @@ import { AppShell } from "@/components/Layout";
 import { FC } from "react";
 import Markdown from "react-markdown";
 import about from "./about.md"
-import { Stack } from "@mantine/core";
+import { Box, Stack } from "@mantine/core";
 import { MainTitle } from "@/components/UI/MainTitle";
 
 const About: FC = () => {
@@ -10,7 +10,9 @@ const About: FC = () => {
     <AppShell>
       <Stack>
         <MainTitle title="Welcome to Provify" />
-        <Markdown children={about} />
+        <Box>
+          <Markdown children={about} />
+        </Box>
       </Stack>
     </AppShell>
   )

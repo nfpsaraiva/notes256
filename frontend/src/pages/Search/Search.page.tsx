@@ -1,9 +1,11 @@
 import { ProofCard } from "@/components/Common";
 import { AppShell } from "@/components/Layout";
+import { MainTitle } from "@/components/UI/MainTitle";
 import ProofSearch from "@/features/Proofs/ProofSearch/ProofSearch";
 import { useProof } from "@/hooks";
 import useStore from "@/stores/store";
-import { Center, Group, Loader, Stack, Text, Title } from "@mantine/core";
+import { Center, Loader, Stack, Text } from "@mantine/core";
+import { IconCheck } from "@tabler/icons-react";
 import { FC } from "react";
 import { useShallow } from "zustand/react/shallow";
 
@@ -16,17 +18,22 @@ const Search: FC = () => {
     state.setProofId
   ]));
 
-  const { proof, isLoading, isError } = useProof(proofId);
+  const { proof, isLoading, isError, refetch } = useProof(proofId);
+
+  
+
   return (
     <AppShell>
       <Stack gap={"xl"}>
-        <Group justify="space-between" align="center">
-          <Stack gap={2}>
-            <Title>Search</Title>
-            <Text c={"dimmed"}>Create original ideas</Text>
-          </Stack>
-        </Group>
-        <ProofSearch searchValue={proofId} setSearchValue={setProofId} />
+        <MainTitle title="Verify Proof" subtitle="Validate if a proof exists" />
+        <ProofSearch
+          searchValue={proofId}
+          setSearchValue={setProofId}
+          placeholder="Type a proof ID"
+          submit={refetch}
+          submitLabel="Verify"
+          submitIcon={<IconCheck size={18} />}
+        />
         {
           isLoading &&
           <Center>
@@ -35,7 +42,10 @@ const Search: FC = () => {
         }
 
         {
-          (isError || !proof) && <></>
+          (isError || !proof) &&
+          <Center>
+            <Text>No proofs found</Text>
+          </Center>
         }
 
         {
@@ -44,7 +54,8 @@ const Search: FC = () => {
             <ProofCard proof={proof} />
           </Center>
         }
-      </Stack>    </AppShell>
+      </Stack>
+    </AppShell>
   )
 }
 

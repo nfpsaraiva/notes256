@@ -21,7 +21,7 @@ const ProofCard: FC<ProofCardProps> = ({ proof }: ProofCardProps) => {
 
   return (
     <Box>
-      <Card onClick={open} className={classes.proofCard} radius={"md"} h={300} padding={"lg"} withBorder shadow="md">
+      <Card onClick={open} className={classes.proofCard} radius={"lg"} h={300} padding={"lg"} withBorder shadow="md">
         <Card.Section>
           <Image height={50} src={proof.image} />
         </Card.Section>
