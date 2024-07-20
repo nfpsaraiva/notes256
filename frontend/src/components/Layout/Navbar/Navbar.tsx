@@ -1,4 +1,4 @@
-import { AppShell, Burger, Group, ScrollArea, Title } from "@mantine/core";
+import { AppShell, Burger, Divider, Group, ScrollArea, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
 import { ColorSchemeToggle } from "@/components/Common";
@@ -31,7 +31,10 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
         <TopMenu />
       </AppShell.Section>
       <AppShell.Section p={"lg"}>
-        <BottomMenu />
+        <Stack>
+          <Divider />
+          <BottomMenu />
+        </Stack>
       </AppShell.Section>
     </>
   )

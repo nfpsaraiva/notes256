@@ -22,7 +22,7 @@ const MenuItem: FC<MenuItemProps> = ({
     <NavLink to={path} className={selected}>
       <Group>
         {icon}
-        <Text fw={700}>{name}</Text>
+        <Text size="sm" fw={700}>{name}</Text>
       </Group>
     </NavLink>
   )

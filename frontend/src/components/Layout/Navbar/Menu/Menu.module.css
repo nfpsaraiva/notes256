@@ -3,7 +3,7 @@
   font-weight: 600;
   border-radius: 10px;
   text-decoration: none;
-  color: var(--mantine-color-text);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-6));
 
   &.selected {
     background-color: var(--mantine-primary-color-filled);
@@ -12,6 +12,6 @@
   }
 
   &:not(.selected):hover {
-    background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-7));
+    background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8));
   }
 }
