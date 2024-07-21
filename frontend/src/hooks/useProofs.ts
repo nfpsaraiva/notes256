@@ -2,13 +2,11 @@ import { useAlchemy } from "@/contexts";
 import { useQuery } from "@tanstack/react-query";
 import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { Contract } from "alchemy-sdk";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import envs from "@/envs";
 import { Proof } from "@/types";
 
 const useProofs = () => {
   const alchemy = useAlchemy();
-  const { isConnected } = useWeb3ModalAccount();
   const { CONTRACT_ADDRESS } = envs;
 
   const { data: proofs, isSuccess, isLoading, isError } = useQuery({
@@ -57,8 +55,7 @@ const useProofs = () => {
         if (a.date.getTime() > b.date.getTime()) return -1;
         return 0
       });
-    },
-    enabled: isConnected
+    }
   });
 
   return { proofs, isSuccess, isLoading, isError };
