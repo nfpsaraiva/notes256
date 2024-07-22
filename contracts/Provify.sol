@@ -9,7 +9,7 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
     struct Proof {
         bytes32 id;
         string title;
-        string contentHash;
+        string content;
         address author;
         uint256 timestamp;
     }
@@ -25,7 +25,7 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
     event ProofCreated(
         uint256 indexed tokenId,
         string name,
-        string contentHash,
+        string content,
         address indexed issuer
     );
 
@@ -48,16 +48,16 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
      * Create a single proof
      *
      * @param _name name of the proof
-     * @param _contentHash description of the proof
+     * @param _content description of the proof
      * @param _tokenURI URI for the NFT token
      */
     function createProof(
         string memory _name,
-        string memory _contentHash,
+        string memory _content,
         string memory _tokenURI
     ) external {
         // Generates an unique ID for the new proof
-        bytes32 proofId = keccak256(abi.encodePacked(_contentHash, msg.sender));
+        bytes32 proofId = keccak256(abi.encodePacked(_content, msg.sender));
 
         // Prevent duplicates
         require(proofsIdsByContentHash[proofId] == 0, "Proof already exists");
@@ -69,7 +69,7 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
         proofs[lastTokenId] = Proof(
             proofId,
             _name,
-            _contentHash,
+            _content,
             msg.sender,
             block.timestamp
         );
@@ -79,7 +79,7 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
         _safeMint(msg.sender, lastTokenId);
         _setTokenURI(lastTokenId, _tokenURI);
 
-        emit ProofCreated(lastTokenId, _name, _contentHash, msg.sender);
+        emit ProofCreated(lastTokenId, _name, _content, msg.sender);
     }
 
     /**

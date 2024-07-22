@@ -46,7 +46,6 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack>
         <TextInput
-          size="md"
           withAsterisk
           label="Name"
           placeholder="The proof name"
@@ -54,10 +53,11 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
           {...form.getInputProps("name")}
         />
         <Textarea
-        size="md"
           label="Description"
           placeholder="The proof description"
+          description="This will save as a plain text"
           autosize
+          maxLength={1024}
           minRows={6}
           withAsterisk
           key={form.key("description")}

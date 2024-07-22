@@ -28,7 +28,7 @@ const Proofs: FC = () => {
       <Stack gap={"xl"}>
         <Group justify="space-between" align="center" wrap="nowrap">
           <Box flex={1}>
-            <MainTitle title='My Proofs' subtitle='Write statements and original ideas' />
+            <MainTitle title='Proofs' subtitle='Write statements and original ideas' />
           </Box>
           <CreateProofButton />
         </Group>

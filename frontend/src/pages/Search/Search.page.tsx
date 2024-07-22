@@ -23,7 +23,7 @@ const Search: FC = () => {
   return (
     <AppShell>
       <Stack gap={"xl"}>
-        <MainTitle title="Verify Proof" subtitle="Validate if a proof exists" />
+        <MainTitle title="Verify" subtitle="Validate if a proof exists" />
         <ProofSearch
           searchValue={proofId}
           setSearchValue={setProofId}

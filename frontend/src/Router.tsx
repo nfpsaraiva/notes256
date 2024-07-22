@@ -5,12 +5,19 @@ import Search from './pages/Search/Search.page';
 import HowItWorks from './pages/HowItWorks/HowItWorks.page';
 import Roadmap from './pages/Roadmap/Roadmap.page';
 import Explore from './pages/Explore/Explore.page';
+import Drafts from './pages/Drafts/Drafts.page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
         <Proofs />
+    ),
+  },
+  {
+    path: '/drafts',
+    element: (
+        <Drafts />
     ),
   },
   {
