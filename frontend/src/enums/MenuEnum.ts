@@ -2,7 +2,7 @@ enum MenuEnum {
   EXPLORE = "Explore",
   MY_PROOFS = "Proofs",
   MY_DRAFTS = "Drafts",
-  VERIFY = "Verify Proof",
+  VERIFY = "Verify",
   TRASH = "Trash",
   HOW_IT_WORKS = "How it works",
   ROADMAP = "Roadmap",

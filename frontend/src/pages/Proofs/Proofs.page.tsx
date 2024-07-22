@@ -7,11 +7,11 @@ import ProofsList from '@/features/Proofs/ProofsList/ProofList';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { Proof } from '@/types';
 import { MainTitle } from '@/components/UI/MainTitle';
-import useProofs from '@/hooks/useProofs';
+import { useProofByOwner } from '@/hooks';
 
 const Proofs: FC = () => {
   const { address } = useWeb3ModalAccount();
-  const { proofs, isLoading } = useProofs(address);
+  const { proofs, isLoading } = useProofByOwner(address);
   const [searchValue, setSearchValue] = useState('');
 
   let filteredProofs: Proof[] = [];

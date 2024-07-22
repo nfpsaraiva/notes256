@@ -9,7 +9,7 @@ import { IconCheck } from "@tabler/icons-react";
 import { FC } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-const Search: FC = () => {
+const Verify: FC = () => {
   const [
     proofId,
     setProofId,
@@ -57,4 +57,4 @@ const Search: FC = () => {
   )
 }
 
-export default Search;
+export default Verify;

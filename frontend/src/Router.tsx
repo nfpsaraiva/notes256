@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Proofs from './pages/Proofs/Proofs.page';
 import About from './pages/About/About.page';
-import Search from './pages/Search/Search.page';
 import HowItWorks from './pages/HowItWorks/HowItWorks.page';
 import Roadmap from './pages/Roadmap/Roadmap.page';
 import Explore from './pages/Explore/Explore.page';
 import Drafts from './pages/Drafts/Drafts.page';
+import Verify from './pages/Verify/Verify.page';
 
 const router = createBrowserRouter([
   {
@@ -27,9 +27,9 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/search',
+    path: '/verify',
     element: (
-        <Search />
+        <Verify />
     ),
   },
   {

@@ -6,24 +6,20 @@ import envs from "@/envs";
 import { Proof } from "@/types";
 import { buildProofByTokenId } from "@/utils/proofUtils";
 
-const useProofs = (owner?: string) => {
+const useProofByOwner = (owner?: string) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
   const { data: proofs, isSuccess, isLoading, isError } = useQuery({
     queryKey: ["proofs"],
     queryFn: async () => {
+      if (owner === undefined) return [];
+      
       const proofs: Proof[] = [];
       let provifyNfts = [];
 
-      if (owner === undefined) {
-        const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
-        provifyNfts = nfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
-      } else {
-        console.log("owner");
-        const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
-        provifyNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
-      }
+      const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
+      provifyNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
 
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -32,7 +28,7 @@ const useProofs = (owner?: string) => {
         contract.abi,
         alchemyProvider
       )
-      
+
       for (const nft of provifyNfts) {
         const proof = await buildProofByTokenId(Number(nft.tokenId), provifyContract);
 
@@ -50,4 +46,4 @@ const useProofs = (owner?: string) => {
   return { proofs, isSuccess, isLoading, isError };
 }
 
-export default useProofs;
+export default useProofByOwner;

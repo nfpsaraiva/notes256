@@ -12,7 +12,7 @@ const TopMenu: FC = () => {
       <MenuItem name={MenuEnum.MY_DRAFTS} path="/drafts" icon={<IconFiles size={20} />} />
       <Divider label="Community" my={"md"} />
       <MenuItem name={MenuEnum.EXPLORE} path="/explore" icon={<IconCompass size={20} />} />
-      <MenuItem name={MenuEnum.VERIFY} path="/search" icon={<IconCheck size={20} />} />
+      <MenuItem name={MenuEnum.VERIFY} path="/verify" icon={<IconCheck size={20} />} />
     </Stack>
   )
 }
