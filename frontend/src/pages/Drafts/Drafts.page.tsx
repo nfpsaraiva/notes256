@@ -10,7 +10,7 @@ const Drafts: FC = () => {
 
   return (
     <AppShell>
-      <Stack>
+      <Stack gap={"xl"}>
         <Group justify="space-between" align="center" wrap="nowrap">
           <Box flex={1}>
             <MainTitle title="Drafts" subtitle="Create drafts first" />
