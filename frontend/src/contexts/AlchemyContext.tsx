@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, ReactNode, FC } from 'react';
+import { createContext, useContext, useMemo, ReactNode, FC } from 'react';
 import { Alchemy, Network } from 'alchemy-sdk';
 
 interface AlchemyProviderProps {

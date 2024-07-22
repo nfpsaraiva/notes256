@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { AppShell } from '@/components/Layout';
 import { Box, Center, Group, Loader, Stack, Text, Title } from '@mantine/core';
 import CreateProofButton from '@/features/Proofs/CreateProof/CreateProofButton';
@@ -35,7 +35,7 @@ const Proofs: FC = () => {
         <ProofSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          
+
         />
 
 

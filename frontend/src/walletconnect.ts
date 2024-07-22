@@ -5,12 +5,13 @@ const {
   VITE_CHAIN_NAME,
   VITE_CHAIN_CURRENCY,
   VITE_CHAIN_ETHERSCAN_URL,
-  VITE_CHAIN_RPC_URL
+  VITE_CHAIN_RPC_URL,
+  VITE_WALLETCONNECT_PROJECT_ID
 } = import.meta.env;
 
 
 // 1. Get projectId
-const projectId = "random"
+const projectId = VITE_WALLETCONNECT_PROJECT_ID
 
 // 2. Set chains
 const mainnet = {
