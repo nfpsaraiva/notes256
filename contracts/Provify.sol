@@ -5,34 +5,38 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
 contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
-    
     // Single proof structure
     struct Proof {
-        string name;
-        string description;
-        address issuer;
+        bytes32 id;
+        string title;
+        string contentHash;
+        address author;
         uint256 timestamp;
     }
 
     // List of proofs
-    mapping(bytes32 => Proof) public proofs;
-    
-    // Proofs counter used to generate new NFT token IDs
-    uint256 public proofsCount;
-    
-    // Double mapping for searching by proofID and token ID
-    mapping(uint256 => bytes32) public proofsIds;
-    mapping(bytes32 => uint256) public tokensIds;
+    mapping(uint256 => Proof) public proofs;
+    mapping(bytes32 => uint256) public proofsIdsByContentHash;
 
-    // Mapping to track who has a given proof
-    mapping(bytes32 => address) public owners;
+    // Proofs counter used to generate new NFT token IDs
+    uint256 public lastTokenId;
 
     // Event for each proof created
     event ProofCreated(
-        bytes32 indexed proofId,
+        uint256 indexed tokenId,
         string name,
-        string description,
+        string contentHash,
         address indexed issuer
+    );
+
+    event ProofDeleted(
+        uint256 indexed tokenId
+    );
+
+    event ProofTransfered(
+        uint256 indexed tokenId,
+        address indexed from,
+        address indexed to
     );
 
     /**
@@ -42,94 +46,82 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
 
     /**
      * Create a single proof
-     * 
+     *
      * @param _name name of the proof
-     * @param _description description of the proof
-     * @param _tokenURI URI for the NFT token 
+     * @param _contentHash description of the proof
+     * @param _tokenURI URI for the NFT token
      */
     function createProof(
         string memory _name,
-        string memory _description,
+        string memory _contentHash,
         string memory _tokenURI
     ) external {
         // Generates an unique ID for the new proof
-        bytes32 proofId = keccak256(
-            abi.encodePacked(_name, _description, msg.sender, block.timestamp)
-        );
+        bytes32 proofId = keccak256(abi.encodePacked(_contentHash, msg.sender));
 
         // Prevent duplicates
-        require(proofs[proofId].timestamp == 0, "Proof already exists");
+        require(proofsIdsByContentHash[proofId] == 0, "Proof already exists");
+
+        // Increment token ID
+        lastTokenId++;
 
         // add the new proof to the list
-        proofs[proofId] = Proof(
+        proofs[lastTokenId] = Proof(
+            proofId,
             _name,
-            _description,
+            _contentHash,
             msg.sender,
             block.timestamp
         );
-
-        // Generate a new NFT token ID
-        uint256 newTokenId = ++proofsCount;
+        proofsIdsByContentHash[proofId] = lastTokenId;
 
         // Mint an NFT as proof
-        _safeMint(msg.sender, newTokenId);
-        _setTokenURI(newTokenId, _tokenURI);
-        
-        // Add proof and token IDS to the lists
-        proofsIds[newTokenId] = proofId;
-        tokensIds[proofId] = newTokenId;
+        _safeMint(msg.sender, lastTokenId);
+        _setTokenURI(lastTokenId, _tokenURI);
 
-        owners[proofId] = msg.sender;
-
-        emit ProofCreated(proofId, _name, _description, msg.sender);
+        emit ProofCreated(lastTokenId, _name, _contentHash, msg.sender);
     }
 
     /**
      * Burn the proof and removes the owner from the corresponding proofID
-     * 
+     *
      * @param _tokenId proof NFT token ID
      */
     function deleteProof(uint256 _tokenId) external {
-        bytes32 proof = proofsIds[_tokenId];
-
-        require(owners[proof] == msg.sender, "Not the proof owner");
-
         burn(_tokenId);
 
-        owners[proof] = address(0);
+        emit ProofDeleted(_tokenId);
     }
 
     /**
      * Transfers a proof to another owner
-     * 
+     *
      * @param to the address to where the proof is being sent
      * @param _tokenId proof NFT token ID
      */
     function transferProof(address to, uint256 _tokenId) external {
-        bytes32 proof = proofsIds[_tokenId];
-
-        require(owners[proof] == msg.sender, "Not the proof owner");
-
         safeTransferFrom(msg.sender, to, _tokenId);
 
-        owners[proof] = to;
+        emit ProofTransfered(_tokenId, msg.sender, to);
     }
 
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
+    /**
+     * Overrides required by solidity
+     * @param tokenId NFT token ID
+     */
+    function tokenURI(
+        uint256 tokenId
+    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (bool)
-    {
+    /**
+     * Overrides required by solidity
+     * @param interfaceId interface ID
+     */
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721, ERC721URIStorage) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

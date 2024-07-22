@@ -20,8 +20,6 @@ const Search: FC = () => {
 
   const { proof, isLoading, isError, refetch } = useProof(proofId);
 
-  
-
   return (
     <AppShell>
       <Stack gap={"xl"}>

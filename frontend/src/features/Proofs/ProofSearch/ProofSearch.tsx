@@ -25,7 +25,6 @@ const ProofSearch: FC<ProofSearchProps> = ({
         <TextInput
           miw={200}
           placeholder={placeholder}
-          autoFocus
           size="md"
           radius={"lg"}
           value={searchValue}

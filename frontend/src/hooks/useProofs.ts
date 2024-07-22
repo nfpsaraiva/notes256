@@ -4,17 +4,25 @@ import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { Contract } from "alchemy-sdk";
 import envs from "@/envs";
 import { Proof } from "@/types";
+import { buildProofByTokenId } from "@/utils/proofUtils";
 
-const useProofs = () => {
+const useProofs = (owner?: string) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
   const { data: proofs, isSuccess, isLoading, isError } = useQuery({
     queryKey: ["proofs"],
     queryFn: async () => {
-      const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
+      const proofs: Proof[] = [];
+      let provifyNfts = [];
 
-      const provifyOwnedNfts = nfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
+      if (owner === undefined) {
+        const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
+        provifyNfts = nfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
+      } else {
+        const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
+        provifyNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
+      }
 
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -24,31 +32,11 @@ const useProofs = () => {
         alchemyProvider
       )
       
-      const proofs: Proof[] = [];
-      for (const nft of provifyOwnedNfts) {
-        const proofId = await provifyContract.proofsIds(nft.tokenId);
-        const proof = await provifyContract.proofs(proofId);
-        const tokenURI = nft.raw.tokenUri;
-        if (!tokenURI) continue;
-        
-        const metadata = await fetch(tokenURI);
-        const {image} = await metadata.json();
+      for (const nft of provifyNfts) {
+        const proof = await buildProofByTokenId(Number(nft.tokenId), provifyContract);
 
-        const timestamp = Number(proof[3]);
-        const date = new Date(timestamp * 1000);
-
-        proofs.push({
-          id: proofId,
-          name: proof[0],
-          description: proof[1],
-          tokenId: BigInt(nft.tokenId),
-          image,
-          date,
-          issuer: proof[2]
-        });
+        proofs.push(proof);
       }
-
-      console.log(proofs);
 
       return proofs.sort((a, b) => {
         if (a.date.getTime() < b.date.getTime()) return 1;

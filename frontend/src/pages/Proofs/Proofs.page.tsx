@@ -5,13 +5,13 @@ import CreateProofButton from '@/features/Proofs/CreateProof/CreateProofButton';
 import ProofSearch from '@/features/Proofs/ProofSearch/ProofSearch';
 import ProofsList from '@/features/Proofs/ProofsList/ProofList';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { useOwnerProofs } from '@/hooks';
 import { Proof } from '@/types';
 import { MainTitle } from '@/components/UI/MainTitle';
+import useProofs from '@/hooks/useProofs';
 
 const Proofs: FC = () => {
   const { address } = useWeb3ModalAccount();
-  const { proofs, isLoading } = useOwnerProofs(address);
+  const { proofs, isLoading } = useProofs(address);
   const [searchValue, setSearchValue] = useState('');
 
   let filteredProofs: Proof[] = [];

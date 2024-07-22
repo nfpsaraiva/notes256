@@ -30,6 +30,8 @@ const useCreateProof = () => {
       
       const response = await contract.createProof(name, description, PROOF_TOKEN_URI);
 
+      console.log(response);
+
       await response.wait();
     },
     onSuccess: () => queryClient.invalidateQueries({queryKey: ["proofs"]})
