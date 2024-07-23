@@ -15,13 +15,11 @@ const TransferDraft: FC<TransferButtonProps> = ({ Draft, openModal }: TransferBu
   }
 
   return (
-    <>
-      <Tooltip label="Transfer Draft">
-        <ActionIcon variant="subtle" size={"lg"} onClick={e => openTransferModal(e)}>
-          <IconSend size={16} />
-        </ActionIcon>
-      </Tooltip>
-    </>
+    <Tooltip label="Transfer Draft">
+      <ActionIcon variant="subtle" size={"lg"} onClick={e => openTransferModal(e)}>
+        <IconSend size={16} />
+      </ActionIcon>
+    </Tooltip>
   )
 }
 

@@ -1,10 +1,13 @@
 
 ### Completed
+- Project scaffolded
 - Deployed to live testnet 
 
 ### In progress
 - App style
-- Explore proofs development
+- Drafts Implementation
 
 ### Future
-- Deploy to Arbitrum testnet
+- Sharing proofs
+- Print Proofs
+- Multi chain

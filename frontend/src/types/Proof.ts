@@ -1,10 +1,10 @@
 interface Proof {
-  id?: string,
+  id: string,
   name: string,
   description: string,
-  date?: Date,
+  date: Date,
   tokenId: number,
-  image?: string,
+  image: string,
 }
 
 export default Proof;

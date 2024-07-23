@@ -27,7 +27,7 @@ const ProofContent: FC<ProofContentProps> = ({ proof, expanded = false }: ProofC
               {proof.description}
             </Text>
           </ScrollArea>
-          : <Text fw={300} lineClamp={5} size="xs" lh={1.6}>
+          : <Text fw={400} lineClamp={5} size="xs" lh={1.6}>
             {proof.description}
           </Text>
       }

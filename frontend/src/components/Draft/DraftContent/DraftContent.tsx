@@ -53,7 +53,7 @@ const DraftContent: FC<DraftContentProps> = ({ draft, expanded = false }: DraftC
             autosize
 
           />
-          : <Text fw={300} lineClamp={5} size="xs" lh={1.6}>
+          : <Text fw={400} lineClamp={5} size="xs" lh={1.6}>
             {draft.description}
           </Text>
       }

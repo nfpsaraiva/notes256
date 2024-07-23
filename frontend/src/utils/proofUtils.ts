@@ -13,7 +13,7 @@ const buildProofByTokenId = async (tokenId: number, contract: Contract) => {
     id: proof[0] as string,
     name: proof[1] as string,
     description: proof[2] as string,
-    tokenId: BigInt(tokenId),
+    tokenId: tokenId,
     image: image as string,
     date,
   }

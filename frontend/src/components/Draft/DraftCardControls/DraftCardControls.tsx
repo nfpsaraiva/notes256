@@ -1,6 +1,9 @@
 import { Draft } from "@/types";
 import { Button, Group } from "@mantine/core";
 import { FC } from "react";
+import DeleteButton from "./DeleteButton/DeleteButton";
+import PublishButton from "./PublishButton/PublishButton";
+import SaveButton from "./PublishButton/SaveButton";
 
 interface DraftCardControlsProps {
   draft: Draft,
@@ -14,15 +17,18 @@ const DraftCardControls: FC<DraftCardControlsProps> = ({
 
   if (expanded) {
     return (
-      <Group justify="space-between">
-        <Button variant="subtle" radius={"lg"}>Save Draft</Button>
-        <Button variant="filled" radius={"lg"}>Publish</Button>
+      <Group>
+        <SaveButton />
+        <PublishButton />
+        <DeleteButton draft={draft} />
       </Group>
     )
   }
 
   return (
-    <Group justify="space-between">
+    <Group>
+      <PublishButton />
+      <DeleteButton draft={draft} />
     </Group>
   )
 }
