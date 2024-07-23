@@ -1,7 +1,6 @@
 import { Proof } from "@/types";
 import { ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
-import ProofCardHeader from "../ProofCardHeader/ProofCardHeader";
 
 interface ProofContentProps {
   proof: Proof,
