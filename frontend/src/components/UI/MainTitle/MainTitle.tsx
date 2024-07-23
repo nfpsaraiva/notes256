@@ -9,7 +9,7 @@ interface MainTitleProps {
 const MainTitle: FC<MainTitleProps> = ({ title, subtitle }: MainTitleProps) => {
   return (
     <Stack gap={2}>
-      <Title>{title}</Title>
+      <Title order={2} size={"h1"}>{title}</Title>
       <Text c={"dimmed"}>{subtitle}</Text>
     </Stack>
   )

@@ -1,5 +1,5 @@
 import { Divider, Stack } from "@mantine/core";
-import { IconCertificate, IconCheck, IconCompass, IconFiles, IconNavigation, IconSearch } from "@tabler/icons-react";
+import { IconCertificate, IconCheck, IconCompass, IconFile, IconFiles, IconNavigation, IconSearch } from "@tabler/icons-react";
 import { FC } from "react";
 import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
@@ -9,8 +9,7 @@ const TopMenu: FC = () => {
   return (
     <Stack gap={4} className={classes.menu}>
       <MenuItem name={MenuEnum.MY_PROOFS} path="/" icon={<IconCertificate size={20} />} />
-      <MenuItem name={MenuEnum.MY_DRAFTS} path="/drafts" icon={<IconFiles size={20} />} />
-      <Divider label="Community" my={"md"} />
+      <Divider label="Community" my={"xs"} />
       <MenuItem name={MenuEnum.EXPLORE} path="/explore" icon={<IconCompass size={20} />} />
       <MenuItem name={MenuEnum.VERIFY} path="/verify" icon={<IconCheck size={20} />} />
     </Stack>

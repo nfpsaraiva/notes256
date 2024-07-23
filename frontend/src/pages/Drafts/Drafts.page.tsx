@@ -13,7 +13,7 @@ const Drafts: FC = () => {
       <Stack gap={"xl"}>
         <Group justify="space-between" align="center" wrap="nowrap">
           <Box flex={1}>
-            <MainTitle title="Drafts" subtitle="Create drafts first" />
+            <MainTitle title="Drafts" subtitle="Drafts will only be saved on your device" />
           </Box>
           <CreateProofButton />
         </Group>

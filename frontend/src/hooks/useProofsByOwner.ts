@@ -10,7 +10,7 @@ const useProofByOwner = (owner?: string) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
-  const { data: proofs, isSuccess, isLoading, isError } = useQuery({
+  const { data: proofs, isSuccess, isFetching, isError } = useQuery({
     queryKey: ["proofs"],
     queryFn: async () => {
       if (owner === undefined) return [];
@@ -40,10 +40,11 @@ const useProofByOwner = (owner?: string) => {
         if (a.date.getTime() > b.date.getTime()) return -1;
         return 0
       });
-    }
+    },
+    enabled: owner !== undefined
   });
 
-  return { proofs, isSuccess, isLoading, isError };
+  return { proofs, isSuccess, isFetching, isError };
 }
 
 export default useProofByOwner;

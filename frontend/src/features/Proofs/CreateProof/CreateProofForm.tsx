@@ -57,7 +57,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
           placeholder="The proof description"
           description="This will save as a plain text"
           autosize
-          maxLength={1024}
+          maxLength={500}
           minRows={6}
           withAsterisk
           key={form.key("description")}

@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AlchemyProvider } from './contexts/AlchemyContext';
 import { createWeb3Modal } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
+import { ModalsProvider } from '@mantine/modals';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -24,11 +25,13 @@ export default function App() {
   return (
     <MantineProvider theme={theme} defaultColorScheme='light'>
       <Notifications />
-      <AlchemyProvider>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-        </QueryClientProvider>
-      </AlchemyProvider>
+      <ModalsProvider>
+        <AlchemyProvider>
+          <QueryClientProvider client={queryClient}>
+            <Router />
+          </QueryClientProvider>
+        </AlchemyProvider>
+      </ModalsProvider>
     </MantineProvider>
   );
 }

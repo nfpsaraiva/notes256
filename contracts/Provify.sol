@@ -57,7 +57,7 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
         string memory _tokenURI
     ) external {
         // Generates an unique ID for the new proof
-        bytes32 proofId = keccak256(abi.encodePacked(_content, msg.sender));
+        bytes32 proofId = keccak256(abi.encodePacked(_content));
 
         // Prevent duplicates
         require(proofsIdsByContentHash[proofId] == 0, "Proof already exists");

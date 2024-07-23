@@ -10,7 +10,7 @@ const useProofs = (owner?: string) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
-  const { data: proofs, isSuccess, isLoading, isError } = useQuery({
+  const { data: proofs, isSuccess, isFetching, isError } = useQuery({
     queryKey: ["proofs"],
     queryFn: async () => {
       const proofs: Proof[] = [];
@@ -47,7 +47,7 @@ const useProofs = (owner?: string) => {
     }
   });
 
-  return { proofs, isSuccess, isLoading, isError };
+  return { proofs, isSuccess, isFetching, isError };
 }
 
 export default useProofs;

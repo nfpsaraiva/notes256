@@ -11,7 +11,7 @@ import { useProofByOwner } from '@/hooks';
 
 const Proofs: FC = () => {
   const { address } = useWeb3ModalAccount();
-  const { proofs, isLoading } = useProofByOwner(address);
+  const { proofs, isFetching } = useProofByOwner(address);
   const [searchValue, setSearchValue] = useState('');
 
   let filteredProofs: Proof[] = [];
@@ -35,16 +35,14 @@ const Proofs: FC = () => {
         <ProofSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-
         />
-
-
         {
-          isLoading
-            ? <Center><Loader /></Center>
-            : <ProofsList proofs={filteredProofs} />
+          isFetching &&
+          <Center>
+            <Loader type='bars' size={"xs"} />
+          </Center>
         }
-
+        <ProofsList proofs={filteredProofs} />
       </Stack>
     </AppShell>
   );

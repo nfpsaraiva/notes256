@@ -1,7 +1,7 @@
 import { SimpleGrid } from "@mantine/core";
 import { FC } from "react";
-import ProofCard from "@/components/Common/ProofCard/ProofCard";
 import { Proof } from "@/types";
+import { ProofCard } from "@/components/Proof";
 
 interface ProofsListProps {
   proofs: Proof[]

@@ -1,57 +1,70 @@
-import { ProofCard } from "@/components/Common";
 import { AppShell } from "@/components/Layout";
+import { ProofCard } from "@/components/Proof";
 import { MainTitle } from "@/components/UI/MainTitle";
-import ProofSearch from "@/features/Proofs/ProofSearch/ProofSearch";
-import { useProof } from "@/hooks";
-import useStore from "@/stores/store";
-import { Center, Loader, Stack, Text } from "@mantine/core";
-import { IconCheck } from "@tabler/icons-react";
-import { FC } from "react";
-import { useShallow } from "zustand/react/shallow";
+import { useProof, useVerifyProof } from "@/hooks";
+import { Alert, Box, Button, Card, Center, Group, Indicator, Loader, Paper, Stack, Text, TextInput } from "@mantine/core";
+import { IconCheck, IconSearch } from "@tabler/icons-react";
+import { FC, useState } from "react";
 
 const Verify: FC = () => {
-  const [
-    proofId,
-    setProofId,
-  ] = useStore(useShallow(state => [
-    state.proofId,
-    state.setProofId
-  ]));
+  const [address, setAddress] = useState('');
+  const [proofId, setProofId] = useState('');
 
-  const { proof, isLoading, isError, refetch } = useProof(proofId);
+  const { isOwner, isLoading, refetch: fetchOwner } = useVerifyProof(address, proofId);
+  const { proof, refetch: fetchProof } = useProof(proofId);
+
+  const submit = () => {
+    fetchOwner();
+    fetchProof();
+  }
 
   return (
     <AppShell>
       <Stack gap={"xl"}>
         <MainTitle title="Verify" subtitle="Validate if a proof exists" />
-        <ProofSearch
-          searchValue={proofId}
-          setSearchValue={setProofId}
-          placeholder="Type a proof ID"
-          submit={refetch}
-          submitLabel="Verify"
-          submitIcon={<IconCheck size={18} />}
-        />
-        {
-          isLoading &&
-          <Center>
-            <Loader />
-          </Center>
-        }
 
-        {
-          (isError || !proof) &&
-          <Center>
-            <Text>No proofs found</Text>
-          </Center>
-        }
 
-        {
-          proof &&
-          <Center>
-            <ProofCard proof={proof} />
-          </Center>
-        }
+        <Card radius={"xl"} shadow="xs">
+
+          <Group>
+            <TextInput
+              miw={200}
+              placeholder={'Type the owner address'}
+              size="md"
+              radius={"lg"}
+              value={address}
+              onChange={e => setAddress(e.target.value)}
+              flex={1}
+            />
+            <TextInput
+              miw={200}
+              placeholder={'Type the proof ID'}
+              size="md"
+              radius={"lg"}
+              value={proofId}
+              onChange={e => setProofId(e.target.value)}
+              flex={1}
+            />
+            <Button
+              leftSection={<IconSearch />}
+              radius={"lg"}
+              size="md"
+              variant="light"
+              onClick={() => submit()}
+            >
+              Verify
+            </Button>
+          </Group>
+        </Card>
+          {
+            isOwner && proof &&
+            <Center>
+              <Stack w={300} align="center">
+                <ProofCard proof={proof} />
+                <Text fw={700} c={"teal"}>Verifiyed</Text>
+              </Stack>
+            </Center>
+          }
       </Stack>
     </AppShell>
   )

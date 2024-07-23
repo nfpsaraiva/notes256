@@ -1,15 +1,16 @@
 import { AppShell } from "@/components/Layout";
 import { MainTitle } from "@/components/UI/MainTitle";
+import CreateProofButton from "@/features/Proofs/CreateProof/CreateProofButton";
 import ProofSearch from "@/features/Proofs/ProofSearch/ProofSearch";
 import ProofsList from "@/features/Proofs/ProofsList/ProofList";
 import useProofs from "@/hooks/useProofs";
 import { Proof } from "@/types";
-import { Center, Loader, Stack } from "@mantine/core";
+import { Box, Center, Group, Loader, Stack } from "@mantine/core";
 import { FC, useState } from "react";
 
 const Explore: FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { proofs, isLoading } = useProofs();
+  const { proofs, isFetching } = useProofs();
 
   let filteredProofs: Proof[] = [];
 
@@ -23,18 +24,23 @@ const Explore: FC = () => {
   return (
     <AppShell>
       <Stack gap={"xl"}>
-        <MainTitle title="Explore" subtitle="Explore ideas created by the communitiy" />
+        <Group justify="space-between" align="center" wrap="nowrap">
+          <Box flex={1}>
+            <MainTitle title="Explore" subtitle="Explore ideas created by the communitiy" />
+          </Box>
+          <CreateProofButton />
+        </Group>
         <ProofSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          submit={() => alert('searching')}
-
         />
         {
-          isLoading
-            ? <Center><Loader /></Center>
-            : <ProofsList proofs={filteredProofs} />
+          isFetching &&
+          <Center>
+            <Loader type="bars" size={"xs"} />
+          </Center>
         }
+        <ProofsList proofs={filteredProofs} />
       </Stack>
     </AppShell>
   )
