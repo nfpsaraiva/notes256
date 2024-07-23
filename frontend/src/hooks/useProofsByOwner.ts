@@ -5,20 +5,23 @@ import { Contract } from "alchemy-sdk";
 import envs from "@/envs";
 import { Proof } from "@/types";
 import { buildProofByTokenId } from "@/utils/proofUtils";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
-const useProofByOwner = (owner?: string) => {
+const useProofsByOwner = (searchTerm: string) => {
   const alchemy = useAlchemy();
+  const { address } = useWeb3ModalAccount();
+
   const { CONTRACT_ADDRESS } = envs;
 
   const { data: proofs, isSuccess, isFetching, isError, refetch } = useQuery({
-    queryKey: ["proofs", owner],
+    queryKey: ["proofs", address, searchTerm],
     queryFn: async () => {
-      if (owner === undefined) return [];
+      if (address === undefined) return [];
       
       const proofs: Proof[] = [];
       let provifyNfts = [];
 
-      const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
+      const { ownedNfts } = await alchemy.nft.getNftsForOwner(address);
       provifyNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
 
       const alchemyProvider = await alchemy.config.getProvider();
@@ -32,7 +35,36 @@ const useProofByOwner = (owner?: string) => {
       for (const nft of provifyNfts) {
         const proof = await buildProofByTokenId(Number(nft.tokenId), provifyContract);
 
-        proofs.push(proof);
+        if (searchTerm === "") {
+          proofs.push(proof);
+          continue;
+        }
+
+        if (searchTerm.length === 66) {
+          if (proof.id === searchTerm) {
+            proofs.push(proof);
+          }
+
+          continue;
+        }
+
+        if (searchTerm.length === 42) {
+          if (address === searchTerm) {
+            proofs.push(proof);
+          }
+
+          continue;
+        }
+
+        if (proof.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+          proofs.push(proof);
+          continue;
+        }
+
+        if (proof.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+          proofs.push(proof);
+          continue;
+        }
       }
 
       return proofs.sort((a, b) => {
@@ -41,7 +73,7 @@ const useProofByOwner = (owner?: string) => {
         return 0
       });
     },
-    enabled: owner !== undefined,
+    enabled: address !== undefined,
     refetchOnMount: false,
     refetchOnWindowFocus: false
   });
@@ -49,4 +81,4 @@ const useProofByOwner = (owner?: string) => {
   return { proofs, isSuccess, isFetching, isError, refetch };
 }
 
-export default useProofByOwner;
+export default useProofsByOwner;

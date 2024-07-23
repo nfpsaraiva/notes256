@@ -4,26 +4,14 @@ import { Box, Group, Stack } from '@mantine/core';
 import CreateProofButton from '@/features/Proofs/CreateProof/CreateProofButton';
 import ProofSearch from '@/features/Proofs/ProofSearch/ProofSearch';
 import ProofsList from '@/features/Proofs/ProofsList/ProofList';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { Proof } from '@/types';
 import { MainTitle } from '@/components/UI/MainTitle';
-import { useProofByOwner } from '@/hooks';
 import { BlockchainLoader } from '@/components/Common';
 import { IconRefresh } from '@tabler/icons-react';
+import { useProofsByOwner } from '@/hooks';
 
 const Proofs: FC = () => {
-  const { address } = useWeb3ModalAccount();
-  const { proofs, isFetching, refetch } = useProofByOwner(address);
   const [searchValue, setSearchValue] = useState('');
-
-  let filteredProofs: Proof[] = [];
-
-  if (proofs) {
-    filteredProofs = proofs.filter(proof => {
-      return proof.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
-        || proof.description.toLowerCase().includes(searchValue.toLowerCase());
-    });
-  }
+  const { proofs, isFetching, refetch } = useProofsByOwner(searchValue);
 
   return (
     <AppShell>
@@ -44,7 +32,9 @@ const Proofs: FC = () => {
         {
           isFetching && <BlockchainLoader />
         }
-        <ProofsList proofs={filteredProofs} />
+        {
+          proofs && <ProofsList proofs={proofs} />
+        }
       </Stack>
     </AppShell>
   );

@@ -13,9 +13,12 @@ const ProofContent: FC<ProofContentProps> = ({ proof, expanded = false }: ProofC
     <Stack gap={"lg"} h={"100%"} mb={"lg"}>
       <Stack gap={4}>
         <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{proof.name}</Title>
-        <Text c={"dimmed"} size="xs" fw={500}>
-          {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
-        </Text>
+        {
+          proof.date &&
+          <Text c={"dimmed"} size="xs" fw={500}>
+            {proof.date.toLocaleDateString()} {proof.date.toLocaleTimeString()}
+          </Text>
+        }
       </Stack>
       {
         expanded

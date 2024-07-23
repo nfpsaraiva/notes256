@@ -27,10 +27,14 @@ const useProofs = (searchTerm: string) => {
         alchemyProvider
       )
 
-
       for (const nft of provifyNfts) {
         const proof = await buildProofByTokenId(Number(nft.tokenId), provifyContract);
         const owner = await provifyContract.ownerOf(nft.tokenId);
+
+        if (searchTerm === "") {
+          proofs.push(proof);
+          continue;
+        }
 
         if (searchTerm.length === 66) {
           if (proof.id === searchTerm) {

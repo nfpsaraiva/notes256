@@ -5,6 +5,8 @@ import { IconCertificate } from "@tabler/icons-react";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { useCreateProof } from "@/hooks";
 import WalletButton from "@/features/Wallet/WalletButton";
+import { Draft, Proof } from "@/types";
+import { useLocalStorage } from "@mantine/hooks";
 
 interface CreateProofFormProps {
   modalOpened: boolean,
@@ -17,6 +19,10 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
 }: CreateProofFormProps) => {
   const { isConnected } = useWeb3ModalAccount();
   const { createProof, creatingProof, proofCreated } = useCreateProof();
+  const [drafts, setDrafts] = useLocalStorage<Draft[]>({
+    key: "provify-drafts",
+    defaultValue: []
+  });
 
   const form = useForm({
     initialValues: {
@@ -35,6 +41,18 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
       description: values.description
     });
   };
+
+  const saveDraft = async (values: typeof form.values) => {
+    const { name, description } = values;
+
+    const draft: Draft = {
+      id: `provify-draft-${Date.now()}`,
+      name,
+      description,
+    }
+
+    setDrafts([...drafts, draft]);
+  }
 
   useEffect(() => {
     if (modalOpened && proofCreated) {
@@ -70,7 +88,12 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
                 ? <Button leftSection={<Loader type="bras" size={"xs"} />} disabled size="md" radius={"lg"}>
                   Creating Proof
                 </Button>
-                : <Button leftSection={<IconCertificate size={18} />} type="submit" size="md" radius={"lg"}>Submit</Button>
+                : (
+                  <Stack>
+                    <Button onClick={() => saveDraft(form.values)} leftSection={<IconCertificate size={18} />} size="md" radius={"lg"}>Save Draft</Button>
+                    <Button leftSection={<IconCertificate size={18} />} type="submit" size="md" radius={"lg"}>Submit</Button>
+                  </Stack>
+                )
             )
             : <WalletButton />
         }
