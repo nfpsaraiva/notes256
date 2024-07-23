@@ -1,19 +1,22 @@
 import { Proof } from "@/types";
-import { Badge, CopyButton as MantineCopyButton, Group, Tooltip } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { FC } from "react";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import TransferProof from "./TransferButton/TransferButton";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-import { useProofByOwner, useProofOwner } from "@/hooks";
-import { shortifyAddress } from "@/utils/proofUtils";
+import { useProofOwner } from "@/hooks";
 import CopyButton from "./CopyButton/CopyButton";
+import OwnerButton from "./OwnerButton/OwnerButton";
+import MenuButton from "./MenuButton/MenuButton";
 
 interface ProofCardControlsProps {
-  proof: Proof
+  proof: Proof,
+  openTransferModal: () => void
 }
 
 const ProofCardControls: FC<ProofCardControlsProps> = ({
-  proof
+  proof,
+  openTransferModal
 }: ProofCardControlsProps) => {
   const { address } = useWeb3ModalAccount();
   const { owner } = useProofOwner(proof);
@@ -24,27 +27,12 @@ const ProofCardControls: FC<ProofCardControlsProps> = ({
     <Group justify="space-between">
       <Group gap={"xs"} flex={1}>
         <CopyButton proof={proof} />
-        {isOwner && <TransferProof proof={proof} />}
+        {isOwner && <TransferProof proof={proof} openModal={openTransferModal} />}
         {isOwner && <DeleteButton proof={proof} />}
+        <MenuButton proof={proof} />
       </Group>
       <Group>
-        {
-          owner &&
-          <MantineCopyButton value={owner} timeout={2000}>
-            {({ copied, copy }) => (
-              <Tooltip label={copied ? 'Copied' : 'Copy Owner'} withArrow>
-                <Badge flex={1} size="sm" variant={owner === address ? 'light' : 'outline'} style={{ cursor: "pointer" }} onClick={e => {
-                  e.stopPropagation();
-                  copy();
-                }}>
-                  {
-                    copied ? 'Copyed' : shortifyAddress(owner)
-                  }
-                </Badge>
-              </Tooltip>
-            )}
-          </MantineCopyButton>
-        }
+        <OwnerButton proof={proof} />
       </Group>
     </Group>
   )

@@ -6,24 +6,18 @@ import envs from "@/envs";
 import { Proof } from "@/types";
 import { buildProofByTokenId } from "@/utils/proofUtils";
 
-const useProofs = (owner?: string) => {
+const useProofs = (searchTerm: string) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
-  const { data: proofs, isSuccess, isFetching, isError } = useQuery({
-    queryKey: ["proofs"],
+  const { data: proofs, isSuccess, isFetching, isError, refetch } = useQuery({
+    queryKey: ["proofs", searchTerm],
     queryFn: async () => {
       const proofs: Proof[] = [];
       let provifyNfts = [];
 
-      if (owner === undefined) {
-        const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
-        provifyNfts = nfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
-      } else {
-        console.log("owner");
-        const { ownedNfts } = await alchemy.nft.getNftsForOwner(owner);
-        provifyNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
-      }
+      const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
+      provifyNfts = nfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
 
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -32,11 +26,37 @@ const useProofs = (owner?: string) => {
         contract.abi,
         alchemyProvider
       )
-      
+
+
       for (const nft of provifyNfts) {
         const proof = await buildProofByTokenId(Number(nft.tokenId), provifyContract);
+        const owner = await provifyContract.ownerOf(nft.tokenId);
 
-        proofs.push(proof);
+        if (searchTerm.length === 66) {
+          if (proof.id === searchTerm) {
+            proofs.push(proof);
+          }
+
+          continue;
+        }
+
+        if (searchTerm.length === 42) {
+          if (owner === searchTerm) {
+            proofs.push(proof);
+          }
+
+          continue;
+        }
+
+        if (proof.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+          proofs.push(proof);
+          continue;
+        }
+
+        if (proof.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+          proofs.push(proof);
+          continue;
+        }
       }
 
       return proofs.sort((a, b) => {
@@ -44,10 +64,12 @@ const useProofs = (owner?: string) => {
         if (a.date.getTime() > b.date.getTime()) return -1;
         return 0
       });
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
-  return { proofs, isSuccess, isFetching, isError };
+  return { proofs, isSuccess, isFetching, isError, refetch };
 }
 
 export default useProofs;

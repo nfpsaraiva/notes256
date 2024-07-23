@@ -16,7 +16,8 @@ const DeleteButton: FC<DeleteButtonProps> = ({ proof }: DeleteButtonProps) => {
     e.stopPropagation();
 
     modals.openConfirmModal({
-      title: 'Delete your profile',
+      title: 'Delete Proof',
+      radius: "lg",
       centered: true,
       children: (
         <Text size="sm">
@@ -24,7 +25,8 @@ const DeleteButton: FC<DeleteButtonProps> = ({ proof }: DeleteButtonProps) => {
         </Text>
       ),
       labels: { confirm: 'Delete proof', cancel: "No don't delete it" },
-      confirmProps: { color: 'red' },
+      confirmProps: { color: 'red', radius: "lg" },
+      cancelProps: {radius: "lg"},
       onCancel: () => console.log('Cancel'),
       onConfirm: () => deleteProof(Number(proof.tokenId)),
     });

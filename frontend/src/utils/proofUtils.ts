@@ -10,11 +10,11 @@ const buildProofByTokenId = async (tokenId: number, contract: Contract) => {
   const date = new Date(timestamp * 1000);
 
   return {
-    id: proof[0],
-    name: proof[1],
-    description: proof[2],
+    id: proof[0] as string,
+    name: proof[1] as string,
+    description: proof[2] as string,
     tokenId: BigInt(tokenId),
-    image,
+    image: image as string,
     date,
   }
 };

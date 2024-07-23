@@ -10,7 +10,7 @@ const useProofByOwner = (owner?: string) => {
   const alchemy = useAlchemy();
   const { CONTRACT_ADDRESS } = envs;
 
-  const { data: proofs, isSuccess, isFetching, isError } = useQuery({
+  const { data: proofs, isSuccess, isFetching, isError, refetch } = useQuery({
     queryKey: ["proofs", owner],
     queryFn: async () => {
       if (owner === undefined) return [];
@@ -41,10 +41,12 @@ const useProofByOwner = (owner?: string) => {
         return 0
       });
     },
-    enabled: owner !== undefined
+    enabled: owner !== undefined,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false
   });
 
-  return { proofs, isSuccess, isFetching, isError };
+  return { proofs, isSuccess, isFetching, isError, refetch };
 }
 
 export default useProofByOwner;

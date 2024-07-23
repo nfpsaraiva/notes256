@@ -9,7 +9,7 @@ interface ProofsListProps {
 
 const ProofsList: FC<ProofsListProps> = ({ proofs }: ProofsListProps) => {
   return (
-    <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }}>
+    <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }}>
       {
         proofs.map(proof => <ProofCard key={proof.id} proof={proof} />)
       }

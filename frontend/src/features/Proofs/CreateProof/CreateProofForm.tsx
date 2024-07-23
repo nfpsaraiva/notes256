@@ -1,4 +1,4 @@
-import { Button, Stack, TextInput, Textarea } from "@mantine/core";
+import { Button, Loader, Stack, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { FC, useEffect } from "react";
 import { IconCertificate } from "@tabler/icons-react";
@@ -67,8 +67,10 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
           isConnected
             ? (
               creatingProof
-                ? <Button leftSection={<IconCertificate size={18} />} disabled size="md">Creating Proof</Button>
-                : <Button leftSection={<IconCertificate size={18} />} type="submit" size="md">Submit</Button>
+                ? <Button leftSection={<Loader type="bras" size={"xs"} />} disabled size="md" radius={"lg"}>
+                  Creating Proof
+                </Button>
+                : <Button leftSection={<IconCertificate size={18} />} type="submit" size="md" radius={"lg"}>Submit</Button>
             )
             : <WalletButton />
         }

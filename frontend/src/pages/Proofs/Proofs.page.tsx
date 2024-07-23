@@ -9,10 +9,11 @@ import { Proof } from '@/types';
 import { MainTitle } from '@/components/UI/MainTitle';
 import { useProofByOwner } from '@/hooks';
 import { BlockchainLoader } from '@/components/Common';
+import { IconRefresh } from '@tabler/icons-react';
 
 const Proofs: FC = () => {
   const { address } = useWeb3ModalAccount();
-  const { proofs, isFetching } = useProofByOwner(address);
+  const { proofs, isFetching, refetch } = useProofByOwner(address);
   const [searchValue, setSearchValue] = useState('');
 
   let filteredProofs: Proof[] = [];
@@ -36,6 +37,9 @@ const Proofs: FC = () => {
         <ProofSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
+          submit={refetch}
+          submitLabel="Refresh"
+          submitIcon={<IconRefresh size={18} />}
         />
         {
           isFetching && <BlockchainLoader />

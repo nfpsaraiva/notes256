@@ -5,22 +5,14 @@ import CreateProofButton from "@/features/Proofs/CreateProof/CreateProofButton";
 import ProofSearch from "@/features/Proofs/ProofSearch/ProofSearch";
 import ProofsList from "@/features/Proofs/ProofsList/ProofList";
 import useProofs from "@/hooks/useProofs";
-import { Proof } from "@/types";
-import { Box, Center, Group, Loader, Stack } from "@mantine/core";
+import { Box, Group, Stack } from "@mantine/core";
+import { IconRefresh } from "@tabler/icons-react";
 import { FC, useState } from "react";
 
 const Explore: FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { proofs, isFetching } = useProofs();
+  const { proofs, isFetching, refetch } = useProofs(searchValue);
 
-  let filteredProofs: Proof[] = [];
-
-  if (proofs) {
-    filteredProofs = proofs.filter(proof => {
-      return proof.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
-        || proof.description.toLowerCase().includes(searchValue.toLowerCase());
-    });
-  }
 
   return (
     <AppShell>
@@ -35,11 +27,16 @@ const Explore: FC = () => {
           searchValue={searchValue}
           setSearchValue={setSearchValue}
           placeholder="Search by keyword, ID or owner"
+          submit={refetch}
+          submitLabel="Refresh"
+          submitIcon={<IconRefresh size={18} />}
         />
         {
           isFetching && <BlockchainLoader />
         }
-        <ProofsList proofs={filteredProofs} />
+        {
+          proofs && <ProofsList proofs={proofs} />
+        }
       </Stack>
     </AppShell>
   )
