@@ -12,7 +12,7 @@ const CreateProofButton: FC = () => {
       <Button
         onClick={open}
         size="md"
-        radius={"lg"}
+        radius={"xl"}
         leftSection={<IconPlus size={18} stroke={3} />}
       >
         Add

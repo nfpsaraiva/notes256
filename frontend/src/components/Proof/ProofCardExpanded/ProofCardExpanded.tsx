@@ -19,7 +19,7 @@ const ProofCardExpanded: FC<ProofCardExpandedProps> = ({
   return (
     <Modal
       radius={"lg"}
-      size={"lg"}
+      size={"md"}
       padding={0}
       opened={opened}
       onClose={close}

@@ -10,13 +10,12 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
         bytes32 id;
         string title;
         string content;
-        address author;
         uint256 timestamp;
     }
 
     // List of proofs
     mapping(uint256 => Proof) public proofs;
-    mapping(bytes32 => uint256) public proofsIdsByContentHash;
+    mapping(bytes32 => uint256) public proofsIds;
 
     // Proofs counter used to generate new NFT token IDs
     uint256 public lastTokenId;
@@ -60,7 +59,7 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
         bytes32 proofId = keccak256(abi.encodePacked(_content));
 
         // Prevent duplicates
-        require(proofsIdsByContentHash[proofId] == 0, "Proof already exists");
+        require(proofsIds[proofId] == 0, "Proof already exists");
 
         // Increment token ID
         lastTokenId++;
@@ -70,10 +69,9 @@ contract Provify is ERC721, ERC721URIStorage, ERC721Burnable {
             proofId,
             _name,
             _content,
-            msg.sender,
             block.timestamp
         );
-        proofsIdsByContentHash[proofId] = lastTokenId;
+        proofsIds[proofId] = lastTokenId;
 
         // Mint an NFT as proof
         _safeMint(msg.sender, lastTokenId);

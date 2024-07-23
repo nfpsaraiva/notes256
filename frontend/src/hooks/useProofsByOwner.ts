@@ -11,7 +11,7 @@ const useProofByOwner = (owner?: string) => {
   const { CONTRACT_ADDRESS } = envs;
 
   const { data: proofs, isSuccess, isFetching, isError } = useQuery({
-    queryKey: ["proofs"],
+    queryKey: ["proofs", owner],
     queryFn: async () => {
       if (owner === undefined) return [];
       

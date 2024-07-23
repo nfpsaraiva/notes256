@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { AppShell } from '@/components/Layout';
-import { Box, Center, Group, Loader, Stack, Text, Title } from '@mantine/core';
+import { Box, Group, Stack } from '@mantine/core';
 import CreateProofButton from '@/features/Proofs/CreateProof/CreateProofButton';
 import ProofSearch from '@/features/Proofs/ProofSearch/ProofSearch';
 import ProofsList from '@/features/Proofs/ProofsList/ProofList';
@@ -8,6 +8,7 @@ import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { Proof } from '@/types';
 import { MainTitle } from '@/components/UI/MainTitle';
 import { useProofByOwner } from '@/hooks';
+import { BlockchainLoader } from '@/components/Common';
 
 const Proofs: FC = () => {
   const { address } = useWeb3ModalAccount();
@@ -37,10 +38,7 @@ const Proofs: FC = () => {
           setSearchValue={setSearchValue}
         />
         {
-          isFetching &&
-          <Center>
-            <Loader type='bars' size={"xs"} />
-          </Center>
+          isFetching && <BlockchainLoader />
         }
         <ProofsList proofs={filteredProofs} />
       </Stack>

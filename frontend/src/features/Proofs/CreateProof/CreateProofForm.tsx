@@ -47,7 +47,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
       <Stack>
         <TextInput
           withAsterisk
-          label="Name"
+          label="Title"
           placeholder="The proof name"
           key={form.key("name")}
           {...form.getInputProps("name")}

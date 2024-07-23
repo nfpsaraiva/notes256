@@ -1,4 +1,4 @@
-import { expect, assert } from "chai";
+import { expect } from "chai";
 import { ethers } from "hardhat";
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
@@ -20,15 +20,11 @@ describe("Create Proof", () => {
 
     const proof = await provifyContract.proofs(1);
 
-    const proofId = ethers.solidityPackedKeccak256(
-      ["string", "address"], 
-      ["bar", owner.address]
-    );
+    const proofId = ethers.solidityPackedKeccak256(["string"], ["bar"]);
 
     expect(proof[0]).to.be.equal(proofId);
     expect(proof[1]).to.be.equal("foo");
     expect(proof[2]).to.be.equal("bar");
-    expect(proof[3]).to.be.equal(owner.address);
   })
 
   it("Should set a tokenURI when creating a proof", async () => {

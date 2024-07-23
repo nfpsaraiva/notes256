@@ -6,7 +6,7 @@ const buildProofByTokenId = async (tokenId: number, contract: Contract) => {
   const metadata = await fetch(tokenURI);
   const { image } = await metadata.json();
 
-  const timestamp = Number(proof[4]);
+  const timestamp = Number(proof[3]);
   const date = new Date(timestamp * 1000);
 
   return {
@@ -16,7 +16,6 @@ const buildProofByTokenId = async (tokenId: number, contract: Contract) => {
     tokenId: BigInt(tokenId),
     image,
     date,
-    issuer: proof[3]
   }
 };
 

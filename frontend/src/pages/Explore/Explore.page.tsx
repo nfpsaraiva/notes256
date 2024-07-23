@@ -1,3 +1,4 @@
+import { BlockchainLoader } from "@/components/Common";
 import { AppShell } from "@/components/Layout";
 import { MainTitle } from "@/components/UI/MainTitle";
 import CreateProofButton from "@/features/Proofs/CreateProof/CreateProofButton";
@@ -33,12 +34,10 @@ const Explore: FC = () => {
         <ProofSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
+          placeholder="Search by keyword, ID or owner"
         />
         {
-          isFetching &&
-          <Center>
-            <Loader type="bars" size={"xs"} />
-          </Center>
+          isFetching && <BlockchainLoader />
         }
         <ProofsList proofs={filteredProofs} />
       </Stack>
