@@ -1,5 +1,5 @@
 import { Draft } from "@/types";
-import { Button, Group } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { FC } from "react";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import PublishButton from "./PublishButton/PublishButton";

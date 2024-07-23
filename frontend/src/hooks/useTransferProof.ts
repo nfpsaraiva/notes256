@@ -15,7 +15,7 @@ const useTransferProof = () => {
     isSuccess: proofTransfered,
     isPending: transferingProof
   } = useMutation({
-    mutationFn: async ({ to, tokenId }: {to: string, tokenId: bigint}) => {
+    mutationFn: async ({ to, tokenId }: {to: string, tokenId: number}) => {
       if (!walletProvider) return;
 
       const ethersProvider = new BrowserProvider(walletProvider);
