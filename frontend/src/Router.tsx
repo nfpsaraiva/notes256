@@ -3,7 +3,7 @@ import About from './pages/About/About.page';
 import HowItWorks from './pages/HowItWorks/HowItWorks.page';
 import Roadmap from './pages/Roadmap/Roadmap.page';
 import Drafts from './pages/Drafts/Drafts.page';
-import { Notes } from '@/pages';
+import { Notes, Team } from '@/pages';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +16,12 @@ const router = createBrowserRouter([
     path: '/drafts',
     element: (
       <Drafts />
+    ),
+  },
+  {
+    path: '/team',
+    element: (
+      <Team />
     ),
   },
   {
