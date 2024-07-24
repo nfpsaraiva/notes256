@@ -49,6 +49,7 @@ const CreateProofForm: FC<CreateProofFormProps> = ({
       id: `provify-draft-${Date.now()}`,
       name,
       description,
+      date: new Date()
     }
 
     setDrafts([...drafts, draft]);

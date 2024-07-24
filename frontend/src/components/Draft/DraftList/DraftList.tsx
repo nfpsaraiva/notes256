@@ -1,7 +1,6 @@
 import { SimpleGrid } from "@mantine/core";
 import { FC } from "react";
-import { Draft, Proof } from "@/types";
-import { ProofCard } from "@/components/Proof";
+import { Draft } from "@/types";
 import DraftCard from "../DraftCard/DraftCard";
 
 interface DraftListProps {

@@ -1,34 +1,28 @@
 import { Draft } from "@/types";
-import { Group } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
 import { FC } from "react";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import PublishButton from "./PublishButton/PublishButton";
-import SaveButton from "./PublishButton/SaveButton";
 
 interface DraftCardControlsProps {
   draft: Draft,
-  expanded: boolean
+  expanded: boolean,
+  newTitle: string,
+  newDescription: string,
 }
 
 const DraftCardControls: FC<DraftCardControlsProps> = ({
   draft,
-  expanded
+  expanded,
+  newTitle,
+  newDescription
 }: DraftCardControlsProps) => {
-
-  if (expanded) {
-    return (
+  return (
+    <Group justify="space-between">
       <Group>
-        <SaveButton />
         <PublishButton />
         <DeleteButton draft={draft} />
       </Group>
-    )
-  }
-
-  return (
-    <Group>
-      <PublishButton />
-      <DeleteButton draft={draft} />
     </Group>
   )
 }
