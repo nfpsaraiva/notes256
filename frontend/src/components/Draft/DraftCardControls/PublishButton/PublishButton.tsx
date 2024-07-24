@@ -3,7 +3,7 @@ import { Draft } from "@/types";
 import { ActionIcon, Text, Tooltip } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
-import { IconCertificate } from "@tabler/icons-react";
+import { IconCertificate, IconUpload } from "@tabler/icons-react";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -55,7 +55,7 @@ const PublishButton: FC<PublishButtonProps> = ({ draft }: PublishButtonProps) =>
     return (
       <Tooltip label="Publish">
         <ActionIcon variant="subtle" size={"lg"} disabled>
-          <IconCertificate size={16} />
+          <IconUpload size={16} />
         </ActionIcon>
       </Tooltip>
     )
@@ -64,7 +64,7 @@ const PublishButton: FC<PublishButtonProps> = ({ draft }: PublishButtonProps) =>
   return (
     <Tooltip label="Publish">
       <ActionIcon variant="subtle" size={"lg"} onClick={e => publish(e)}>
-        <IconCertificate size={16} />
+        <IconUpload size={16} />
       </ActionIcon>
     </Tooltip>
   )

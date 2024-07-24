@@ -1,12 +1,13 @@
-import { Button, Loader, Stack, TextInput, Textarea } from "@mantine/core";
+import { Button, Divider, Group, Loader, Stack, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { FC, useEffect } from "react";
-import { IconCertificate } from "@tabler/icons-react";
+import { IconCertificate, IconFile, IconNote, IconNotes } from "@tabler/icons-react";
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { useCreateNote } from "@/hooks";
 import WalletButton from "@/features/Wallet/WalletButton";
 import { Draft, Note } from "@/types";
 import { useLocalStorage } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 
 interface CreateNoteFormProps {
   modalOpened: boolean,
@@ -19,6 +20,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
 }: CreateNoteFormProps) => {
   const { isConnected } = useWeb3ModalAccount();
   const { createNote, creatingNote, noteCreated } = useCreateNote();
+  const navigate = useNavigate();
   const [drafts, setDrafts] = useLocalStorage<Draft[]>({
     key: "provify-drafts",
     defaultValue: []
@@ -53,6 +55,9 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
     }
 
     setDrafts([...drafts, draft]);
+    closeModal();
+
+    navigate('/drafts');
   }
 
   useEffect(() => {
@@ -63,18 +68,18 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack>
+      <Stack gap={"xl"}>
         <TextInput
           withAsterisk
-          label="Title"
-          placeholder="The note name"
+          autoFocus
+          variant="unstyled"
+          placeholder="Name"
           key={form.key("name")}
           {...form.getInputProps("name")}
         />
         <Textarea
-          label="Description"
-          placeholder="The note description"
-          description="This will save as a plain text"
+          variant="unstyled"
+          placeholder="Take a note"
           autosize
           maxLength={500}
           minRows={6}
@@ -90,13 +95,41 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
                   Creating Note
                 </Button>
                 : (
-                  <Stack>
-                    <Button onClick={() => saveDraft(form.values)} leftSection={<IconCertificate size={18} />} size="md" radius={"lg"}>Save Draft</Button>
-                    <Button leftSection={<IconCertificate size={18} />} type="submit" size="md" radius={"lg"}>Submit</Button>
-                  </Stack>
+                  <Group justify="space-between">
+                    <Button
+                      onClick={() => saveDraft(form.values)}
+                      leftSection={<IconFile size={18} />}
+                      size="sm"
+                      radius={"lg"}
+                      variant="subtle"
+                    >
+                      Save Draf
+                    </Button>
+                    <Button
+                      leftSection={<IconNotes size={18} />}
+                      type="submit"
+                      size="sm"
+                      radius={"lg"}
+                    >
+                      Publish
+                    </Button>
+                  </Group>
                 )
             )
-            : <WalletButton />
+            : (
+              <Group justify="space-between">
+                <Button
+                  onClick={() => saveDraft(form.values)}
+                  leftSection={<IconFile size={18} />}
+                  size="sm"
+                  radius={"lg"}
+                  variant="subtle"
+                >
+                  Save Draf
+                </Button>
+                <WalletButton />
+              </Group>
+            )
         }
       </Stack>
     </form>

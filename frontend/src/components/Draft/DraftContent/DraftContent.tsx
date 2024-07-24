@@ -30,6 +30,7 @@ const DraftContent: FC<DraftContentProps> = ({
                   value={newTitle}
                   onChange={e => setNewTitle(e.target.value)}
                   variant="unstyled"
+                  placeholder="Name"
                   fw={600}
                 />
                 {
@@ -42,7 +43,10 @@ const DraftContent: FC<DraftContentProps> = ({
             )
             : (
               <Stack gap={4}>
-                <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{draft.name}</Title>
+                {
+                  draft.name !== "" &&
+                  <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{draft.name}</Title>
+                }
                 {
                   draft.date &&
                   <Text c={"dimmed"} size="xs" fw={500}>

@@ -12,7 +12,7 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({
   close
 }: CreateNoteModalProps) => {
   return (
-    <Modal size={"lg"} radius={"lg"} opened={opened} onClose={close} title="Create Note">
+    <Modal radius={"lg"} opened={opened} withCloseButton={false} onClose={close} centered>
       <CreateNoteForm closeModal={close} modalOpened={opened} />
     </Modal>
   )

@@ -1,8 +1,9 @@
-import { AppShell, Burger, Divider, Group, ScrollArea, Stack, Title } from "@mantine/core";
+import { AppShell, Burger, Divider, Group, Image, ScrollArea, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
 import { ColorSchemeToggle, NetworkSwitcher } from "@/components/Common";
 import { IconCertificate, IconNote, IconNotes } from "@tabler/icons-react";
+import appIcon from "../../../assets/app-icon.jpg";
 
 interface NavbarProps {
   sidebarOpened: boolean,
@@ -18,7 +19,7 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
           <Group flex={1}>
             <Burger opened={sidebarOpened} onClick={sidebarToggle} hiddenFrom="sm" size="sm" />
             <Group gap={"xs"}>
-              <IconNotes size={20} />
+              <Image src={appIcon} w={24} />
               <Title size={"h3"}>Notes256</Title>
             </Group>
           </Group>

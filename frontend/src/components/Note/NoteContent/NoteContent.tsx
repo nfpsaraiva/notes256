@@ -11,7 +11,10 @@ const NoteContent: FC<NoteContentProps> = ({ note, expanded = false }: NoteConte
   return (
     <Stack gap={"lg"} h={"100%"} mb={"lg"}>
       <Stack gap={4}>
+        {
+          note.name !== "" &&
         <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{note.name}</Title>
+        }
         {
           note.date &&
           <Text c={"dimmed"} size="xs" fw={500}>
