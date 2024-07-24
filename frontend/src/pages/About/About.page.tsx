@@ -9,7 +9,7 @@ const About: FC = () => {
   return (
     <AppShell>
       <Stack>
-        <MainTitle title="Welcome to Provify" />
+        <MainTitle title="About" />
         <Box>
           <Markdown children={about} />
         </Box>

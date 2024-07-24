@@ -8,6 +8,6 @@
 - Drafts Implementation
 
 ### Future
-- Sharing proofs
-- Print Proofs
+- Sharing notes
+- Print Notes
 - Multi chain

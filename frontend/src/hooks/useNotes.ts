@@ -17,10 +17,10 @@ const useNotesByOwner = (searchTerm: string) => {
     queryFn: async () => {
       if (address === undefined) return [];
       
-      let provifyNfts = [];
+      let contractNfts = [];
 
       const { ownedNfts } = await alchemy.nft.getNftsForOwner(address);
-      provifyNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
+      contractNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
 
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -68,7 +68,7 @@ const useNotesByOwner = (searchTerm: string) => {
         }
       }
 
-      const promises = provifyNfts.map(nft => getNote(nft));
+      const promises = contractNfts.map(nft => getNote(nft));
       const notes = await Promise.all(promises);
 
       return notes.filter(p => p !== undefined).sort((a, b) => {

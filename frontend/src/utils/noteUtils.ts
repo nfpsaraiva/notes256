@@ -2,7 +2,7 @@ import { Contract, Nft } from "alchemy-sdk";
 
 const buildNoteByNFT = async (nft: Nft, contract: Contract) => {
   const [note, owner] = await Promise.all([
-    contract.proofs(BigInt(nft.tokenId)),
+    contract.notes(BigInt(nft.tokenId)),
     contract.ownerOf(nft.tokenId)
   ]);
 
