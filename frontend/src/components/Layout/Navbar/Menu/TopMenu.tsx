@@ -1,5 +1,5 @@
-import { Stack } from "@mantine/core";
-import { IconFile, IconNotes } from "@tabler/icons-react";
+import { Divider, Stack } from "@mantine/core";
+import { IconArchive, IconCube, IconFile, IconFiles, IconNetwork, IconNotes, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
 import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
@@ -8,8 +8,11 @@ import { MenuEnum } from "@/enums";
 const TopMenu: FC = () => {
   return (
     <Stack gap={4} className={classes.menu}>
-      <MenuItem name={MenuEnum.NOTES} path="/" icon={<IconNotes size={20} />} />
-      <MenuItem name={MenuEnum.DRAFTS} path="/drafts" icon={<IconFile size={20} />} />
+      <MenuItem name={MenuEnum.NFTS} path="/blockchain" icon={<IconCube size={18} />} />
+      <Divider my={"sm"} />
+      <MenuItem name={MenuEnum.NOTES} path="/" icon={<IconFiles size={18} />} />
+      <MenuItem name={MenuEnum.ARCHIVE} path="/archive" icon={<IconArchive size={18} />} />
+      <MenuItem name={MenuEnum.TRASH} path="/trash" icon={<IconTrash size={18} />} />
     </Stack>
   )
 }

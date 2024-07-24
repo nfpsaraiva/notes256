@@ -1,7 +1,7 @@
-import { AppShell, Badge, Burger, Divider, Group, Image, ScrollArea, Stack, Title } from "@mantine/core";
+import { AppShell, Badge, Burger, Divider, Group, Image, Indicator, ScrollArea, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
-import { ColorSchemeToggle, NetworkSwitcher } from "@/components/Common";
+import { ColorSchemeToggle, NetworkSwitcher, SidebarToggle } from "@/components/Common";
 import appIcon from "../../../assets/app-icon.jpg";
 
 interface NavbarProps {
@@ -17,17 +17,17 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
         <Group justify='space-between'>
           <Group flex={1}>
             <Burger opened={sidebarOpened} onClick={sidebarToggle} hiddenFrom="sm" size="sm" />
-            <Group gap={"xs"}>
+            <Group gap={"sm"}>
               <Image src={appIcon} w={24} />
               <Title size={"h3"}>Notes256</Title>
-              <Badge size="xs" variant="transparent">Alpha</Badge>
             </Group>
           </Group>
           <ColorSchemeToggle />
+          <SidebarToggle toggle={sidebarToggle} />
         </Group>
       </AppShell.Section>
       <AppShell.Section grow px={"lg"} component={ScrollArea}>
-        <Stack py={"md"} gap={"xl"}>
+        <Stack py={"md"} gap={"lg"}>
           <NetworkSwitcher />
           <TopMenu />
         </Stack>

@@ -1,6 +1,8 @@
 enum MenuEnum {
+  NFTS = "NFTs",
   NOTES = "Notes",
-  DRAFTS = "Drafts",
+  ARCHIVE = "Archive",
+  TRASH = "Trash",
   HOW_IT_WORKS = "How it works",
   ROADMAP = "Roadmap",
   TEAM = "Team",

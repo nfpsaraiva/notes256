@@ -2,10 +2,7 @@ interface Note {
   id: string,
   name: string,
   description: string,
-  date: Date,
-  tokenId: number,
-  image: string,
-  owner: string
+  date: Date
 }
 
 export default Note;

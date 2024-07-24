@@ -1,4 +1,5 @@
-import { WalletButton } from "@/features";
+import { SidebarToggle } from "@/components/Common";
+import { WalletButton } from "@/features/Wallet";
 import { Burger, Group } from "@mantine/core";
 import { FC } from "react";
 
@@ -10,10 +11,19 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ sidebarOpened, sidebarToggle }: HeaderProps) => {
   return (
     <>
-      <Group justify="flex-end" h="100%" px="md" wrap="nowrap" visibleFrom="sm">
-        <WalletButton />
+      <Group h="100%" px="md" mt={"sm"} wrap="nowrap" visibleFrom="sm">
+        {
+          !sidebarOpened
+            ? <Group justify="flex-end" w={"100%"}>
+              <WalletButton />
+            </Group>
+            : <Group justify="space-between" w={"100%"}>
+              <SidebarToggle toggle={sidebarToggle} />
+              <WalletButton />
+            </Group>
+        }
       </Group>
-      <Group justify="space-between" h="100%" px="md" wrap="nowrap" hiddenFrom="sm">
+      <Group justify="space-between" h="100%" px="lg" mt={"sm"} wrap="nowrap" hiddenFrom="sm">
         <Burger opened={sidebarOpened} onClick={sidebarToggle} size="sm" />
         <WalletButton />
       </Group>

@@ -1,45 +1,32 @@
-import { FC, useState } from 'react';
-import { AppShell } from '@/components/Layout';
-import { Box, Group, Stack } from '@mantine/core';
-import NoteSearch from '@/features/Notes/NoteSearch/NoteSearch';
-import { MainTitle } from '@/components/UI/MainTitle';
-import { BlockchainLoader } from '@/components/Common';
-import { IconRefresh } from '@tabler/icons-react';
-import { useNotes } from '@/hooks';
-import { useDebouncedValue } from '@mantine/hooks';
-import CreateNoteButton from '@/features/Notes/CreateNote/CreateNoteButton';
-import NotesList from '@/features/Notes/NotesList/NotesList';
+import { AppShell } from "@/components/Layout";
+import { MainTitle } from "@/components/UI/MainTitle";
+import { CreateNoteButton, NoteList, NoteSearch } from "@/features/Notes/components";
+import { useNotes } from "@/features/Notes/hooks";
+import { Box, Group, Stack } from "@mantine/core";
+import { FC, useState } from "react";
 
 const Notes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [searchValueDebounced] = useDebouncedValue(searchValue, 500);
-  const { notes, isFetching, refetch } = useNotes(searchValueDebounced);
+  const { notes } = useNotes(searchValue);
 
   return (
     <AppShell>
       <Stack gap={"xl"}>
         <Group justify="space-between" align="center" wrap="nowrap">
           <Box flex={1}>
-            <MainTitle title='Notes' subtitle='Write statements and original ideas' />
+            <MainTitle title="Notes" subtitle="Notes will only be saved on your device" />
           </Box>
-          <CreateNoteButton />
         </Group>
         <NoteSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
-          submit={refetch}
-          submitLabel="Refresh"
-          submitIcon={<IconRefresh size={18} />}
         />
         {
-          isFetching && <BlockchainLoader />
-        }
-        {
-          notes && <NotesList notes={notes} />
+          notes && <NoteList notes={notes} />
         }
       </Stack>
     </AppShell>
-  );
+  )
 }
 
 export default Notes;

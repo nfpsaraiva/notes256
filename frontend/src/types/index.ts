@@ -1,7 +1,7 @@
-import Draft from "./Draft"
+import Nft from "./Nft"
 import Note from "./Note"
 
 export type {
-  Draft,
-  Note
+  Note,
+  Nft
 }

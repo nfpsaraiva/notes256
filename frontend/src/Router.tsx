@@ -2,10 +2,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import About from './pages/About/About.page';
 import HowItWorks from './pages/HowItWorks/HowItWorks.page';
 import Roadmap from './pages/Roadmap/Roadmap.page';
-import Drafts from './pages/Drafts/Drafts.page';
-import { Notes, Team } from '@/pages';
+import Drafts from './pages/Notes/Notes.page';
+import { Archive, Blockchain, Notes, Team, Trash } from '@/pages';
 
 const router = createBrowserRouter([
+  {
+    path: '/blockchain',
+    element: (
+      <Blockchain />
+    ),
+  },
   {
     path: '/',
     element: (
@@ -13,9 +19,15 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/drafts',
+    path: '/archive',
     element: (
-      <Drafts />
+      <Archive />
+    ),
+  },
+  {
+    path: '/trash',
+    element: (
+      <Trash />
     ),
   },
   {
