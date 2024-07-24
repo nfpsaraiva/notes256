@@ -1,46 +1,39 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Proofs from './pages/Proofs/Proofs.page';
 import About from './pages/About/About.page';
 import HowItWorks from './pages/HowItWorks/HowItWorks.page';
 import Roadmap from './pages/Roadmap/Roadmap.page';
-import Explore from './pages/Explore/Explore.page';
 import Drafts from './pages/Drafts/Drafts.page';
+import { Notes } from '@/pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-        <Proofs />
+      <Notes />
     ),
   },
   {
     path: '/drafts',
     element: (
-        <Drafts />
-    ),
-  },
-  {
-    path: '/explore',
-    element: (
-        <Explore />
+      <Drafts />
     ),
   },
   {
     path: '/how-it-works',
     element: (
-        <HowItWorks />
+      <HowItWorks />
     ),
   },
   {
     path: '/roadmap',
     element: (
-        <Roadmap />
+      <Roadmap />
     ),
   },
   {
     path: '/about',
     element: (
-        <About />
+      <About />
     ),
   }
 ]);

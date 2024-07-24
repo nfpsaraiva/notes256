@@ -1,13 +1,13 @@
-import useCreateProof from "./useCreateProof"
-import useDeleteProof from "./useDeleteProof"
-import useProof from "./useProof"
-import useProofsByOwner from "./useProofsByOwner"
-import useTransferProof from "./useTransferProof"
+import useCreateNote from "./useCreateNote"
+import useDeleteNote from "./useDeleteNote"
+import useNote from "./useNote"
+import useNotes from "./useNotes"
+import useTransferNote from "./useTransferNote"
 
 export {
-  useCreateProof,
-  useDeleteProof,
-  useProof,
-  useProofsByOwner,
-  useTransferProof,
+  useCreateNote,
+  useDeleteNote,
+  useNote,
+  useNotes,
+  useTransferNote,
 }

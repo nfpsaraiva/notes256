@@ -1,10 +1,8 @@
 import { Container, AppShell as MantineAppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-
 import { FC, ReactNode } from "react";
 import Header from '../Header/Header';
 import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
 import classes from "./AppShell.module.css";
 
 interface AppShellProps {

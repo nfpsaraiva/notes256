@@ -1,8 +1,8 @@
 import { DraftList } from "@/components/Draft";
 import { AppShell } from "@/components/Layout";
 import { MainTitle } from "@/components/UI/MainTitle";
-import CreateProofButton from "@/features/Proofs/CreateProof/CreateProofButton";
-import ProofSearch from "@/features/Proofs/ProofSearch/ProofSearch";
+import CreateNoteButton from "@/features/Notes/CreateNote/CreateNoteButton";
+import NoteSearch from "@/features/Notes/NoteSearch/NoteSearch";
 import { Draft } from "@/types";
 import { Box, Group, Stack } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
@@ -36,9 +36,9 @@ const Drafts: FC = () => {
           <Box flex={1}>
             <MainTitle title="Drafts" subtitle="Drafts will only be saved on your device" />
           </Box>
-          <CreateProofButton />
+          <CreateNoteButton />
         </Group>
-        <ProofSearch
+        <NoteSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
         />

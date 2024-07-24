@@ -1,4 +1,4 @@
-import { useCreateProof } from "@/hooks";
+import { useCreateNote } from "@/hooks";
 import { Draft } from "@/types";
 import { ActionIcon, Text, Tooltip } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
@@ -12,7 +12,7 @@ interface PublishButtonProps {
 }
 
 const PublishButton: FC<PublishButtonProps> = ({ draft }: PublishButtonProps) => {
-  const { createProof, creatingProof, proofCreated } = useCreateProof();
+  const { createNote, creatingNote, noteCreated } = useCreateNote();
   const navigate = useNavigate();
   const [drafts, setDrafts] = useLocalStorage<Draft[]>({
     key: "provify-drafts",
@@ -36,7 +36,7 @@ const PublishButton: FC<PublishButtonProps> = ({ draft }: PublishButtonProps) =>
       cancelProps: {radius: "lg"},
       onCancel: () => console.log('Cancel'),
       onConfirm: () => {
-        createProof({
+        createNote({
           name: draft.name,
           description: draft.description
         });
@@ -44,14 +44,14 @@ const PublishButton: FC<PublishButtonProps> = ({ draft }: PublishButtonProps) =>
     });
   }
 
-  if (proofCreated) {
+  if (noteCreated) {
     const newDrafts = drafts.filter(d => d.id !== draft.id);
     setDrafts(newDrafts);
     
     navigate('/');
   }
 
-  if (creatingProof) {
+  if (creatingNote) {
     return (
       <Tooltip label="Publish">
         <ActionIcon variant="subtle" size={"lg"} disabled>

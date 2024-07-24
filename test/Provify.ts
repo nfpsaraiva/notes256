@@ -2,129 +2,129 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
-async function deployProvifyFixture() {
+async function deployNotes256Fixture() {
   const [owner, otherAccount, otherAccount2] = await ethers.getSigners();
 
-  const provifyContract = await ethers.deployContract('Provify', owner);
+  const provifyContract = await ethers.deployContract('Notes256', owner);
 
   await provifyContract.waitForDeployment();
 
   return { owner, otherAccount, otherAccount2, provifyContract };
 }
 
-describe("Create Proof", () => {
-  it("Should get a proof by token ID", async () => {
-    const { owner, provifyContract } = await loadFixture(deployProvifyFixture)
+describe("Create Note", () => {
+  it("Should get a note by token ID", async () => {
+    const { owner, provifyContract } = await loadFixture(deployNotes256Fixture)
 
-    await provifyContract.createProof('foo', "bar", "https://gateway/foo");
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
-    const proof = await provifyContract.proofs(1);
+    const note = await provifyContract.notes(1);
 
-    const proofId = ethers.solidityPackedKeccak256(["string"], ["bar"]);
+    const noteId = ethers.solidityPackedKeccak256(["string"], ["bar"]);
 
-    expect(proof[0]).to.be.equal(proofId);
-    expect(proof[1]).to.be.equal("foo");
-    expect(proof[2]).to.be.equal("bar");
+    expect(note[0]).to.be.equal(noteId);
+    expect(note[1]).to.be.equal("foo");
+    expect(note[2]).to.be.equal("bar");
   })
 
-  it("Should set a tokenURI when creating a proof", async () => {
-    const {provifyContract} = await loadFixture(deployProvifyFixture);
+  it("Should set a tokenURI when creating a note", async () => {
+    const {provifyContract} = await loadFixture(deployNotes256Fixture);
 
-    await provifyContract.createProof('foo', "bar", "https://gateway/foo");
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
     const tokenURI = await provifyContract.tokenURI(1);
 
     expect(tokenURI).to.be.equal("https://gateway/foo");
   });
 
-  it("Should failed when creating a duplicated proof", async () => {
-    const {provifyContract} = await loadFixture(deployProvifyFixture);
+  it("Should failed when creating a duplicated note", async () => {
+    const {provifyContract} = await loadFixture(deployNotes256Fixture);
 
-    await provifyContract.createProof('foo', "bar", "https://gateway/foo");
-    const duplicatedProof = provifyContract.createProof('foo', "bar", "https://gateway/foo");
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
+    const duplicatedNote = provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
-    await expect(duplicatedProof).to.be.reverted;
+    await expect(duplicatedNote).to.be.reverted;
   })
 });
 
-describe("Verify Proof", () => {
-  it("Should confirm that a proof belogns to its owner", async () => {
-    const {otherAccount, provifyContract} = await loadFixture(deployProvifyFixture);
+describe("Verify Note", () => {
+  it("Should confirm that a note belogns to its owner", async () => {
+    const {otherAccount, provifyContract} = await loadFixture(deployNotes256Fixture);
 
     const signer = provifyContract.connect(otherAccount);
 
-    await signer.createProof("foo", "bar", "https://gateway/foo");
+    await signer.createNote("foo", "bar", "https://gateway/foo");
 
     expect(await provifyContract.ownerOf(1)).to.be.equal(otherAccount.address)
   });
 });
 
-describe("Delete Proof", () => {
-  it("Should fail when tryin to retreive an owner of a burned proof", async () => {
-    const { owner, provifyContract } = await loadFixture(deployProvifyFixture);
+describe("Delete Note", () => {
+  it("Should fail when tryin to retreive an owner of a burned note", async () => {
+    const { owner, provifyContract } = await loadFixture(deployNotes256Fixture);
 
     const signer = provifyContract.connect(owner);
 
-    await signer.createProof('foo', 'bar', "https://gateway/foo");
+    await signer.createNote('foo', 'bar', "https://gateway/foo");
 
-    await signer.deleteProof(1);
+    await signer.deleteNote(1);
 
     await expect(provifyContract.ownerOf(1)).to.be.reverted;
   });
 
-  it("Should faild when trying to delete a not owned proof", async () => {
-    const { owner, otherAccount, provifyContract } = await loadFixture(deployProvifyFixture);
+  it("Should faild when trying to delete a not owned note", async () => {
+    const { owner, otherAccount, provifyContract } = await loadFixture(deployNotes256Fixture);
 
-    await provifyContract.createProof('foo', 'bar', "https://gateway/foo");
+    await provifyContract.createNote('foo', 'bar', "https://gateway/foo");
 
     const signer = provifyContract.connect(otherAccount);
 
-    await expect(signer.deleteProof(1)).to.be.reverted;
+    await expect(signer.deleteNote(1)).to.be.reverted;
   })
 
-  it("Should emit event when deleting a proof", async () => {
-    const { provifyContract } = await loadFixture(deployProvifyFixture)
+  it("Should emit event when deleting a note", async () => {
+    const { provifyContract } = await loadFixture(deployNotes256Fixture)
 
-    await provifyContract.createProof('foo', "bar", "https://gateway/foo");
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
-    const proofDeleted = await provifyContract.deleteProof(1)
+    const noteDeleted = await provifyContract.deleteNote(1)
 
-    expect(proofDeleted)
-      .to.emit(provifyContract, "ProofDeleted")
+    expect(noteDeleted)
+      .to.emit(provifyContract, "NoteDeleted")
       .withArgs(1);
   })
 });
 
-describe("Transfer Proof", () => {
-  it("Should transfer a proof", async () => {
-    const { otherAccount, provifyContract } = await loadFixture(deployProvifyFixture);
+describe("Transfer Note", () => {
+  it("Should transfer a note", async () => {
+    const { otherAccount, provifyContract } = await loadFixture(deployNotes256Fixture);
 
-    await provifyContract.createProof("foo", "bar", "https://foo/bar");
+    await provifyContract.createNote("foo", "bar", "https://foo/bar");
 
-    await provifyContract.transferProof(otherAccount.address, 1);
+    await provifyContract.transferNote(otherAccount.address, 1);
 
     expect(await provifyContract.ownerOf(1)).to.be.equal(otherAccount.address);
   });
 
-  it("Should failed when transfering a not owned proof", async () => {
-    const { otherAccount, otherAccount2, provifyContract } = await loadFixture(deployProvifyFixture);
+  it("Should failed when transfering a not owned note", async () => {
+    const { otherAccount, otherAccount2, provifyContract } = await loadFixture(deployNotes256Fixture);
     
-    await provifyContract.createProof("foo", "bar", "https://foo/bar");
+    await provifyContract.createNote("foo", "bar", "https://foo/bar");
 
     const signer = provifyContract.connect(otherAccount);
 
-    await expect(signer.transferProof(otherAccount2, 1)).to.be.reverted;
+    await expect(signer.transferNote(otherAccount2, 1)).to.be.reverted;
   })
 
-  it("Should emit event when transfering a proof", async () => {
-    const { owner, otherAccount, provifyContract } = await loadFixture(deployProvifyFixture)
+  it("Should emit event when transfering a note", async () => {
+    const { owner, otherAccount, provifyContract } = await loadFixture(deployNotes256Fixture)
 
-    await provifyContract.createProof('foo', "bar", "https://gateway/foo");
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
-    const proofTransfered = await provifyContract.transferProof(otherAccount.address, 1);
+    const noteTransfered = await provifyContract.transferNote(otherAccount.address, 1);
 
-    expect(proofTransfered)
-      .to.emit(provifyContract, "ProofTransfered")
+    expect(noteTransfered)
+      .to.emit(provifyContract, "NoteTransfered")
       .withArgs(1, owner.address, otherAccount.address);
   });
 })

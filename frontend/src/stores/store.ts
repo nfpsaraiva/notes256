@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
 interface provifyStore {
-  proofId: string,
-  setProofId: (proofId: string) => void,
+  noteId: string,
+  setNoteId: (noteId: string) => void,
 }
 
 const useStore = create<provifyStore>()(set => ({
-  proofId: '',
-  setProofId: proofId => set(() => ({ proofId }))
+  noteId: '',
+  setNoteId: noteId => set(() => ({ noteId }))
 
 }));
 

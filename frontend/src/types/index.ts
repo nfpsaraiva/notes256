@@ -1,7 +1,7 @@
 import Draft from "./Draft"
-import Proof from "./Proof"
+import Note from "./Note"
 
 export type {
   Draft,
-  Proof
+  Note
 }

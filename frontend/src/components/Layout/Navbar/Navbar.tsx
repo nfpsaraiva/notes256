@@ -2,7 +2,7 @@ import { AppShell, Burger, Divider, Group, ScrollArea, Stack, Title } from "@man
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
 import { ColorSchemeToggle, NetworkSwitcher } from "@/components/Common";
-import { IconCertificate } from "@tabler/icons-react";
+import { IconCertificate, IconNote, IconNotes } from "@tabler/icons-react";
 
 interface NavbarProps {
   sidebarOpened: boolean,
@@ -18,8 +18,8 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
           <Group flex={1}>
             <Burger opened={sidebarOpened} onClick={sidebarToggle} hiddenFrom="sm" size="sm" />
             <Group gap={"xs"}>
-              <IconCertificate size={20} />
-              <Title size={"h3"}>Provify</Title>
+              <IconNotes size={20} />
+              <Title size={"h3"}>Notes256</Title>
             </Group>
           </Group>
           <ColorSchemeToggle />
