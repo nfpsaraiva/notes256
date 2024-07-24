@@ -8,10 +8,12 @@ import { MainTitle } from '@/components/UI/MainTitle';
 import { BlockchainLoader } from '@/components/Common';
 import { IconRefresh } from '@tabler/icons-react';
 import { useProofsByOwner } from '@/hooks';
+import { useDebouncedValue } from '@mantine/hooks';
 
 const Proofs: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { proofs, isFetching, refetch } = useProofsByOwner(searchValue);
+  const [searchValueDebounced] = useDebouncedValue(searchValue, 500);
+  const { proofs, isFetching, refetch } = useProofsByOwner(searchValueDebounced);
 
   return (
     <AppShell>

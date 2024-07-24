@@ -4,7 +4,6 @@ import { FC } from "react";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import TransferProof from "./TransferButton/TransferButton";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-import { useProofOwner } from "@/hooks";
 import CopyButton from "./CopyButton/CopyButton";
 import OwnerButton from "./OwnerButton/OwnerButton";
 import MenuButton from "./MenuButton/MenuButton";
@@ -19,9 +18,8 @@ const ProofCardControls: FC<ProofCardControlsProps> = ({
   openTransferModal
 }: ProofCardControlsProps) => {
   const { address } = useWeb3ModalAccount();
-  const { owner } = useProofOwner(proof);
 
-  const isOwner = address === owner;
+  const isOwner = address === proof.owner;
 
   return (
     <Group justify="space-between">

@@ -5,6 +5,7 @@ interface Proof {
   date: Date,
   tokenId: number,
   image: string,
+  owner: string
 }
 
 export default Proof;

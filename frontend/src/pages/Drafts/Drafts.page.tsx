@@ -21,6 +21,14 @@ const Drafts: FC = () => {
     return 0;
   });
 
+  const draftsFiltered = drafts.filter(draft => {
+    if (searchValue === "") return true;
+    if (draft.name.toLowerCase().includes(searchValue)) return true;
+    if (draft.description.toLowerCase().includes(searchValue)) return true;
+
+    return false;
+  })
+
   return (
     <AppShell>
       <Stack gap={"xl"}>
@@ -35,7 +43,7 @@ const Drafts: FC = () => {
           setSearchValue={setSearchValue}
         />
         {
-          drafts && <DraftList drafts={drafts} />
+          drafts && <DraftList drafts={draftsFiltered} />
         }
       </Stack>
     </AppShell>

@@ -1,5 +1,6 @@
 import { Draft } from "@/types";
 import { ActionIcon, Text, Tooltip } from "@mantine/core";
+import { useLocalStorage } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 import { IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
@@ -9,8 +10,14 @@ interface DeleteButtonProps {
 }
 
 const DeleteButton: FC<DeleteButtonProps> = ({ draft }: DeleteButtonProps) => {
+  const [drafts, setDrafts] = useLocalStorage<Draft[]>({
+    key: "provify-drafts",
+    defaultValue: []
+  });
+
   const openDeleteModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
+
 
     modals.openConfirmModal({
       title: 'Delete Draft',
@@ -25,7 +32,10 @@ const DeleteButton: FC<DeleteButtonProps> = ({ draft }: DeleteButtonProps) => {
       confirmProps: { color: 'red', radius: "lg" },
       cancelProps: {radius: "lg"},
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('delete'),
+      onConfirm: () => {
+        const newDrafts = drafts.filter(d => d.id !== draft.id);
+        setDrafts(newDrafts)
+      },
     });
   }
 

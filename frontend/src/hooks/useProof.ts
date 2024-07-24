@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import envs from "@/envs";
 import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
 import { Contract } from "alchemy-sdk";
-import { buildProofByTokenId } from "@/utils/proofUtils";
+import { buildProofByNFT } from "@/utils/proofUtils";
 
 const useProof = (proofId: string) => {
   const alchemy = useAlchemy();
@@ -21,8 +21,9 @@ const useProof = (proofId: string) => {
       );
 
       const tokenId = await provifyContract.proofsIdsByContentHash(proofId);
+      const nft = await alchemy.nft.getNftMetadata(CONTRACT_ADDRESS, tokenId);
 
-      return await buildProofByTokenId(tokenId, provifyContract);
+      return await buildProofByNFT(nft, provifyContract);
     },
     enabled: false
   })

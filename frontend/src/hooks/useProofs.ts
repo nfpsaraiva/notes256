@@ -1,10 +1,10 @@
 import { useAlchemy } from "@/contexts";
 import { useQuery } from "@tanstack/react-query";
 import contract from "../../../artifacts/contracts/Provify.sol/Provify.json";
-import { Contract } from "alchemy-sdk";
+import { Contract, Nft } from "alchemy-sdk";
 import envs from "@/envs";
 import { Proof } from "@/types";
-import { buildProofByTokenId } from "@/utils/proofUtils";
+import { buildProofByNFT } from "@/utils/proofUtils";
 
 const useProofs = (searchTerm: string) => {
   const alchemy = useAlchemy();
@@ -13,7 +13,6 @@ const useProofs = (searchTerm: string) => {
   const { data: proofs, isSuccess, isFetching, isError, refetch } = useQuery({
     queryKey: ["proofs", searchTerm],
     queryFn: async () => {
-      const proofs: Proof[] = [];
       let provifyNfts = [];
 
       const { nfts } = await alchemy.nft.getNftsForContract(CONTRACT_ADDRESS);
@@ -27,43 +26,48 @@ const useProofs = (searchTerm: string) => {
         alchemyProvider
       )
 
-      for (const nft of provifyNfts) {
-        const proof = await buildProofByTokenId(Number(nft.tokenId), provifyContract);
-        const owner = await provifyContract.ownerOf(nft.tokenId);
+      const getProof = async (nft: Nft) => {
+        let proof = null;
+
+        try {
+          proof = await buildProofByNFT(nft, provifyContract);
+        } catch (e) {
+          return undefined;
+        }
 
         if (searchTerm === "") {
-          proofs.push(proof);
-          continue;
+          return proof;
         }
 
         if (searchTerm.length === 66) {
           if (proof.id === searchTerm) {
-            proofs.push(proof);
+            return proof
           }
 
-          continue;
+          return undefined;
         }
 
         if (searchTerm.length === 42) {
-          if (owner === searchTerm) {
-            proofs.push(proof);
+          if (proof.owner === searchTerm) {
+            return proof;
           }
 
-          continue;
+          return undefined;
         }
 
         if (proof.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-          proofs.push(proof);
-          continue;
+          return proof;
         }
 
         if (proof.description.toLowerCase().includes(searchTerm.toLowerCase())) {
-          proofs.push(proof);
-          continue;
+          return proof;
         }
       }
 
-      return proofs.sort((a, b) => {
+      const promises = provifyNfts.map(nft=> getProof(nft))
+      const proofs = await Promise.all(promises)
+
+      return proofs.filter(p => p !== undefined).sort((a, b) => {
         if (a.date.getTime() < b.date.getTime()) return 1;
         if (a.date.getTime() > b.date.getTime()) return -1;
         return 0

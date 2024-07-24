@@ -1,4 +1,3 @@
-import { useProofOwner } from "@/hooks";
 import { Proof } from "@/types";
 import { shortifyAddress } from "@/utils/proofUtils";
 import { Badge, CopyButton, Tooltip } from "@mantine/core";
@@ -11,20 +10,17 @@ interface OwnerButtonProps {
 
 const OwnerButton: FC<OwnerButtonProps> = ({ proof }: OwnerButtonProps) => {
   const { address } = useWeb3ModalAccount();
-  const { owner } = useProofOwner(proof);
-
-  if (!owner) return <></>;
 
   return (
-    <CopyButton value={owner} timeout={2000}>
+    <CopyButton value={proof.owner} timeout={2000}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Copied' : 'Copy Owner'} withArrow>
-          <Badge flex={1} size="sm" variant={owner === address ? 'light' : 'outline'} style={{ cursor: "pointer" }} onClick={e => {
+          <Badge flex={1} size="sm" variant={proof.owner === address ? 'light' : 'outline'} style={{ cursor: "pointer" }} onClick={e => {
             e.stopPropagation();
             copy();
           }}>
             {
-              copied ? 'Copyed' : shortifyAddress(owner)
+              copied ? 'Copyed' : shortifyAddress(proof.owner)
             }
           </Badge>
         </Tooltip>

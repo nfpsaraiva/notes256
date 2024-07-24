@@ -1,5 +1,5 @@
 import { Draft } from "@/types";
-import { Group, Text } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { FC } from "react";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import PublishButton from "./PublishButton/PublishButton";
@@ -20,7 +20,7 @@ const DraftCardControls: FC<DraftCardControlsProps> = ({
   return (
     <Group justify="space-between">
       <Group>
-        <PublishButton />
+        <PublishButton draft={draft} />
         <DeleteButton draft={draft} />
       </Group>
     </Group>

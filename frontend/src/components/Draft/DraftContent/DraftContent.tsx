@@ -65,6 +65,7 @@ const DraftContent: FC<DraftContentProps> = ({
             fw={300}
             size="xs"
             lh={1.6}
+            maxLength={500}
           />
           : <Text fw={400} lineClamp={5} size="xs" lh={1.6}>
             {draft.description}

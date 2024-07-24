@@ -1,9 +1,12 @@
-import { Contract } from "alchemy-sdk";
+import { Contract, Nft } from "alchemy-sdk";
 
-const buildProofByTokenId = async (tokenId: number, contract: Contract) => {
-  const proof = await contract.proofs(tokenId);
-  const tokenURI: string = await contract.tokenURI(tokenId);
-  const metadata = await fetch(tokenURI);
+const buildProofByNFT = async (nft: Nft, contract: Contract) => {
+  const [proof, owner] = await Promise.all([
+    contract.proofs(BigInt(nft.tokenId)),
+    contract.ownerOf(nft.tokenId)
+  ]);
+
+  const metadata = await fetch(nft.raw.tokenUri as string);
   const { image } = await metadata.json();
 
   const timestamp = Number(proof[3]);
@@ -13,9 +16,10 @@ const buildProofByTokenId = async (tokenId: number, contract: Contract) => {
     id: proof[0] as string,
     name: proof[1] as string,
     description: proof[2] as string,
-    tokenId: tokenId,
+    tokenId: Number(nft.tokenId),
     image: image as string,
     date,
+    owner
   }
 };
 
@@ -27,6 +31,6 @@ const shortifyAddress = (address: string) => {
 }
 
 export {
-  buildProofByTokenId,
+  buildProofByNFT,
   shortifyAddress
 }

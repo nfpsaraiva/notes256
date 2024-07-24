@@ -6,13 +6,14 @@ import ProofSearch from "@/features/Proofs/ProofSearch/ProofSearch";
 import ProofsList from "@/features/Proofs/ProofsList/ProofList";
 import useProofs from "@/hooks/useProofs";
 import { Box, Group, Stack } from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
 import { IconRefresh } from "@tabler/icons-react";
 import { FC, useState } from "react";
 
 const Explore: FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const { proofs, isFetching, refetch } = useProofs(searchValue);
-
+  const [searchValueDebounced] = useDebouncedValue(searchValue, 500);
+  const { proofs, isFetching, refetch } = useProofs(searchValueDebounced);
 
   return (
     <AppShell>
