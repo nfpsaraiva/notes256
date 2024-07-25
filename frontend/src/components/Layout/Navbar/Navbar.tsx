@@ -1,4 +1,4 @@
-import { AppShell, Badge, Burger, Divider, Group, Image, Indicator, ScrollArea, Stack, Title } from "@mantine/core";
+import { AppShell, Badge, Box, Burger, Divider, Group, Image, Indicator, ScrollArea, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
 import { ColorSchemeToggle, NetworkSwitcher, SidebarToggle } from "@/components/Common";
@@ -23,7 +23,9 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
             </Group>
           </Group>
           <ColorSchemeToggle />
-          <SidebarToggle toggle={sidebarToggle} />
+          <Box visibleFrom="sm">
+            <SidebarToggle toggle={sidebarToggle} />
+          </Box>
         </Group>
       </AppShell.Section>
       <AppShell.Section grow px={"lg"} component={ScrollArea}>
