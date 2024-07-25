@@ -1,13 +1,14 @@
 import { AppShell } from "@/components/Layout";
 import { MainTitle } from "@/components/UI/MainTitle";
-import { CreateNoteButton, NoteList, NoteSearch } from "@/features/Notes/components";
+import { NoteList, NoteSearch } from "@/features/Notes/components";
+import { Status } from "@/features/Notes/enums";
 import { useNotes } from "@/features/Notes/hooks";
 import { Box, Group, Stack } from "@mantine/core";
 import { FC, useState } from "react";
 
 const Notes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { notes } = useNotes(searchValue);
+  const { notes } = useNotes(Status.ACTIVE, searchValue);
 
   return (
     <AppShell>

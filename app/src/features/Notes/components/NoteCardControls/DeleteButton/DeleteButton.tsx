@@ -1,4 +1,4 @@
-import { useDeleteNote } from "@/features/Notes/hooks";
+import { useDeleteNote, useNote } from "@/features/Notes/hooks";
 import { Note } from "@/types";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
@@ -9,17 +9,12 @@ interface DeleteButtonProps {
 }
 
 const DeleteButton: FC<DeleteButtonProps> = ({ note }: DeleteButtonProps) => {
-  const { deleteNote } = useDeleteNote();
+  const { deleteNote } = useNote(note);
 
-  const openDeleteModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-
-    deleteNote(note)
-  }
 
   return (
     <Tooltip label="Delete">
-      <ActionIcon variant="subtle" size={"lg"} color="red" onClick={e => openDeleteModal(e)}>
+      <ActionIcon variant="subtle" size={"lg"} color="red" onClick={e => deleteNote()}>
         <IconTrash size={16} />
       </ActionIcon>
     </Tooltip>

@@ -18,7 +18,7 @@ const TransferModal: FC<TransferModalProps> = ({
   const [transferToAddress, setTransferToAddress] = useState<string>('');
 
   return (
-    <Modal centered keepMounted opened={opened} title="Transfer" onClose={close} radius={"lg"}>
+    <Modal keepMounted opened={opened} title="Transfer" onClose={close} radius={"lg"}>
       <Stack>
 
         <TextInput

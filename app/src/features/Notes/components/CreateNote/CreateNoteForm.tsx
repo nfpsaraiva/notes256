@@ -1,6 +1,6 @@
 import { Button, Group, Stack, TextInput, Textarea } from "@mantine/core";
 import { FC, useState } from "react";
-import { IconDeviceFloppy, IconFile, IconPlus } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 import useCreateNote from "../../hooks/useCreateNote";
 import { useNavigate } from "react-router-dom";
 

@@ -3,7 +3,7 @@ import { useDeleteNote } from "@/features/Notes/hooks";
 import { Note } from "@/types";
 import { ActionIcon, Text, Tooltip } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { IconUpload } from "@tabler/icons-react";
+import { IconCheck } from "@tabler/icons-react";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -49,7 +49,7 @@ const PublishButton: FC<PublishButtonProps> = ({ note }: PublishButtonProps) => 
     return (
       <Tooltip label="Publish">
         <ActionIcon variant="subtle" size={"lg"} disabled>
-          <IconUpload size={16} />
+          <IconCheck size={16} />
         </ActionIcon>
       </Tooltip>
     )
@@ -58,7 +58,7 @@ const PublishButton: FC<PublishButtonProps> = ({ note }: PublishButtonProps) => 
   return (
     <Tooltip label="Publish">
       <ActionIcon variant="subtle" size={"lg"} onClick={e => publish(e)}>
-        <IconUpload size={16} />
+        <IconCheck size={16} />
       </ActionIcon>
     </Tooltip>
   )

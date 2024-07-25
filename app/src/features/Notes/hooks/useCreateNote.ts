@@ -1,5 +1,6 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { Note } from "@/types";
+import { Status } from "../enums";
 
 const useCreateNote = () => {
   const [notes, setNotes] = useLocalStorage<Note[]>({
@@ -12,7 +13,8 @@ const useCreateNote = () => {
       id: `notes256-note-${Date.now()}`,
       name,
       description,
-      date: new Date()
+      date: new Date(),
+      status: Status.ACTIVE.toString()
     }
 
     setNotes([...notes, note]);
