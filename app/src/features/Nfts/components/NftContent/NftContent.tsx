@@ -1,5 +1,5 @@
 import { Nft } from "@/types";
-import { ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { Box, ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
 interface NftContentProps {
@@ -13,7 +13,7 @@ const NftContent: FC<NftContentProps> = ({ nft, expanded = false }: NftContentPr
       <Stack gap={4}>
         {
           nft.name !== "" &&
-        <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{nft.name}</Title>
+          <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{nft.name}</Title>
         }
         {
           nft.date &&
@@ -29,7 +29,8 @@ const NftContent: FC<NftContentProps> = ({ nft, expanded = false }: NftContentPr
               {nft.description}
             </Text>
           </ScrollArea>
-          : <Text fw={400} lineClamp={5} size="sm" lh={1.6}>
+          :
+          <Text fw={400} lineClamp={4} size="sm" lh={1.6}>
             {nft.description}
           </Text>
       }
