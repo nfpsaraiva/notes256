@@ -1,6 +1,7 @@
 import { Modal } from "@mantine/core";
-import { FC } from "react";
+import { FC, useState } from "react";
 import CreateNoteForm from "./CreateNoteForm";
+import { useCreateNote } from "../../hooks";
 
 interface CreateNoteModalProps {
   opened: boolean,
@@ -11,9 +12,26 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({
   opened,
   close
 }: CreateNoteModalProps) => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const {createNote} = useCreateNote();
+
+  const closeModal = () => {
+    createNote(name, description);
+    close();
+  }
+
   return (
-    <Modal radius={"lg"} opened={opened} withCloseButton={false} onClose={close}>
-      <CreateNoteForm closeModal={close} modalOpened={opened} />
+    <Modal radius={"lg"} opened={opened} withCloseButton={false} onClose={closeModal}>
+      <CreateNoteForm
+        closeModal={closeModal}
+        modalOpened={opened}
+        name={name}
+        setName={setName}
+        description={description}
+        setDescription={setDescription}
+
+      />
     </Modal>
   )
 }

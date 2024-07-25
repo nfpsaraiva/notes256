@@ -6,16 +6,21 @@ import { useNavigate } from "react-router-dom";
 
 interface CreateNoteFormProps {
   modalOpened: boolean,
-  closeModal: () => void
+  closeModal: () => void,
+  name: string,
+  setName: React.Dispatch<React.SetStateAction<string>>
+  description: string,
+  setDescription: React.Dispatch<React.SetStateAction<string>>
 }
 
 const CreateNoteForm: FC<CreateNoteFormProps> = ({
   modalOpened,
-  closeModal
+  closeModal,
+  name,
+  setName,
+  description,
+  setDescription
 }: CreateNoteFormProps) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  
   const { createNote } = useCreateNote();
   const navigate = useNavigate();
 

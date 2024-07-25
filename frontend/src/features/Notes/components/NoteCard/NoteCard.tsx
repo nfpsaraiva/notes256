@@ -2,7 +2,7 @@ import { Card } from "@mantine/core";
 import { FC, useState } from "react";
 import classes from "./NoteCard.module.css";
 import { Note } from "@/types";
-import { useDisclosure, useLocalStorage } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import NoteContent from "../NoteContent/NoteContent";
 import NoteCardControls from "../NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
@@ -17,11 +17,6 @@ const NoteCard: FC<NoteCardProps> = ({ note }: NoteCardProps) => {
   const [newTitle, setNewTitle] = useState(note.name);
   const [newDescription, setNewDescription] = useState(note.description);
   const { updateNote } = useUpdateNote(note);
-
-  const [notes, setNotes] = useLocalStorage<Note[]>({
-    key: "provify-notes",
-    defaultValue: []
-  });
 
   const closeExpanded = () => {
     updateNote(newTitle, newDescription);

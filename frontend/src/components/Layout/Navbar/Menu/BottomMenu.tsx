@@ -1,4 +1,4 @@
-import { Badge, Group, Stack } from "@mantine/core";
+import { Anchor, Badge, Group, Stack, Text } from "@mantine/core";
 import { FC } from "react";
 import classes from "./Menu.module.css";
 import { IconInfoCircle, IconQuestionMark, IconTimeline, IconUsers } from "@tabler/icons-react";
@@ -12,7 +12,7 @@ const BottomMenu: FC = () => {
       <MenuItem name={MenuEnum.ROADMAP} path="/roadmap" icon={<IconTimeline size={18} />} />
       <MenuItem name={MenuEnum.TEAM} path="/team" icon={<IconUsers size={18} />} />
       <MenuItem name={MenuEnum.ABOUT} path="/about" icon={<IconInfoCircle size={18} />} />
-      <Group justify="flex-end">
+      <Group my={"xs"} justify="flex-end">
         <Badge variant="transparent" size="sm">ALPHA</Badge>
       </Group>
     </Stack>
