@@ -18,7 +18,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({ nft }: DeleteButtonProps) => {
     modals.openConfirmModal({
       title: 'Delete Nft',
       radius: "lg",
-      centered: true,
+      centered: false,
       children: (
         <Text size="sm">
           Are you sure you want to delete this nft? This action is irreversible
@@ -28,7 +28,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({ nft }: DeleteButtonProps) => {
       confirmProps: { color: 'red', radius: "lg" },
       cancelProps: {radius: "lg"},
       onCancel: () => console.log('Cancel'),
-      onConfirm: () => deleteNft(Number(nft.tokenId)),
+      onConfirm: () => deleteNft(nft.tokenId),
     });
   }
 

@@ -19,10 +19,8 @@ const NoteCardControls: FC<NoteCardControlsProps> = ({
 }: NoteCardControlsProps) => {
   return (
     <Group justify="space-between">
-      <Group>
-        <PublishButton note={note} />
-        <DeleteButton note={note} />
-      </Group>
+      <PublishButton note={note} />
+      <DeleteButton note={note} />
     </Group>
   )
 }

@@ -18,16 +18,14 @@ const NftCardControls: FC<NftCardControlsProps> = ({
 }: NftCardControlsProps) => {
   const { address } = useWeb3ModalAccount();
 
-  const isOwner = address === nft.owner;
-
   return (
     <Group justify="space-between">
       <Group gap={"xs"} flex={1}>
         <CopyButton nft={nft} />
-        {isOwner && <TransferNft nft={nft} openModal={openTransferModal} />}
-        {isOwner && <DeleteButton nft={nft} />}
+        <TransferNft nft={nft} openModal={openTransferModal} />
         <MenuButton nft={nft} />
       </Group>
+      <DeleteButton nft={nft} />
     </Group>
   )
 }

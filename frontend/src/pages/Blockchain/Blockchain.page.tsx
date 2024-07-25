@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { AppShell } from '@/components/Layout';
-import { Stack } from '@mantine/core';
+import { Badge, Box, Group, Stack } from '@mantine/core';
 import { MainTitle } from '@/components/UI/MainTitle';
 import { BlockchainLoader } from '@/components/Common';
 import { IconRefresh } from '@tabler/icons-react';

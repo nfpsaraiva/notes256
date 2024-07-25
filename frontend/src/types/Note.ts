@@ -2,7 +2,7 @@ interface Note {
   id: string,
   name: string,
   description: string,
-  date: Date
+  date: Date,
 }
 
 export default Note;

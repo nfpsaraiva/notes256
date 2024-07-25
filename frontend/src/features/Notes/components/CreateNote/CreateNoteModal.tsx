@@ -12,25 +12,11 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({
   opened,
   close
 }: CreateNoteModalProps) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const {createNote} = useCreateNote();
-
-  const closeModal = () => {
-    createNote(name, description);
-    close();
-  }
-
   return (
-    <Modal radius={"lg"} opened={opened} withCloseButton={false} onClose={closeModal}>
+    <Modal radius={"lg"} opened={opened} withCloseButton={false} onClose={close}>
       <CreateNoteForm
-        closeModal={closeModal}
+        closeModal={close}
         modalOpened={opened}
-        name={name}
-        setName={setName}
-        description={description}
-        setDescription={setDescription}
-
       />
     </Modal>
   )

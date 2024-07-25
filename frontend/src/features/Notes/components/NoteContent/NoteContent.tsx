@@ -66,6 +66,7 @@ const NoteContent: FC<NoteContentProps> = ({
             minRows={5}
             autosize
             variant="unstyled"
+            placeholder="Take a note"
             fw={300}
             size="sm"
             lh={1.6}

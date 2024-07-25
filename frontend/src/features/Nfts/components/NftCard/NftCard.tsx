@@ -15,6 +15,7 @@ interface NftCardProps {
 const NftCard: FC<NftCardProps> = ({ nft }: NftCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [transferModalOpened, transferModalHandle] = useDisclosure(false);
+  console.log(nft);
 
   return (
     <>
