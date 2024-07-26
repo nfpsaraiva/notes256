@@ -7,7 +7,7 @@ import Markdown from "react-markdown";
 
 const Roadmap: FC = () => {
   return (
-    <AppShell>
+    <AppShell userMenu={<></>}>
       <Stack>
         <MainTitle title="Roadmap" />
         <Box>

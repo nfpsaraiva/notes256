@@ -13,7 +13,6 @@ const useNote = (note: Note) => {
   
     setNotes([...newNotes, {
       ...note,
-      status: Status[status],
       date: new Date()
     }]);
   }
@@ -35,7 +34,6 @@ const useNote = (note: Note) => {
       name,
       description,
       date: new Date(),
-      status: note.status
     }
 
     setNotes([...newNotes, newNote]);

@@ -8,7 +8,7 @@ import { MainTitle } from "@/components/UI/MainTitle";
 
 const HowItWorks: FC = () => {
   return (
-    <AppShell>
+    <AppShell userMenu={<></>}>
       <Stack>
         <MainTitle title="How it works" />
         <Box>

@@ -7,7 +7,7 @@ import { MainTitle } from "@/components/UI/MainTitle";
 
 const About: FC = () => {
   return (
-    <AppShell>
+    <AppShell userMenu={<></>}>
       <Stack>
         <MainTitle title="About" />
         <Box>

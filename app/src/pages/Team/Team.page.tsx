@@ -5,7 +5,7 @@ import { FC } from "react";
 
 const Team: FC = () => {
   return (
-    <AppShell>
+    <AppShell userMenu={<></>}>
       <Stack>
         <MainTitle title="Team" />
         <Center>

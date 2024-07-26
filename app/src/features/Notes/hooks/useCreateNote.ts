@@ -16,7 +16,6 @@ const useCreateNote = () => {
       name,
       description,
       date: new Date(),
-      status: Status.ACTIVE
     }
 
     // setNotes([...notes, note]);
