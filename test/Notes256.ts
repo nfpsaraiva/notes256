@@ -14,7 +14,7 @@ async function deployNotes256Fixture() {
 
 describe("Create Note", () => {
   it("Should get a note by token ID", async () => {
-    const { owner, provifyContract } = await loadFixture(deployNotes256Fixture)
+    const { provifyContract } = await loadFixture(deployNotes256Fixture)
 
     await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
@@ -44,6 +44,22 @@ describe("Create Note", () => {
     const duplicatedNote = provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
     await expect(duplicatedNote).to.be.reverted;
+  })
+
+  it("Should create a note with content from a burned note", async () => {
+    const {provifyContract} = await loadFixture(deployNotes256Fixture);
+
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
+
+    await provifyContract.burn(1);
+
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
+    const duplicatedNote = await provifyContract.notes(2);
+    const noteId = ethers.solidityPackedKeccak256(["string"], ["bar"]);
+
+    expect(duplicatedNote[0]).to.be.equal(noteId);
+    expect(duplicatedNote[1]).to.be.equal("foo");
+    expect(duplicatedNote[2]).to.be.equal("bar");
   })
 });
 

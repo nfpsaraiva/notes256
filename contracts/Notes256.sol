@@ -3,6 +3,7 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "hardhat/console.sol";
 
 contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
     // Single note structure
@@ -55,22 +56,23 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         string memory _tokenURI
     ) external {
         // Generates an unique ID for the new note
-        bytes32 noteId = keccak256(abi.encodePacked(_content));
+        bytes32 contentHashed = keccak256(abi.encodePacked(_content));
 
         // Prevent duplicates
-        require(notesIds[noteId] == 0, "Proof already exists");
+        uint256 noteId = notesIds[contentHashed];
+        require(noteId == 0 || _ownerOf(noteId) == address(0), "Note already exists");
 
         // Increment token ID
         lastTokenId++;
 
         // add the new note to the list
         notes[lastTokenId] = Note(
-            noteId,
+            contentHashed,
             _name,
             _content,
             block.timestamp
         );
-        notesIds[noteId] = lastTokenId;
+        notesIds[contentHashed] = lastTokenId;
 
         // Mint an NFT as note
         _safeMint(msg.sender, lastTokenId);

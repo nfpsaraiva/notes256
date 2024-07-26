@@ -1,5 +1,5 @@
-import { Button, Card, Group, TextInput } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { ActionIcon, Button, Card, Group, Menu, TextInput } from "@mantine/core";
+import { IconDots, IconRefresh, IconSearch } from "@tabler/icons-react";
 import { FC, ReactNode } from "react";
 
 interface NftSearchProps {
@@ -21,9 +21,8 @@ const NftSearch: FC<NftSearchProps> = ({
 }: NftSearchProps) => {
   return (
     <Card radius={"xl"} shadow="xs">
-      <Group>
+      <Group wrap="nowrap">
         <TextInput
-          miw={200}
           placeholder={placeholder}
           size="md"
           radius={"lg"}
@@ -32,16 +31,30 @@ const NftSearch: FC<NftSearchProps> = ({
           flex={1}
         />
         {
-          submit &&
-          <Button
-            leftSection={submitIcon}
-            radius={"lg"}
-            size="md"
-            variant="light"
-            onClick={submit}
-          >
-            {submitLabel}
-          </Button>
+          submit && (
+            <Group wrap="nowrap">
+              <Menu>
+                <Menu.Target>
+                  <ActionIcon radius={"xl"} variant="light" size={"lg"}>
+                    <IconDots size={16} />
+                  </ActionIcon>
+                </Menu.Target>
+              </Menu>
+              <Button
+                leftSection={submitIcon}
+                radius={"lg"}
+                size="md"
+                variant="light"
+                onClick={submit}
+                visibleFrom="sm"
+              >
+                {submitLabel}
+              </Button>
+              <ActionIcon hiddenFrom="sm" radius={"xl"} variant="light" size={"lg"}>
+                <IconRefresh size={16} />
+              </ActionIcon>
+            </Group>
+          )
         }
       </Group>
     </Card>

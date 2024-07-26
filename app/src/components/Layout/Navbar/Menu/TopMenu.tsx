@@ -9,7 +9,6 @@ const TopMenu: FC = () => {
   return (
     <Stack gap={4} className={classes.menu}>
       <MenuItem name={MenuEnum.NFTS} path="/nfts" icon={<IconCube size={18} />} />
-      <MenuItem name={MenuEnum.OWNERSHIP} path="/ownership" icon={<IconKey size={18} />} />
       <Divider my={"sm"} />
       <MenuItem name={MenuEnum.NOTES} path="/" icon={<IconFiles size={18} />} />
       <MenuItem name={MenuEnum.ARCHIVE} path="/archive" icon={<IconArchive size={18} />} />
