@@ -1,5 +1,6 @@
 import { Note } from "@/types";
-import { Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { Accordion, ActionIcon, Group, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
+import { IconX } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface NoteContentProps {

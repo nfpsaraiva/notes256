@@ -7,10 +7,11 @@ import classes from "./AppShell.module.css";
 import { CreateNoteButton } from '@/features/Notes/components';
 
 interface AppShellProps {
+  userMenu: ReactNode,
   children: ReactNode
 }
 
-const AppShell: FC<AppShellProps> = ({ children }: AppShellProps) => {
+const AppShell: FC<AppShellProps> = ({ userMenu, children }: AppShellProps) => {
   const [opened, { toggle, close }] = useDisclosure();
 
   return (
@@ -21,7 +22,7 @@ const AppShell: FC<AppShellProps> = ({ children }: AppShellProps) => {
       padding="md"
     >
       <MantineAppShell.Header className={classes.header} withBorder={false}>
-        <Header sidebarOpened={opened} sidebarToggle={toggle} />
+        <Header sidebarOpened={opened} sidebarToggle={toggle} userMenu={userMenu} />
       </MantineAppShell.Header>
 
       <MantineAppShell.Navbar withBorder={true} className={classes.navbar}>

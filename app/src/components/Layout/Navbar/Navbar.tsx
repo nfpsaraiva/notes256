@@ -33,7 +33,6 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
       </AppShell.Section>
       <AppShell.Section grow px={"lg"} component={ScrollArea}>
         <Stack py={"md"} gap={"lg"}>
-          <NetworkSwitcher />
           <TopMenu />
         </Stack>
       </AppShell.Section>

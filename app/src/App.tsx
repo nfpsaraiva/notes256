@@ -10,6 +10,7 @@ import { AlchemyProvider } from './contexts/AlchemyContext';
 import { createWeb3Modal } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
 import { ModalsProvider } from '@mantine/modals';
+import { UserbaseProvider } from './contexts/UserbaseContext';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -26,11 +27,13 @@ export default function App() {
     <MantineProvider theme={theme} defaultColorScheme='light'>
       <Notifications />
       <ModalsProvider>
-        <AlchemyProvider>
-          <QueryClientProvider client={queryClient}>
-            <Router />
-          </QueryClientProvider>
-        </AlchemyProvider>
+        <UserbaseProvider>
+          <AlchemyProvider>
+            <QueryClientProvider client={queryClient}>
+              <Router />
+            </QueryClientProvider>
+          </AlchemyProvider>
+        </UserbaseProvider>
       </ModalsProvider>
     </MantineProvider>
   );

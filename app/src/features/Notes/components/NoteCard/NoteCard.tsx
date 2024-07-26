@@ -6,7 +6,7 @@ import { useDisclosure } from "@mantine/hooks";
 import NoteContent from "../NoteContent/NoteContent";
 import NoteCardControls from "../NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
-import { useUpdateNote } from "../../hooks";
+import { useUserbase } from "@/contexts";
 
 interface NoteCardProps {
   note: Note
@@ -14,12 +14,17 @@ interface NoteCardProps {
 
 const NoteCard: FC<NoteCardProps> = ({ note }: NoteCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [newTitle, setNewTitle] = useState(note.name);
-  const [newDescription, setNewDescription] = useState(note.description);
-  const { updateNote } = useUpdateNote(note);
+  const [name, setName] = useState(note.name);
+  const [description, setDescription] = useState(note.description);
+  const { updateNote } = useUserbase();
 
   const closeExpanded = () => {
-    updateNote(newTitle, newDescription);
+    updateNote({
+      ...note,
+      name,
+      description,
+      date: new Date()
+    });
 
     close();
   }
@@ -30,17 +35,17 @@ const NoteCard: FC<NoteCardProps> = ({ note }: NoteCardProps) => {
         <NoteContent
           note={note}
           expanded={false}
-          newTitle={newTitle}
-          newDescription={newDescription}
-          setNewTitle={setNewTitle}
-          setNewDescription={setNewDescription}
+          newTitle={name}
+          newDescription={description}
+          setNewTitle={setName}
+          setNewDescription={setDescription}
         />
         <Card.Section withBorder bg={"var(--mantine-primary-color-light)"} py={4} inheritPadding>
           <NoteCardControls
             note={note}
             expanded={false}
-            newTitle={newTitle}
-            newDescription={newDescription}
+            newTitle={name}
+            newDescription={description}
           />
         </Card.Section>
       </Card>
@@ -48,10 +53,10 @@ const NoteCard: FC<NoteCardProps> = ({ note }: NoteCardProps) => {
         opened={opened}
         close={closeExpanded}
         note={note}
-        newTitle={newTitle}
-        newDescription={newDescription}
-        setNewTitle={setNewTitle}
-        setNewDescription={setNewDescription}
+        newTitle={name}
+        newDescription={description}
+        setNewTitle={setName}
+        setNewDescription={setDescription}
       />
     </>
   )

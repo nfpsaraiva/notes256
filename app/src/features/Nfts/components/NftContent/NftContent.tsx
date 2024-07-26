@@ -24,7 +24,7 @@ const NftContent: FC<NftContentProps> = ({ nft, expanded = false }: NftContentPr
       </Stack>
       {
         expanded
-          ? <ScrollArea h={300}>
+          ? <ScrollArea h={150}>
             <Text fw={300} size="sm" lh={1.6}>
               {nft.description}
             </Text>

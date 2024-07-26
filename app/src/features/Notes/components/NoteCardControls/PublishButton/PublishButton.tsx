@@ -1,9 +1,9 @@
 import { useCreateNft } from "@/features/Nfts/hooks";
-import { useDeleteNote } from "@/features/Notes/hooks";
+import { useNote } from "@/features/Notes/hooks";
 import { Note } from "@/types";
-import { ActionIcon, Text, Tooltip } from "@mantine/core";
+import { ActionIcon, Button, Text, Tooltip } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { IconCheck } from "@tabler/icons-react";
+import { IconCheck, IconPlus } from "@tabler/icons-react";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ interface PublishButtonProps {
 
 const PublishButton: FC<PublishButtonProps> = ({ note }: PublishButtonProps) => {
   const { createNft, creatingNft, nftCreated } = useCreateNft();
-  const { deleteNote } = useDeleteNote()
+  const { deleteNote } = useNote(note)
   const navigate = useNavigate();
 
   const publish = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -42,7 +42,7 @@ const PublishButton: FC<PublishButtonProps> = ({ note }: PublishButtonProps) => 
 
   if (nftCreated) {
     navigate('/nfts');
-    deleteNote(note)
+    deleteNote()
   }
 
   if (creatingNft) {
@@ -57,9 +57,9 @@ const PublishButton: FC<PublishButtonProps> = ({ note }: PublishButtonProps) => 
 
   return (
     <Tooltip label="Publish">
-      <ActionIcon variant="subtle" size={"lg"} onClick={e => publish(e)}>
-        <IconCheck size={16} />
-      </ActionIcon>
+      <Button onClick={e => publish(e)} leftSection={<IconPlus size={14} />} size="compact-xs" variant="subtle">
+        NFT
+      </Button>
     </Tooltip>
   )
 }

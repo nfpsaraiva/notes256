@@ -2,16 +2,14 @@ import { useLocalStorage } from "@mantine/hooks";
 import { Note } from "@/types";
 import { Status } from "../enums";
 
-const useNotes = (status: Status, searchTerm: string) => {
+const useNotes = (searchTerm?: string) => {
   const [notes] = useLocalStorage<Note[]>({
     key: "notes256-notes",
     defaultValue: []
   });
 
   const notesFIltered = notes.filter(note => {
-    if (note.status !== status) return false;
-
-    if (searchTerm === "") return true;
+    if (searchTerm === undefined || searchTerm === "") return true;
     if (note.name.toLowerCase().includes(searchTerm.toLowerCase())) return true;
     if (note.description.toLowerCase().includes(searchTerm.toLowerCase())) return true;
 

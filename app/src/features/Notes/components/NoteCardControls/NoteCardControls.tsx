@@ -3,10 +3,8 @@ import { Group } from "@mantine/core";
 import { FC } from "react";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import PublishButton from "./PublishButton/PublishButton";
-import ArchiveButton from "./ArchiveButton/ArchiveButton";
-import { Status } from "../../enums";
-import ActivateButton from "./ActivateButton/ActivateButton";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { useUserbase } from "@/contexts";
 
 interface NoteCardControlsProps {
   note: Note,
@@ -22,15 +20,12 @@ const NoteCardControls: FC<NoteCardControlsProps> = ({
   newDescription
 }: NoteCardControlsProps) => {
   const { isConnected } = useWeb3ModalAccount();
+  const { deleteNote } = useUserbase();
 
   return (
     <Group justify="space-between">
       <Group>
         {isConnected && <PublishButton note={note} />}
-        {note.status === Status.ACTIVE && <ArchiveButton note={note} />}
-        {(note.status === Status.ARCHIVED || note.status === Status.TRASHED)
-          && <ActivateButton note={note} />}
-
       </Group>
       <DeleteButton note={note} />
     </Group>

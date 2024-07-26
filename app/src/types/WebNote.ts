@@ -1,8 +1,8 @@
-interface Note {
+interface WebNote {
   id: string,
   name: string,
   description: string,
   date: Date,
 }
 
-export default Note;
+export default WebNote;

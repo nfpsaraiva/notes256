@@ -1,29 +1,30 @@
+import { BlockchainLoader } from "@/components/Common";
+import UserMenu from "@/components/Common/UserMenu/UserMenu";
 import { AppShell } from "@/components/Layout";
 import { MainTitle } from "@/components/UI/MainTitle";
+import { useUserbase } from "@/contexts";
 import { NoteList, NoteSearch } from "@/features/Notes/components";
-import { Status } from "@/features/Notes/enums";
-import { useNotes } from "@/features/Notes/hooks";
+import { getNotesFiltered } from "@/features/Notes/utils/noteUtils";
 import { Box, Group, Stack } from "@mantine/core";
 import { FC, useState } from "react";
 
 const Notes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { notes } = useNotes(Status.ACTIVE, searchValue);
+  const { notes, isLoadingActiveNotes } = useUserbase();
 
   return (
-    <AppShell>
+    <AppShell userMenu={<UserMenu />}>
       <Stack gap={"xl"}>
-        <Group justify="space-between" align="center" wrap="nowrap">
-          <Box flex={1}>
-            <MainTitle title="Notes" subtitle="Notes will only be saved on your device" />
-          </Box>
-        </Group>
+        <MainTitle title="Web Notes" subtitle="Notes will be linked to your current account" />
         <NoteSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}
         />
         {
-          notes && <NoteList notes={notes} />
+          isLoadingActiveNotes && <BlockchainLoader />
+        }
+        {
+          notes && <NoteList notes={getNotesFiltered(notes, searchValue)} />
         }
       </Stack>
     </AppShell>

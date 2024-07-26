@@ -5,9 +5,11 @@
 
 ### In progress
 - App style
-- Drafts Implementation
+- User accounts
 
 ### Future
 - Sharing notes
 - Print Notes
 - Multi chain
+- Account Abstraction
+- Formatted notes

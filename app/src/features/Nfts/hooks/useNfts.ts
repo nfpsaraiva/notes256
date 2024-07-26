@@ -6,7 +6,7 @@ import envs from "@/envs";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { buildNftByNFT } from "../utils/nftUtils";
 
-const useNfts = (searchTerm: string) => {
+const useNfts = (searchTerm?: string) => {
   const alchemy = useAlchemy();
   const { address } = useWeb3ModalAccount();
 
@@ -34,7 +34,7 @@ const useNfts = (searchTerm: string) => {
           return undefined;
         }
 
-        if (searchTerm === "") return nft
+        if (searchTerm === undefined || searchTerm === "") return nft
 
         if (searchTerm.length === 66) {
           if (nft.id === searchTerm) return nft;

@@ -7,6 +7,7 @@ import { IconRefresh } from '@tabler/icons-react';
 import { useDebouncedValue } from '@mantine/hooks';
 import { NftSearch, NftsList } from '@/features/Nfts/components';
 import { useNfts } from '@/features/Nfts/hooks';
+import { WalletButton } from '@/features/Wallet';
 
 const Blockchain: FC = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -14,9 +15,9 @@ const Blockchain: FC = () => {
   const { nfts, isFetching, refetch } = useNfts(searchValueDebounced);
 
   return (
-    <AppShell>
+    <AppShell userMenu={<WalletButton />}>
       <Stack gap={"xl"}>
-        <MainTitle title='NFTs' subtitle='Write statements and original ideas' />
+        <MainTitle title='dNotes' subtitle='Notes will be secured by the blockchain' />
         <NftSearch
           searchValue={searchValue}
           setSearchValue={setSearchValue}

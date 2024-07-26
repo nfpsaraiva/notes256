@@ -20,7 +20,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
   const navigate = useNavigate();
 
   const save = async () => {
-    createNote(name, description);
+    await createNote(name, description);
     closeModal();
     navigate('/');
   }

@@ -33,13 +33,6 @@ const NftSearch: FC<NftSearchProps> = ({
         {
           submit && (
             <Group wrap="nowrap">
-              <Menu>
-                <Menu.Target>
-                  <ActionIcon radius={"xl"} variant="light" size={"lg"}>
-                    <IconDots size={16} />
-                  </ActionIcon>
-                </Menu.Target>
-              </Menu>
               <Button
                 leftSection={submitIcon}
                 radius={"lg"}
