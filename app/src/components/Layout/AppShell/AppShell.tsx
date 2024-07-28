@@ -4,7 +4,6 @@ import { FC, ReactNode } from "react";
 import Header from '../Header/Header';
 import Navbar from '../Navbar/Navbar';
 import classes from "./AppShell.module.css";
-import { CreateWebNoteButton } from '@/features/WebNotes/components';
 
 interface AppShellProps {
   userMenu: ReactNode,
