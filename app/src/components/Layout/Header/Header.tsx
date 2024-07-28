@@ -1,5 +1,5 @@
 import { SidebarToggle } from "@/components/Common";
-import UserMenu from "@/components/Common/UserMenu/UserMenu";
+import UserMenu from "@/components/WebNotes/UserMenu/UserMenu";
 import { Burger, Group } from "@mantine/core";
 import { FC, ReactNode } from "react";
 

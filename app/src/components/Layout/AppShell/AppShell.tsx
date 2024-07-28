@@ -4,7 +4,7 @@ import { FC, ReactNode } from "react";
 import Header from '../Header/Header';
 import Navbar from '../Navbar/Navbar';
 import classes from "./AppShell.module.css";
-import { CreateNoteButton } from '@/features/Notes/components';
+import { CreateWebNoteButton } from '@/features/WebNotes/components';
 
 interface AppShellProps {
   userMenu: ReactNode,
@@ -32,7 +32,6 @@ const AppShell: FC<AppShellProps> = ({ userMenu, children }: AppShellProps) => {
       <MantineAppShell.Main className={classes.main}>
         <Container maw={1000} mx={"auto"}>
           {children}
-          <CreateNoteButton />
 
         </Container>
       </MantineAppShell.Main>

@@ -1,4 +1,4 @@
-import { Note } from '@/types';
+import { WebNote } from '@/types';
 import { createContext, useContext, ReactNode, FC, useState, useEffect } from 'react';
 import userbase, { Item, UserResult } from 'userbase-js';
 
@@ -11,11 +11,11 @@ interface Userbase {
   signin: (username: string, password: string) => Promise<UserResult>
   signout: () => Promise<void>,
   signup: (username: string, password: string) => Promise<UserResult>,
-  notes: Note[] | null,
-  createNote: (note: Note) => Promise<void>,
-  updateNote: (note: Note) => Promise<void>,
-  deleteNote: (note: Note) => Promise<void>,
-  isLoadingActiveNotes: boolean
+  notes: WebNote[] | null,
+  createNote: (note: WebNote) => Promise<void>,
+  updateNote: (note: WebNote) => Promise<void>,
+  deleteNote: (note: WebNote) => Promise<void>,
+  isLoading: boolean
 }
 
 const UserbaseContext = createContext<Userbase | null>(null);
@@ -26,19 +26,19 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
   children
 }: UserbaseProviderProps) => {
   const [user, setUser] = useState<UserResult | null>(null);
-  const [notes, setNotes] = useState<Note[] | null>(null);
+  const [notes, setNotes] = useState<WebNote[] | null>(null);
 
-  const [isLoadingActiveNotes, setIsLoadingActiveNotes] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const changeHandler = (items: Item[]) => {
     const newNotes = items.map(i => {
-      const newNote: Note = i.item;
+      const newNote: WebNote = i.item;
       newNote.id = i.itemId
       return newNote;
     })
 
     setNotes(newNotes);
-    setIsLoadingActiveNotes(false);
+    setIsLoading(false);
   }
 
 
@@ -59,15 +59,15 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
     setUser(null);
   }
 
-  const createNote = async (item: Note) => {
+  const createNote = async (item: WebNote) => {
     return await userbase.insertItem({ databaseName, item });
   }
 
-  const updateNote = async (item: Note) => {
+  const updateNote = async (item: WebNote) => {
     return await userbase.updateItem({ databaseName, itemId: item.id, item });
   }
 
-  const deleteNote = async (item: Note) => {
+  const deleteNote = async (item: WebNote) => {
     return await userbase.deleteItem({ databaseName, itemId: item.id });
   }
 
@@ -77,7 +77,7 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
         setUser(session.user);
         userbase.openDatabase({ databaseName, changeHandler });
       } else {
-        setIsLoadingActiveNotes(false);
+        setIsLoading(false);
       }
     });
   }, []);
@@ -92,7 +92,7 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
       createNote,
       updateNote,
       deleteNote,
-      isLoadingActiveNotes,
+      isLoading,
     }}>
       {children}
     </UserbaseContext.Provider>

@@ -1,4 +1,4 @@
-interface WebNote {
+interface BlockNote {
   id: string,
   name: string,
   description: string,
@@ -7,4 +7,4 @@ interface WebNote {
   image: string,
 }
 
-export default WebNote;
+export default BlockNote;

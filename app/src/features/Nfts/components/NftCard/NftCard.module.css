@@ -1,7 +1,0 @@
-.nftCard {
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0px 2px 4px light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-5));
-  }
-}

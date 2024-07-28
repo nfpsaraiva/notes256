@@ -2,12 +2,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import About from './pages/About/About.page';
 import HowItWorks from './pages/HowItWorks/HowItWorks.page';
 import Roadmap from './pages/Roadmap/Roadmap.page';
-import { Nfts, Notes, Local, Team } from '@/pages';
+import { Team, BlockNotes, LocalNotes, WebNotes } from '@/pages';
 
 const router = createBrowserRouter([
-  { path: '/nfts', element: (<Nfts />) },
-  { path: '/', element: (<Notes />), },
-  { path: '/local', element: (<Local />), },
+  { path: '/block-notes', element: (<BlockNotes />) },
+  { path: '/', element: (<WebNotes />), },
+  { path: '/local-notes', element: (<LocalNotes />), },
   { path: '/team', element: (<Team />), },
   { path: '/how-it-works', element: (<HowItWorks />), },
   { path: '/roadmap', element: (<Roadmap />), },

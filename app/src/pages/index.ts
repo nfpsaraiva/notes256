@@ -1,11 +1,11 @@
-import Nfts from "./Nfts/Nfts.page";
-import Notes from "./Notes/Notes.page";
-import Local from "./Local/Local.page";
+import BlockNotes from "./Blockchain/BlockNotes.page";
+import LocalNotes from "./Local/LocalNotes.page";
+import WebNotes from "./WebNotes/WebNotes.page";
 import Team from "./Team/Team.page";
 
 export {
-  Nfts,
-  Notes,
-  Local,
+  BlockNotes,
+  LocalNotes,
+  WebNotes,
   Team,
 }
