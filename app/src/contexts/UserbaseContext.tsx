@@ -26,7 +26,7 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
   children
 }: UserbaseProviderProps) => {
   const [user, setUser] = useState<UserResult | null>(null);
-  const [notes, setNotes] = useState<WebNote[] | null>(null);
+  const [notes, setNotes] = useState<WebNote[] | null>([]);
 
   const [isLoading, setIsLoading] = useState(true);
 

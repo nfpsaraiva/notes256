@@ -6,6 +6,7 @@ import NoteCardControls from "./NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "./NoteCardExpanded/NoteCardExpanded";
 import NoteContent from "./NoteContent/NoteContent";
 import NoteList from "./NoteList/NoteList";
+import NotePage from "./NotePage/NotePage";
 import NoteSearch from "./NoteSearch/NoteSearch";
 
 export {
@@ -17,5 +18,6 @@ export {
   NoteCardExpanded,
   NoteContent,
   NoteList,
+  NotePage,
   NoteSearch
 }

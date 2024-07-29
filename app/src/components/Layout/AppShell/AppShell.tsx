@@ -31,7 +31,6 @@ const AppShell: FC<AppShellProps> = ({ userMenu, children }: AppShellProps) => {
       <MantineAppShell.Main className={classes.main}>
         <Container maw={1000} mx={"auto"}>
           {children}
-
         </Container>
       </MantineAppShell.Main>
 

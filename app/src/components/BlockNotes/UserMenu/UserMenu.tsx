@@ -3,7 +3,7 @@ import { FC } from "react";
 import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { IconWallet } from "@tabler/icons-react";
 
-const WalletButton: FC = () => {
+const UserMenu: FC = () => {
   const { isConnected, address } = useWeb3ModalAccount();
   const { open } = useWeb3Modal();
 
@@ -33,4 +33,4 @@ const WalletButton: FC = () => {
   )
 }
 
-export default WalletButton;
+export default UserMenu;
