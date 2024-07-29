@@ -27,6 +27,7 @@ interface NotePageProps {
   },
   searchValue: string,
   setSearchValue: React.Dispatch<React.SetStateAction<string>>,
+  searchValueDebounced: string
   isLoading: boolean,
   refetch: () => void,
   redirectAfterSubmit: string
@@ -44,6 +45,7 @@ const NotePage: FC<NotePageProps> = ({
   createNoteModalHandle,
   searchValue,
   setSearchValue,
+  searchValueDebounced,
   isLoading,
   refetch,
   redirectAfterSubmit
@@ -64,7 +66,7 @@ const NotePage: FC<NotePageProps> = ({
         }
         {
           notes && <NoteList
-            notes={filterNotes(notes, searchValue)}
+            notes={filterNotes(notes, searchValueDebounced)}
             updateNote={updateNote}
             deleteNote={deleteNote}
           />

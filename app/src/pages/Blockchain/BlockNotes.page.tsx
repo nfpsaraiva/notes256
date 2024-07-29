@@ -29,8 +29,9 @@ const BlockNotes: FC = () => {
       isLoading={isLoading}
       notes={blockNotes ? blockNotes : []}
       refetch={refetch}
-      searchValue={searchValueDebounced}
+      searchValue={searchValue}
       setSearchValue={setSearchValue}
+      searchValueDebounced={searchValueDebounced}
       updateNote={updateBlockNote}
       userMenu={<UserMenu />}
       redirectAfterSubmit="/block-notes"

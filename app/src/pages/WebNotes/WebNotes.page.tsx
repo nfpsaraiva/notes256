@@ -24,6 +24,7 @@ const WebNotes: FC = () => {
       refetch={refetch}
       searchValue={searchValue}
       setSearchValue={setSearchValue}
+      searchValueDebounced={searchValue}
       updateNote={updateWebNote}
       userMenu={<UserMenu />}
       redirectAfterSubmit="/"

@@ -24,6 +24,7 @@ const LocalNotes: FC = () => {
       refetch={refetch}
       searchValue={searchValue}
       setSearchValue={setSearchValue}
+      searchValueDebounced={searchValue}
       updateNote={updateLocalNote}
       userMenu={<UserMenu />}
       redirectAfterSubmit="/local-notes"
