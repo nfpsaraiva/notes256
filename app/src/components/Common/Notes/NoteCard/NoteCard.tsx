@@ -1,16 +1,16 @@
 import { Card } from "@mantine/core";
 import { FC, useState } from "react";
 import classes from "./NoteCard.module.css";
-import { BlockNote, LocalNote, WebNote } from "@/types";
+import { Note } from "@/types";
 import { useDisclosure } from "@mantine/hooks";
 import NoteContent from "../NoteContent/NoteContent";
 import NoteCardControls from "../NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
 
 interface NoteCardProps {
-  note: LocalNote | WebNote | BlockNote,
-  updateNote: (note: LocalNote | WebNote | BlockNote) => Promise<void>,
-  deleteNote: (note: LocalNote | WebNote | BlockNote) => Promise<void>,
+  note: Note,
+  updateNote: (note: Note) => Promise<void>,
+  deleteNote: (note: Note) => Promise<void>,
 }
 
 const NoteCard: FC<NoteCardProps> = ({ note, updateNote, deleteNote }: NoteCardProps) => {

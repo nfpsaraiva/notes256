@@ -1,10 +1,6 @@
-interface WebNote {
-  id: string,
-  name: string,
-  description: string,
-  date: Date,
-  tokenId: number,
-  image: string,
+import Note from "./Note";
+
+interface WebNote extends Note {
 }
 
 export default WebNote;

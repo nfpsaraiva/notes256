@@ -1,20 +1,13 @@
-import { AppShell } from "@/components/Layout";
 import { FC } from "react";
 import Markdown from "react-markdown";
-import about from "./about.md"
-import { Box, Stack } from "@mantine/core";
-import { MainTitle } from "@/components/UI/MainTitle";
+import about from "./about.md";
+import { PageShell } from "@/components/UI";
 
 const About: FC = () => {
   return (
-    <AppShell userMenu={<></>}>
-      <Stack>
-        <MainTitle title="About" />
-        <Box>
-          <Markdown children={about} />
-        </Box>
-      </Stack>
-    </AppShell>
+    <PageShell title="About">
+      <Markdown children={about} />
+    </PageShell>
   )
 }
 

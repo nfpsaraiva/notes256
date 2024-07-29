@@ -1,13 +1,13 @@
-import { BlockNote, LocalNote, WebNote } from "@/types";
+import { Note } from "@/types";
 import { Button, Group } from "@mantine/core";
 import { FC } from "react";
 
 interface NoteCardControlsProps {
-  note: LocalNote | WebNote | BlockNote,
+  note: Note,
   expanded: boolean,
   newTitle: string,
   newDescription: string,
-  deleteNote: (note: LocalNote | WebNote | BlockNote) => Promise<void>,
+  deleteNote: (note: Note) => Promise<void>,
 }
 
 const NoteCardControls: FC<NoteCardControlsProps> = ({

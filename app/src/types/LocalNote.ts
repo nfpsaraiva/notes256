@@ -1,10 +1,6 @@
-interface LocalNote {
-  id: string,
-  name: string,
-  description: string,
-  date: Date,
-  tokenId: number,
-  image: string,
+import Note from "./Note";
+
+interface LocalNote extends Note {
 }
 
 export default LocalNote;

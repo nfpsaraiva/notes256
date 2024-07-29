@@ -1,4 +1,4 @@
-import { BlockNote, LocalNote, WebNote } from "@/types";
+import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { Box, Modal, ScrollArea, Stack } from "@mantine/core";
 import { FC } from "react";
 import classes from "./NoteCardExpanded.module.css";
@@ -8,12 +8,12 @@ import NoteContent from "../NoteContent/NoteContent";
 interface NoteCardExpandedProps {
   opened: boolean,
   close: () => void,
-  note: LocalNote | WebNote | BlockNote,
+  note: Note,
   newTitle: string,
   newDescription: string,
   setNewTitle: React.Dispatch<React.SetStateAction<string>>,
   setNewDescription: React.Dispatch<React.SetStateAction<string>>,
-  deleteNote: (note: LocalNote | WebNote | BlockNote) => Promise<void>,
+  deleteNote: (note: Note) => Promise<void>,
 }
 
 const NoteCardExpanded: FC<NoteCardExpandedProps> = ({

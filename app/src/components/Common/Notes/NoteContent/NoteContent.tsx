@@ -1,9 +1,9 @@
-import { BlockNote, LocalNote, WebNote } from "@/types";
+import { Note } from "@/types";
 import { Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
 import { FC } from "react";
 
 interface NoteContentProps {
-  note: LocalNote | WebNote | BlockNote,
+  note: Note,
   expanded: boolean,
   newTitle: string,
   newDescription: string,

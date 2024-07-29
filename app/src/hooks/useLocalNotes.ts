@@ -13,8 +13,7 @@ const useLocalNotes = () => {
       name,
       description,
       date: new Date(),
-      image: "",
-      tokenId: 0
+      editable: true
     }]);
   }
 

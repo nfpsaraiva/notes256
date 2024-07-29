@@ -1,12 +1,12 @@
-import { BlockNote, LocalNote, WebNote } from "@/types";
+import { Note } from "@/types";
 import { SimpleGrid } from "@mantine/core";
 import { FC } from "react";
 import NoteCard from "../NoteCard/NoteCard";
 
 interface NoteListProps {
-  notes: LocalNote[] | WebNote[] | BlockNote[],
-  updateNote: (note: LocalNote | WebNote | BlockNote) => Promise<void>,
-  deleteNote: (note: LocalNote | WebNote | BlockNote) => Promise<void>,
+  notes: Note[],
+  updateNote: (note: Note) => Promise<void>,
+  deleteNote: (note: Note) => Promise<void>,
 }
 
 const NoteList: FC<NoteListProps> = ({ notes, updateNote, deleteNote }: NoteListProps) => {
