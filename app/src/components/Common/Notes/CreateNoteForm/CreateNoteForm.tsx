@@ -1,8 +1,7 @@
-import { Button, Group, Stack, TextInput, Textarea } from "@mantine/core";
+import { Button, Stack, TextInput, Textarea } from "@mantine/core";
 import { FC, useState } from "react";
 import { IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { BlockNote, LocalNote, WebNote } from "@/types";
 
 interface CreateNoteFormProps {
   modalOpened: boolean,
@@ -18,7 +17,6 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
   redirectAfterSubmit
 }: CreateNoteFormProps) => {
   const [name, setName] = useState('');
-
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
@@ -50,17 +48,16 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
         minRows={6}
         withAsterisk
       />
-      <Group>
-        <Button
-          leftSection={<IconPlus stroke={3} size={18} />}
-          size="sm"
-          radius={"lg"}
-          variant="light"
-          onClick={save}
-        >
-          Add
-        </Button>
-      </Group>
+      <Button
+        leftSection={<IconPlus stroke={3} size={18} />}
+        size="sm"
+        radius={"lg"}
+        variant="light"
+        onClick={save}
+        fw={700}
+      >
+        Add
+      </Button>
     </Stack>
   )
 }

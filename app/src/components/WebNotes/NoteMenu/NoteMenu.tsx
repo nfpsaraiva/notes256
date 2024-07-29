@@ -2,7 +2,7 @@ import { useLocalNotes, useWebNotes } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 import { WebNote } from "@/types";
 import { Menu } from "@mantine/core";
-import { IconDeviceMobile, IconGizmo, IconTrash } from "@tabler/icons-react";
+import { IconCubePlus, IconDeviceMobile, IconDeviceMobilePlus, IconGizmo, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface NoteMenuProps {
@@ -19,14 +19,14 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
       <Menu.Item onClick={e => {
         e.stopPropagation();
         convertToBlock(note, createBlockNote)
-      }} leftSection={<IconGizmo size={16} />}>
-        Convert to Block
+      }} leftSection={<IconCubePlus size={16} />}>
+        Create a Block Note
       </Menu.Item>
       <Menu.Item onClick={e => {
         e.stopPropagation();
         convertToLocal(note, createLocalNote)
-      }} leftSection={<IconDeviceMobile size={16} />}>
-        Convert to Local
+      }} leftSection={<IconDeviceMobilePlus size={16} />}>
+        Create a Local Note
       </Menu.Item>
       <Menu.Item onClick={e => {
         e.stopPropagation();

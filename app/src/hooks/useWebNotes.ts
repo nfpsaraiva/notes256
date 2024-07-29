@@ -24,7 +24,6 @@ const useWebNotes = () => {
     createLocalNote: (name: string, description: string) => Promise<void>
   ) => {
     await createLocalNote(note.name, note.description);
-    deleteNote(note);
   }
 
   const convertToBlock = async (
@@ -32,7 +31,6 @@ const useWebNotes = () => {
     createBlockNote: (name: string, description: string) => Promise<void>
   ) => {
     await createBlockNote(note.name, note.description);
-    deleteNote(note);
   }
 
   return {

@@ -146,6 +146,20 @@ const useBlockNotes = () => {
     transferNoteMutation({ note: note as BlockNote, to });
   }
 
+  const convertToLocal = async (
+    note: Note,
+    createLocalNote: (name: string, description: string) => Promise<void>
+  ) => {
+    await createLocalNote(note.name, note.description);
+  }
+
+  const convertToWeb = async (
+    note: Note,
+    createWebNote: (name: string, description: string) => Promise<void>
+  ) => {
+    await createWebNote(note.name, note.description);
+  }
+
   return {
     blockNotes: notes,
     isLoading: isFetching,
@@ -153,7 +167,9 @@ const useBlockNotes = () => {
     createNote,
     updateNote,
     deleteNote,
-    transferNote
+    transferNote,
+    convertToWeb,
+    convertToLocal
   }
 }
 

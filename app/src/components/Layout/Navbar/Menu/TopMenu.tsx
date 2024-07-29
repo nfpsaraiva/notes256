@@ -1,5 +1,5 @@
 import { Divider, Stack } from "@mantine/core";
-import { IconCloud, IconDeviceMobile, IconGizmo, IconHome } from "@tabler/icons-react";
+import { IconCloud, IconCube, IconDeviceMobile, IconGizmo, IconHome } from "@tabler/icons-react";
 import { FC } from "react";
 import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
@@ -19,7 +19,7 @@ const TopMenu: FC = () => {
 
   return (
     <Stack gap={4} className={classes.menu}>
-      <MenuItem name={`${MenuEnum.BLOCK_NOTES} (${decentralizedNotesCount})`} path="/" icon={<IconGizmo size={18} />} />
+      <MenuItem name={`${MenuEnum.BLOCK_NOTES} (${decentralizedNotesCount})`} path="/" icon={<IconCube size={18} />} />
       <MenuItem name={`${MenuEnum.WEB_NOTES} (${cloudNotesCount})`} path="/web-notes" icon={<IconCloud size={18} />} />
       <MenuItem name={`${MenuEnum.LOCAL_NOTES} (${localNotesCount})`} path="/local-notes" icon={<IconDeviceMobile size={18} />} />
     </Stack>
