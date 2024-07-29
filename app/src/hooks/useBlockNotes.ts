@@ -6,6 +6,7 @@ import envs from "@/envs";
 import contractArtifact from "../../../artifacts/contracts/Notes256.sol/Notes256.json";
 import { BlockNote, Note } from "@/types";
 import { BrowserProvider, Contract } from "ethers";
+import { NoteType } from "@/enums";
 
 const useBlockNotes = () => {
   const alchemy = useAlchemy();
@@ -43,7 +44,8 @@ const useBlockNotes = () => {
             date,
             tokenId: Number(nft.tokenId),
             image: image as string,
-            editable: false
+            editable: false,
+            type: NoteType.BLOCK
           }
           return blockNote;
         } catch (e) {

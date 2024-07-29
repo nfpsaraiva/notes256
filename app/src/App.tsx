@@ -11,9 +11,22 @@ import { createWeb3Modal } from '@web3modal/ethers/react';
 import { ethersConfig, mainnet, projectId } from '@/walletconnect';
 import { ModalsProvider } from '@mantine/modals';
 import { UserbaseProvider } from './contexts/UserbaseContext';
+import { Auth0Provider } from "@auth0/auth0-react";
+import envs from "@/envs";
+
 
 export default function App() {
   const queryClient = new QueryClient();
+
+  console.log(envs);
+
+  const auth0Config = {
+    domain: envs.AUTH0_CLIENT_ID,
+    clientId: envs.AUTH0_CLIENT_ID,
+    authorizationParams: {
+      redirect_uri: window.location.origin
+    }
+  }
 
   createWeb3Modal({
     ethersConfig,
@@ -26,15 +39,17 @@ export default function App() {
   return (
     <MantineProvider theme={theme} defaultColorScheme='light'>
       <Notifications />
-      <ModalsProvider>
-        <UserbaseProvider>
-          <AlchemyProvider>
-            <QueryClientProvider client={queryClient}>
-              <Router />
-            </QueryClientProvider>
-          </AlchemyProvider>
-        </UserbaseProvider>
-      </ModalsProvider>
+      <Auth0Provider {...auth0Config}>
+        <ModalsProvider>
+          <UserbaseProvider>
+            <AlchemyProvider>
+              <QueryClientProvider client={queryClient}>
+                <Router />
+              </QueryClientProvider>
+            </AlchemyProvider>
+          </UserbaseProvider>
+        </ModalsProvider>
+      </Auth0Provider>
     </MantineProvider>
   );
 }

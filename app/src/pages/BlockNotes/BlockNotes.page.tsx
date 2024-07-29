@@ -14,7 +14,6 @@ const BlockNotes: FC = () => {
     blockNotes,
     createNote,
     updateNote,
-    deleteNote,
     isLoading,
     refetch,
     transferNote
@@ -27,7 +26,6 @@ const BlockNotes: FC = () => {
       createNote={createNote}
       createNoteModalHandle={createNoteModalHandle}
       createNoteModalOpened={createNoteModalOpened}
-      deleteNote={deleteNote}
       isLoading={isLoading}
       notes={blockNotes ? blockNotes : []}
       refetch={refetch}
@@ -36,7 +34,7 @@ const BlockNotes: FC = () => {
       searchValueDebounced={searchValueDebounced}
       updateNote={updateNote}
       userMenu={<UserMenu />}
-      redirectAfterSubmit="/block-notes"
+      redirectAfterSubmit="/"
       noteMenuIcon={<IconGizmo size={20} />}
     />
   )

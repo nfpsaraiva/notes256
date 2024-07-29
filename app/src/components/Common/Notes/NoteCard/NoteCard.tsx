@@ -9,14 +9,12 @@ import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
 interface NoteCardProps {
   note: Note,
   updateNote: (note: Note) => Promise<void>,
-  deleteNote: (note: Note) => Promise<void>,
   noteMenuIcon: ReactNode
 }
 
 const NoteCard: FC<NoteCardProps> = ({
   note,
   updateNote,
-  deleteNote,
   noteMenuIcon
 }: NoteCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -38,11 +36,6 @@ const NoteCard: FC<NoteCardProps> = ({
         <NoteContent
           note={note}
           expanded={false}
-          newTitle={name}
-          newDescription={description}
-          setNewTitle={setName}
-          setNewDescription={setDescription}
-          deleteNote={deleteNote}
           noteMenuIcon={noteMenuIcon}
         />
       </Card>
@@ -54,7 +47,6 @@ const NoteCard: FC<NoteCardProps> = ({
         newDescription={description}
         setNewTitle={setName}
         setNewDescription={setDescription}
-        deleteNote={deleteNote}
         noteMenuIcon={noteMenuIcon}
       />
     </>

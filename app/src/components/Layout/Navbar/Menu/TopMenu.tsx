@@ -19,9 +19,7 @@ const TopMenu: FC = () => {
 
   return (
     <Stack gap={4} className={classes.menu}>
-      <MenuItem name={MenuEnum.HOME} path="/" icon={<IconHome size={18} />} />
-      <Divider my={"xs"} label="Notes" />
-      <MenuItem name={`${MenuEnum.BLOCK_NOTES} (${decentralizedNotesCount})`} path="/block-notes" icon={<IconGizmo size={18} />} />
+      <MenuItem name={`${MenuEnum.BLOCK_NOTES} (${decentralizedNotesCount})`} path="/" icon={<IconGizmo size={18} />} />
       <MenuItem name={`${MenuEnum.WEB_NOTES} (${cloudNotesCount})`} path="/web-notes" icon={<IconCloud size={18} />} />
       <MenuItem name={`${MenuEnum.LOCAL_NOTES} (${localNotesCount})`} path="/local-notes" icon={<IconDeviceMobile size={18} />} />
     </Stack>

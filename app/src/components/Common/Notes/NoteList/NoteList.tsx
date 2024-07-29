@@ -6,14 +6,12 @@ import NoteCard from "../NoteCard/NoteCard";
 interface NoteListProps {
   notes: Note[],
   updateNote: (note: Note) => Promise<void>,
-  deleteNote: (note: Note) => Promise<void>,
   noteMenuIcon: ReactNode
 }
 
 const NoteList: FC<NoteListProps> = ({
   notes,
   updateNote,
-  deleteNote,
   noteMenuIcon
 }: NoteListProps) => {
   return (
@@ -25,7 +23,6 @@ const NoteList: FC<NoteListProps> = ({
               key={note.id}
               note={note}
               updateNote={updateNote}
-              deleteNote={deleteNote}
               noteMenuIcon={noteMenuIcon}
             />
           )

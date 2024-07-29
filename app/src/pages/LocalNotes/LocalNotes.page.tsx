@@ -7,7 +7,7 @@ import { FC, useState } from "react";
 
 const LocalNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { localNotes, createNote, updateNote, deleteNote, transferNote } = useLocalNotes();
+  const { localNotes, createNote, updateNote, transferNote } = useLocalNotes();
   const [createNoteModalOpened, createNoteModalHandle] = useDisclosure(false);
 
   const refetch = () => {};
@@ -19,7 +19,6 @@ const LocalNotes: FC = () => {
       createNote={createNote}
       createNoteModalHandle={createNoteModalHandle}
       createNoteModalOpened={createNoteModalOpened}
-      deleteNote={deleteNote}
       isLoading={false}
       notes={localNotes}
       refetch={refetch}

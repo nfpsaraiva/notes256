@@ -8,7 +8,13 @@ const config = {
   ALCHEMY_API_KEY: import.meta.env.VITE_ALCHEMY_API_KEY,
   PROOF_TOKEN_URI: import.meta.env.VITE_PROOF_TOKEN_URI,
   WALLETCONNECT_PROJECT_ID: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-  APP_VERSION: import.meta.env.VITE_APP_VERSION
+  APP_VERSION: import.meta.env.VITE_APP_VERSION,
+  USERBASE_APP_ID: import.meta.env.VITE_USERBASE_APP_ID,
+  USERBASE_DATABASE_NAME: import.meta.env.VITE_USERBASE_DATABASE_NAME,
+  AUTH0_CLIENT_DOMAIN: import.meta.env.VITE_AUTH0_DOMAIN,
+  AUTH0_CLIENT_ID: import.meta.env.VITE_AUTH0_CLIENT_ID,
+  AUTH0_CLIENT_SECRET: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
+
 };
 
 export default config;

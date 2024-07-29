@@ -7,7 +7,7 @@ import { FC, useState } from "react";
 
 const WebNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { webNotes, isLoading, createNote, updateNote, deleteNote } = useWebNotes();
+  const { webNotes, isLoading, createNote, updateNote } = useWebNotes();
   const [createNoteModalOpened, createNoteModalHandle] = useDisclosure(false);
 
   const refetch = () => {};
@@ -19,7 +19,6 @@ const WebNotes: FC = () => {
       createNote={createNote}
       createNoteModalHandle={createNoteModalHandle}
       createNoteModalOpened={createNoteModalOpened}
-      deleteNote={deleteNote}
       isLoading={isLoading}
       notes={webNotes ? webNotes : []}
       refetch={refetch}

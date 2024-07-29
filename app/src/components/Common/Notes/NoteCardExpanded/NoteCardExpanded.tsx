@@ -12,7 +12,6 @@ interface NoteCardExpandedProps {
   newDescription: string,
   setNewTitle: React.Dispatch<React.SetStateAction<string>>,
   setNewDescription: React.Dispatch<React.SetStateAction<string>>,
-  deleteNote: (note: Note) => Promise<void>,
   noteMenuIcon: ReactNode
 }
 
@@ -24,7 +23,6 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
   newDescription,
   setNewTitle,
   setNewDescription,
-  deleteNote,
   noteMenuIcon
 }: NoteCardExpandedProps) => {
   return (
@@ -47,17 +45,11 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
               newDescription={newDescription}
               setNewTitle={setNewTitle}
               setNewDescription={setNewDescription}
-              deleteNote={deleteNote}
               noteMenuIcon={noteMenuIcon}
             />
             : <NoteContent
               note={note}
               expanded={true}
-              newTitle={newTitle}
-              newDescription={newDescription}
-              setNewTitle={setNewTitle}
-              setNewDescription={setNewDescription}
-              deleteNote={deleteNote}
               noteMenuIcon={noteMenuIcon}
             />
         }

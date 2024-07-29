@@ -16,7 +16,6 @@ interface NotePageProps {
   notes: LocalNote[] | WebNote[] | BlockNote[],
   createNote: (name: string, description: string) => Promise<void>,
   updateNote: (note: Note) => Promise<void>,
-  deleteNote: (note: Note) => Promise<void>,
   createNoteModalOpened: boolean,
   createNoteModalHandle: {
     readonly open: () => void;
@@ -39,7 +38,6 @@ const NotePage: FC<NotePageProps> = ({
   notes,
   createNote,
   updateNote,
-  deleteNote,
   createNoteModalOpened,
   createNoteModalHandle,
   searchValue,
@@ -69,7 +67,6 @@ const NotePage: FC<NotePageProps> = ({
         notes && <NoteList
           notes={filterNotes(notes, searchValueDebounced)}
           updateNote={updateNote}
-          deleteNote={deleteNote}
           noteMenuIcon={noteMenuIcon}
         />
       }

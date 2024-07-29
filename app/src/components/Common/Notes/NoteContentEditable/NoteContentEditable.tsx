@@ -10,7 +10,6 @@ interface NoteContentEditableProps {
   newDescription: string,
   setNewTitle: React.Dispatch<React.SetStateAction<string>>,
   setNewDescription: React.Dispatch<React.SetStateAction<string>>,
-  deleteNote: (note: Note) => Promise<void>,
   noteMenuIcon: ReactNode
 }
 
@@ -21,7 +20,6 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
   newDescription,
   setNewTitle,
   setNewDescription,
-  deleteNote,
   noteMenuIcon
 }: NoteContentEditableProps) => {
   const formatedDate = <Text c={"dimmed"} size="xs" fw={500}>
@@ -44,7 +42,7 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
             />
             {note.date && formatedDate}
           </Stack>
-          <NoteMenu note={note} noteMenuIcon={noteMenuIcon} deleteNote={deleteNote} />
+          <NoteMenu note={note} noteMenuIcon={noteMenuIcon} />
         </Group>
       </Stack>
       <Textarea
