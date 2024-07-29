@@ -20,9 +20,6 @@ describe("Create Note", () => {
 
     const note = await provifyContract.notes(1);
 
-    const noteId = ethers.solidityPackedKeccak256(["string"], ["bar"]);
-
-    expect(note[0]).to.be.equal(noteId);
     expect(note[1]).to.be.equal("foo");
     expect(note[2]).to.be.equal("bar");
   })
@@ -37,15 +34,6 @@ describe("Create Note", () => {
     expect(tokenURI).to.be.equal("https://gateway/foo");
   });
 
-  it("Should failed when creating a duplicated note", async () => {
-    const {provifyContract} = await loadFixture(deployNotes256Fixture);
-
-    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
-    const duplicatedNote = provifyContract.createNote('foo', "bar", "https://gateway/foo");
-
-    await expect(duplicatedNote).to.be.reverted;
-  })
-
   it("Should create a note with content from a burned note", async () => {
     const {provifyContract} = await loadFixture(deployNotes256Fixture);
 
@@ -55,9 +43,7 @@ describe("Create Note", () => {
 
     await provifyContract.createNote('foo', "bar", "https://gateway/foo");
     const duplicatedNote = await provifyContract.notes(2);
-    const noteId = ethers.solidityPackedKeccak256(["string"], ["bar"]);
 
-    expect(duplicatedNote[0]).to.be.equal(noteId);
     expect(duplicatedNote[1]).to.be.equal("foo");
     expect(duplicatedNote[2]).to.be.equal("bar");
   })

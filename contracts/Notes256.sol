@@ -56,7 +56,7 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         string memory _tokenURI
     ) external {
         // Generates an unique ID for the new note
-        bytes32 contentHashed = keccak256(abi.encodePacked(_content));
+        bytes32 contentHashed = keccak256(abi.encodePacked(_content, block.timestamp));
 
         // Prevent duplicates
         uint256 noteId = notesIds[contentHashed];

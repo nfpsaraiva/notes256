@@ -2,7 +2,8 @@ import { FC, useState } from 'react';
 import { useDebouncedValue, useDisclosure } from '@mantine/hooks';
 import { NotePage } from '@/components/Common/Notes';
 import useBlockNotes from '@/hooks/useBlockNotes';
-import { NoteMenu, UserMenu } from '@/components/BlockNotes';
+import { UserMenu } from '@/components/BlockNotes';
+import { IconGizmo } from '@tabler/icons-react';
 
 const BlockNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -36,7 +37,7 @@ const BlockNotes: FC = () => {
       updateNote={updateNote}
       userMenu={<UserMenu />}
       redirectAfterSubmit="/block-notes"
-      noteMenu={<NoteMenu />}
+      noteMenuIcon={<IconGizmo size={20} />}
     />
   )
 }

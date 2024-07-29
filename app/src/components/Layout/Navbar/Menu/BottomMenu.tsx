@@ -10,7 +10,6 @@ const BottomMenu: FC = () => {
     <Stack gap={4} className={classes.menu}>
       <MenuItem name={MenuEnum.HOW_IT_WORKS} path="/how-it-works" icon={<IconQuestionMark size={18} />} />
       <MenuItem name={MenuEnum.ROADMAP} path="/roadmap" icon={<IconTimeline size={18} />} />
-      <MenuItem name={MenuEnum.TEAM} path="/team" icon={<IconUsers size={18} />} />
       <MenuItem name={MenuEnum.ABOUT} path="/about" icon={<IconInfoCircle size={18} />} />
       <Group my={"xs"} justify="flex-start">
         <Badge variant="transparent" size="sm">ALPHA</Badge>

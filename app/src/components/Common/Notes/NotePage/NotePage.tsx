@@ -29,7 +29,7 @@ interface NotePageProps {
   isLoading: boolean,
   refetch: () => void,
   redirectAfterSubmit: string,
-  noteMenu: ReactNode
+  noteMenuIcon: ReactNode
 }
 
 const NotePage: FC<NotePageProps> = ({
@@ -48,7 +48,7 @@ const NotePage: FC<NotePageProps> = ({
   isLoading,
   refetch,
   redirectAfterSubmit,
-  noteMenu
+  noteMenuIcon
 }: NotePageProps) => {
   return (
     <PageShell title={pageTitle} subtitle={pageSubtitle} userMenu={userMenu}>
@@ -70,7 +70,7 @@ const NotePage: FC<NotePageProps> = ({
           notes={filterNotes(notes, searchValueDebounced)}
           updateNote={updateNote}
           deleteNote={deleteNote}
-          noteMenu={noteMenu}
+          noteMenuIcon={noteMenuIcon}
         />
       }
       <CreateNoteButton open={createNoteModalHandle.open} />

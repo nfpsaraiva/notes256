@@ -1,7 +1,8 @@
 import { NotePage } from "@/components/Common/Notes";
-import { NoteMenu, UserMenu } from "@/components/LocalNotes";
+import { UserMenu } from "@/components/LocalNotes";
 import { useLocalNotes } from "@/hooks";
 import { useDisclosure } from "@mantine/hooks";
+import { IconDeviceMobile } from "@tabler/icons-react";
 import { FC, useState } from "react";
 
 const LocalNotes: FC = () => {
@@ -28,7 +29,7 @@ const LocalNotes: FC = () => {
       updateNote={updateNote}
       userMenu={<UserMenu />}
       redirectAfterSubmit="/local-notes"
-      noteMenu={<NoteMenu />}
+      noteMenuIcon={<IconDeviceMobile size={20} />}
     />
   )
 }

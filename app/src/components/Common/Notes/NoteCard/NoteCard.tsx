@@ -1,20 +1,24 @@
-import { Card, useHovered } from "@mantine/core";
+import { Card } from "@mantine/core";
 import { FC, ReactNode, useState } from "react";
 import classes from "./NoteCard.module.css";
 import { Note } from "@/types";
 import { useDisclosure } from "@mantine/hooks";
 import NoteContent from "../NoteContent/NoteContent";
-import NoteCardControls from "../NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
 
 interface NoteCardProps {
   note: Note,
   updateNote: (note: Note) => Promise<void>,
   deleteNote: (note: Note) => Promise<void>,
-  noteMenu: ReactNode
+  noteMenuIcon: ReactNode
 }
 
-const NoteCard: FC<NoteCardProps> = ({ note, updateNote, deleteNote, noteMenu }: NoteCardProps) => {
+const NoteCard: FC<NoteCardProps> = ({
+  note,
+  updateNote,
+  deleteNote,
+  noteMenuIcon
+}: NoteCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [name, setName] = useState(note.name);
   const [description, setDescription] = useState(note.description);
@@ -38,7 +42,8 @@ const NoteCard: FC<NoteCardProps> = ({ note, updateNote, deleteNote, noteMenu }:
           newDescription={description}
           setNewTitle={setName}
           setNewDescription={setDescription}
-          noteMenu={noteMenu}
+          deleteNote={deleteNote}
+          noteMenuIcon={noteMenuIcon}
         />
       </Card>
       <NoteCardExpanded
@@ -50,6 +55,7 @@ const NoteCard: FC<NoteCardProps> = ({ note, updateNote, deleteNote, noteMenu }:
         setNewTitle={setName}
         setNewDescription={setDescription}
         deleteNote={deleteNote}
+        noteMenuIcon={noteMenuIcon}
       />
     </>
   )
