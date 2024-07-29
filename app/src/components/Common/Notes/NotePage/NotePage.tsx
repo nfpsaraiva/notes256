@@ -28,7 +28,8 @@ interface NotePageProps {
   searchValueDebounced: string
   isLoading: boolean,
   refetch: () => void,
-  redirectAfterSubmit: string
+  redirectAfterSubmit: string,
+  noteMenu: ReactNode
 }
 
 const NotePage: FC<NotePageProps> = ({
@@ -46,10 +47,11 @@ const NotePage: FC<NotePageProps> = ({
   searchValueDebounced,
   isLoading,
   refetch,
-  redirectAfterSubmit
+  redirectAfterSubmit,
+  noteMenu
 }: NotePageProps) => {
   return (
-    <PageShell title={pageTitle} subtitle={pageSubtitle}>
+    <PageShell title={pageTitle} subtitle={pageSubtitle} userMenu={userMenu}>
       <NoteSearch
         searchValue={searchValue}
         setSearchValue={setSearchValue}
@@ -68,6 +70,7 @@ const NotePage: FC<NotePageProps> = ({
           notes={filterNotes(notes, searchValueDebounced)}
           updateNote={updateNote}
           deleteNote={deleteNote}
+          noteMenu={noteMenu}
         />
       }
       <CreateNoteButton open={createNoteModalHandle.open} />

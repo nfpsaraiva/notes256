@@ -1,7 +1,7 @@
 import { useAlchemy } from "@/contexts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useWeb3ModalAccount, useWeb3ModalProvider } from "@web3modal/ethers/react";
-import { Contract as AlchemyContract, Block, Nft, OwnedNft } from "alchemy-sdk";
+import { Contract as AlchemyContract, OwnedNft } from "alchemy-sdk";
 import envs from "@/envs";
 import contractArtifact from "../../../artifacts/contracts/Notes256.sol/Notes256.json";
 import { BlockNote, Note } from "@/types";
@@ -114,7 +114,7 @@ const useBlockNotes = () => {
     isSuccess: blockNoteTransfered,
     isPending: transferingBlockNote
   } = useMutation({
-    mutationFn: async ({ to, tokenId }: { to: string, tokenId: number }) => {
+    mutationFn: async ({ note, to }: { note: BlockNote, to: string }) => {
       if (!walletProvider) return;
 
       const ethersProvider = new BrowserProvider(walletProvider);
@@ -123,7 +123,7 @@ const useBlockNotes = () => {
 
       const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
 
-      const response = await contract.safeTransferFrom(address, to, tokenId);
+      const response = await contract.safeTransferFrom(address, to, note.tokenId);
 
       await response.wait();
     },
@@ -140,13 +140,18 @@ const useBlockNotes = () => {
     deleteNoteMutation(note as BlockNote)
   }
 
+  const transferNote = async (note: Note, to: string) => {
+    transferNoteMutation({ note: note as BlockNote, to });
+  }
+
   return {
     blockNotes: notes,
     isLoading: isFetching,
     refetch,
-    createBlockNote: createNote,
-    updateBlockNote: updateNote,
-    deleteBlockNote: deleteNote
+    createNote,
+    updateNote,
+    deleteNote,
+    transferNote
   }
 }
 

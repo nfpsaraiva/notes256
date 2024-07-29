@@ -5,12 +5,13 @@ import { FC, ReactNode } from "react";
 interface PageShellProps {
   title: string,
   subtitle?: string,
+  userMenu?: ReactNode,
   children: ReactNode
 }
 
-const PageShell: FC<PageShellProps> = ({title, subtitle, children}: PageShellProps) => {
+const PageShell: FC<PageShellProps> = ({title, subtitle, userMenu, children}: PageShellProps) => {
   return (
-    <AppShell userMenu={<></>}>
+    <AppShell userMenu={userMenu}>
       <Stack>
         <Stack gap={2}>
           <Title order={2} size={"h1"}>{title}</Title>

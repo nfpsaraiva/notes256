@@ -1,4 +1,5 @@
 enum MenuEnum {
+  HOME = "Home",
   BLOCK_NOTES = "Blockchain",
   WEB_NOTES = "Web",
   LOCAL_NOTES = "Local",

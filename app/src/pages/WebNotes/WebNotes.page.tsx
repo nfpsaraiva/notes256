@@ -1,12 +1,12 @@
 import { NotePage } from "@/components/Common/Notes";
-import { UserMenu } from "@/components/WebNotes";
+import { NoteMenu, UserMenu } from "@/components/WebNotes";
 import { useWebNotes } from "@/hooks";
 import { useDisclosure } from "@mantine/hooks";
 import { FC, useState } from "react";
 
 const WebNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { webNotes, isLoading, createWebNote, updateWebNote, deleteWebNote } = useWebNotes();
+  const { webNotes, isLoading, createNote, updateNote, deleteNote } = useWebNotes();
   const [createNoteModalOpened, createNoteModalHandle] = useDisclosure(false);
 
   const refetch = () => {};
@@ -15,19 +15,20 @@ const WebNotes: FC = () => {
     <NotePage
       pageTitle="Web Notes"
       pageSubtitle="Notes will be linked to your current accoun"
-      createNote={createWebNote}
+      createNote={createNote}
       createNoteModalHandle={createNoteModalHandle}
       createNoteModalOpened={createNoteModalOpened}
-      deleteNote={deleteWebNote}
+      deleteNote={deleteNote}
       isLoading={isLoading}
       notes={webNotes ? webNotes : []}
       refetch={refetch}
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       searchValueDebounced={searchValue}
-      updateNote={updateWebNote}
+      updateNote={updateNote}
       userMenu={<UserMenu />}
-      redirectAfterSubmit="/"
+      redirectAfterSubmit="/web-notes"
+      noteMenu={<NoteMenu />}
     />
   )
 }

@@ -1,5 +1,6 @@
 import { Note } from "@/types";
-import { Button, Group } from "@mantine/core";
+import { ActionIcon, Button, Group, Menu } from "@mantine/core";
+import { IconDots, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface NoteCardControlsProps {
@@ -20,7 +21,19 @@ const NoteCardControls: FC<NoteCardControlsProps> = ({
 
   return (
     <Group justify="space-between">
-      <Button onClick={() => deleteNote(note)}>Delete</Button>
+      <Menu width={"target"} radius={"lg"} position="top">
+        <Menu.Target>
+          <ActionIcon w={"100%"} onClick={e => e.stopPropagation()} variant="transparent" mx={"auto"}>
+            <IconDots />
+          </ActionIcon>
+        </Menu.Target>
+        <Menu.Dropdown>
+          <Menu.Item leftSection={<IconTrash size={18} color="red" />}>
+            Delete
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+      {/* <Button onClick={() => deleteNote(note)}>Delete</Button> */}
     </Group>
   )
 }

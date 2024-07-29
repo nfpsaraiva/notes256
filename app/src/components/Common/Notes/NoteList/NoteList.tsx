@@ -1,15 +1,17 @@
 import { Note } from "@/types";
 import { SimpleGrid } from "@mantine/core";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import NoteCard from "../NoteCard/NoteCard";
+import { NoteMenu } from "@/components/BlockNotes";
 
 interface NoteListProps {
   notes: Note[],
   updateNote: (note: Note) => Promise<void>,
   deleteNote: (note: Note) => Promise<void>,
+  noteMenu: ReactNode
 }
 
-const NoteList: FC<NoteListProps> = ({ notes, updateNote, deleteNote }: NoteListProps) => {
+const NoteList: FC<NoteListProps> = ({ notes, updateNote, deleteNote, noteMenu }: NoteListProps) => {
   return (
     <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }}>
       {
@@ -20,6 +22,7 @@ const NoteList: FC<NoteListProps> = ({ notes, updateNote, deleteNote }: NoteList
               note={note}
               updateNote={updateNote}
               deleteNote={deleteNote}
+              noteMenu={noteMenu}
             />
           )
         })

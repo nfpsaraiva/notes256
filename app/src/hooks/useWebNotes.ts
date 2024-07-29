@@ -1,4 +1,5 @@
 import { useUserbase } from "@/contexts";
+import { Note } from "@/types";
 
 const useWebNotes = () => {
   const { notes, isLoading, createNote: userbaseCreateNote, updateNote, deleteNote } = useUserbase();
@@ -13,12 +14,15 @@ const useWebNotes = () => {
     })
   }
 
+  const transferNote = async (note: Note, to: string) => {}
+
   return { 
     webNotes: notes, 
     isLoading,
-    createWebNote: createNote,
-    updateWebNote: updateNote,
-    deleteWebNote: deleteNote
+    createNote,
+    updateNote,
+    deleteNote,
+    transferNote
   }
 }
 

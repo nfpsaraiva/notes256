@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@mantine/hooks";
-import { LocalNote } from "@/types";
+import { LocalNote, Note } from "@/types";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -31,11 +31,14 @@ const useLocalNotes = () => {
     setNotes(newNotes)
   }
 
+  const transferNote = async (note: Note, to: string) => {}
+
   return { 
     localNotes: notes, 
-    createLocalNote: createNote,
-    updateLocalNote: updateNote,
-    deleteLocalNote: deleteNote
+    createNote,
+    updateNote,
+    deleteNote,
+    transferNote
   }
 }
 
