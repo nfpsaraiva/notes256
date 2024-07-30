@@ -1,6 +1,6 @@
 import { Button, Stack, TextInput, Textarea } from "@mantine/core";
 import { FC, useState } from "react";
-import { IconPlus } from "@tabler/icons-react";
+import { IconCheck } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
 interface CreateNoteFormProps {
@@ -49,14 +49,14 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
         withAsterisk
       />
       <Button
-        leftSection={<IconPlus stroke={3} size={18} />}
+        leftSection={<IconCheck stroke={3} size={18} />}
         size="sm"
         radius={"lg"}
         variant="light"
         onClick={save}
         fw={700}
       >
-        Add
+        Save
       </Button>
     </Stack>
   )

@@ -1,5 +1,5 @@
 import { Card } from "@mantine/core";
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode } from "react";
 import classes from "./NoteCard.module.css";
 import { Note } from "@/types";
 import { useDisclosure } from "@mantine/hooks";
@@ -18,17 +18,7 @@ const NoteCard: FC<NoteCardProps> = ({
   noteMenuIcon
 }: NoteCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [name, setName] = useState(note.name);
-  const [description, setDescription] = useState(note.description);
 
-  const closeExpanded = () => {
-    updateNote({
-      ...note,
-      name,
-      description
-    });
-    close();
-  }
 
   return (
     <>
@@ -38,15 +28,13 @@ const NoteCard: FC<NoteCardProps> = ({
           expanded={false}
           noteMenuIcon={noteMenuIcon}
         />
+        
       </Card>
       <NoteCardExpanded
         opened={opened}
-        close={closeExpanded}
+        close={close}
         note={note}
-        newTitle={name}
-        newDescription={description}
-        setNewTitle={setName}
-        setNewDescription={setDescription}
+        updateNote={updateNote}
         noteMenuIcon={noteMenuIcon}
       />
     </>

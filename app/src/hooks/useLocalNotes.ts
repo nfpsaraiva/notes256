@@ -1,11 +1,8 @@
 import { useLocalStorage } from "@mantine/hooks";
-import { LocalNote, Note, WebNote } from "@/types";
+import { LocalNote, Note } from "@/types";
 import { NoteType } from "@/enums";
-import useWebNotes from "./useWebNotes";
 
 const useLocalNotes = () => {
-  const {createNote: createWebNote} = useWebNotes();
-
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
     key: "Notes256",
     defaultValue: []
@@ -17,7 +14,6 @@ const useLocalNotes = () => {
       name,
       description,
       date: new Date(),
-      editable: true,
       type: NoteType.LOCAL
     }]);
   }
@@ -43,6 +39,7 @@ const useLocalNotes = () => {
     createWebNote: (name: string, description: string) => Promise<void>
   ) => {
     await createWebNote(note.name, note.description);
+    await deleteNote(note);
   }
 
   const convertToBlock = async (
@@ -50,6 +47,7 @@ const useLocalNotes = () => {
     createBlockNote: (name: string, description: string) => Promise<void>
   ) => {
     await createBlockNote(note.name, note.description);
+    await deleteNote(note);
   }
 
   return { 

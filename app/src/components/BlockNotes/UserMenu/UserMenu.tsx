@@ -12,19 +12,14 @@ const UserMenu: FC = () => {
     isConnected
       ? (
         <Group wrap="nowrap" gap={0}>
-          <Menu>
-            <Menu.Target>
-              <Menu.Item>
-                <Button
-                  variant="subtle"
-                  onClick={() => open()}
-                  leftSection={<IconCube size={16} />}
-                >
-                  {shortifyAddress(address as string)}
-                </Button>
-              </Menu.Item>
-            </Menu.Target>
-          </Menu>
+          <Button
+            component="a"
+            variant="subtle"
+            onClick={() => open()}
+            leftSection={<IconCube size={16} />}
+          >
+            {shortifyAddress(address as string)}
+          </Button>
 
         </Group>
       )

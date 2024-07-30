@@ -25,7 +25,7 @@ describe("Create Note", () => {
   })
 
   it("Should set a tokenURI when creating a note", async () => {
-    const {provifyContract} = await loadFixture(deployNotes256Fixture);
+    const { provifyContract } = await loadFixture(deployNotes256Fixture);
 
     await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
@@ -35,7 +35,7 @@ describe("Create Note", () => {
   });
 
   it("Should create a note with content from a burned note", async () => {
-    const {provifyContract} = await loadFixture(deployNotes256Fixture);
+    const { provifyContract } = await loadFixture(deployNotes256Fixture);
 
     await provifyContract.createNote('foo', "bar", "https://gateway/foo");
 
@@ -49,9 +49,31 @@ describe("Create Note", () => {
   })
 });
 
+describe("Update Note", () => {
+  it("Should not update a nots owned note", async () => {
+    const { otherAccount, provifyContract } = await loadFixture(deployNotes256Fixture);
+
+    await provifyContract.createNote('foo', "bar", "https://gateway/foo");
+
+    const signer = provifyContract.connect(otherAccount);
+
+    const noteUpdated = signer.updateNote(1, "foo2", "bar2");
+
+    await expect(noteUpdated).to.be.reverted;
+  });
+
+  it("Should not update a non existing note", async () => {
+    const { provifyContract } = await loadFixture(deployNotes256Fixture);
+
+    const noteUpdated = provifyContract.updateNote(2, "foo2", "bar2");
+
+    await expect(noteUpdated).to.be.reverted;
+  })
+})
+
 describe("Verify Note", () => {
   it("Should confirm that a note belogns to its owner", async () => {
-    const {otherAccount, provifyContract} = await loadFixture(deployNotes256Fixture);
+    const { otherAccount, provifyContract } = await loadFixture(deployNotes256Fixture);
 
     const signer = provifyContract.connect(otherAccount);
 
@@ -110,7 +132,7 @@ describe("Transfer Note", () => {
 
   it("Should failed when transfering a not owned note", async () => {
     const { otherAccount, otherAccount2, provifyContract } = await loadFixture(deployNotes256Fixture);
-    
+
     await provifyContract.createNote("foo", "bar", "https://foo/bar");
 
     const signer = provifyContract.connect(otherAccount);

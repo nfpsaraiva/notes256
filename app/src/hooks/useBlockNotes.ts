@@ -44,7 +44,6 @@ const useBlockNotes = () => {
             date,
             tokenId: Number(nft.tokenId),
             image: image as string,
-            editable: false,
             type: NoteType.BLOCK
           }
           return blockNote;
@@ -84,6 +83,27 @@ const useBlockNotes = () => {
       const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
 
       const response = await contract.createNote(name, description, PROOF_TOKEN_URI);
+
+      await response.wait();
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["blockNotes"] })
+  });
+
+  const {
+    mutate: updateNoteMutation,
+    isSuccess: blockNoteUpdated,
+    isPending: updatingBlockNote
+  } = useMutation({
+    mutationFn: async ({ note }: { note: BlockNote}) => {
+      if (!walletProvider) return;
+
+      const ethersProvider = new BrowserProvider(walletProvider);
+
+      const signer = await ethersProvider.getSigner();
+
+      const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
+
+      const response = await contract.updateNote(note.tokenId, note.name, note.description);
 
       await response.wait();
     },
@@ -136,7 +156,9 @@ const useBlockNotes = () => {
     createNoteMutation({ name, description });
   }
 
-  const updateNote = async (note: Note) => { }
+  const updateNote = async (note: Note) => { 
+    updateNoteMutation({note: note as BlockNote});
+  }
 
   const deleteNote = async (note: Note) => {
     deleteNoteMutation(note as BlockNote)
@@ -151,6 +173,7 @@ const useBlockNotes = () => {
     createLocalNote: (name: string, description: string) => Promise<void>
   ) => {
     await createLocalNote(note.name, note.description);
+    await deleteNote(note)
   }
 
   const convertToWeb = async (
@@ -158,6 +181,7 @@ const useBlockNotes = () => {
     createWebNote: (name: string, description: string) => Promise<void>
   ) => {
     await createWebNote(note.name, note.description);
+    await deleteNote(note);
   }
 
   return {

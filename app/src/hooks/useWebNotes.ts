@@ -1,7 +1,6 @@
 import { useUserbase } from "@/contexts";
 import { NoteType } from "@/enums";
 import { Note } from "@/types";
-import useLocalNotes from "./useLocalNotes";
 
 const useWebNotes = () => {
   const { notes, isLoading, createNote: userbaseCreateNote, updateNote, deleteNote } = useUserbase();
@@ -12,7 +11,6 @@ const useWebNotes = () => {
       name,
       description,
       date: new Date(),
-      editable: true,
       type: NoteType.WEB
     })
   }
@@ -24,6 +22,7 @@ const useWebNotes = () => {
     createLocalNote: (name: string, description: string) => Promise<void>
   ) => {
     await createLocalNote(note.name, note.description);
+    await deleteNote(note);
   }
 
   const convertToBlock = async (
@@ -31,6 +30,7 @@ const useWebNotes = () => {
     createBlockNote: (name: string, description: string) => Promise<void>
   ) => {
     await createBlockNote(note.name, note.description);
+    await deleteNote(note);
   }
 
   return {

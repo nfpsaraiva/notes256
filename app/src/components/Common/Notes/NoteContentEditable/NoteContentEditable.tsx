@@ -32,7 +32,7 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
     <Stack gap={"lg"} h={"100%"} mb={"lg"}>
       <Stack gap={4}>
         <Group justify="space-between">
-          <Stack gap={4}>
+          <Stack gap={4} flex={1}>
             <TextInput
               value={newTitle}
               onChange={e => setNewTitle(e.target.value)}

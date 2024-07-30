@@ -32,13 +32,13 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
         e.stopPropagation();
         convertToWeb(note, createWebNote);
       }} leftSection={<IconCloudPlus size={16} />}>
-        Create a Web Note
+        Convert to Web Note
       </Menu.Item>
       <Menu.Item onClick={e => {
         e.stopPropagation();
         convertToLocal(note, createLocalNote);
       }} leftSection={<IconDeviceMobilePlus size={16} />}>
-        Create a Local Note
+        Convert to Local Note
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item onClick={e => {

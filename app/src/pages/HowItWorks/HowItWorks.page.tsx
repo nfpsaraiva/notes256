@@ -6,7 +6,7 @@ import { Box } from "@mantine/core";
 
 const HowItWorks: FC = () => {
   return (
-    <PageShell title="How it worksl">
+    <PageShell title="How it works">
       <Box>
         <Markdown children={howItWorks} />
       </Box>

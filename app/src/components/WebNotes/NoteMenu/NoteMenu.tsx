@@ -20,14 +20,15 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
         e.stopPropagation();
         convertToBlock(note, createBlockNote)
       }} leftSection={<IconCubePlus size={16} />}>
-        Create a Block Note
+        Convert to Block Note
       </Menu.Item>
       <Menu.Item onClick={e => {
         e.stopPropagation();
         convertToLocal(note, createLocalNote)
       }} leftSection={<IconDeviceMobilePlus size={16} />}>
-        Create a Local Note
+        Convert to Local Note
       </Menu.Item>
+      <Menu.Divider />
       <Menu.Item onClick={e => {
         e.stopPropagation();
         deleteNote(note);

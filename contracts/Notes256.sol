@@ -28,6 +28,12 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         string content
     );
 
+    event NoteUpdated(
+        uint256 indexed tokenId,
+        string name,
+        string content
+    );
+
     event NoteDeleted(
         uint256 indexed tokenId
     );
@@ -79,6 +85,27 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         _setTokenURI(lastTokenId, _tokenURI);
 
         emit NoteCreated(lastTokenId, _name, _content);
+    }
+
+    /**
+     * Updates a note
+     * 
+     * @param _tokenId The nft token ID
+     * @param _title the new note title
+     * @param _content the new note content
+     */
+    function updateNote(
+        uint256 _tokenId, 
+        string memory _title, 
+        string memory _content
+    ) external {
+        require(ownerOf(_tokenId) == msg.sender, "Access denied");
+        require(notes[_tokenId].timestamp != 0, "Note not found");
+
+        notes[_tokenId].title = _title;
+        notes[_tokenId].content = _content;
+
+        emit NoteUpdated(_tokenId, _title, _content);
     }
 
     /**

@@ -10,7 +10,7 @@ const CreateNoteButton: FC<CreateNoteButtonProps> = ({ open }: CreateNoteButtonP
   return (
     <>
       <Affix bottom={20} right={20}>
-        <Tooltip label="New LocalNote">
+        <Tooltip label="New Note">
           <ActionIcon
             onClick={open}
             size={50}
