@@ -2,7 +2,7 @@ import { Center, Loader } from "@mantine/core";
 import { FC, ReactNode } from "react";
 import NoteSearch from "../NoteSearch/NoteSearch";
 import { IconRefresh } from "@tabler/icons-react";
-import NoteList from "../NoteList/NoteList";
+import NoteCardsList from "../NoteCardsList/NoteCardsList";
 import CreateNoteButton from "../CreateNoteButton/CreateNoteButton";
 import CreateNoteModal from "../CreateNoteModal/CreateNoteModal";
 import { BlockNote, LocalNote, Note, WebNote } from "@/types";
@@ -64,7 +64,7 @@ const NotePage: FC<NotePageProps> = ({
         </Center>
       }
       {
-        notes && <NoteList
+        notes && <NoteCardsList
           notes={filterNotes(notes, searchValueDebounced)}
           updateNote={updateNote}
           noteMenuIcon={noteMenuIcon}

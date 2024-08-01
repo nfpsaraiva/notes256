@@ -1,34 +1,24 @@
 import { Note } from "@/types";
-import { SimpleGrid } from "@mantine/core";
-import { FC, ReactNode } from "react";
-import NoteCard from "../NoteCard/NoteCard";
+import { List } from "@mantine/core";
+import { FC } from "react";
 
 interface NoteListProps {
-  notes: Note[],
-  updateNote: (note: Note) => Promise<void>,
-  noteMenuIcon: ReactNode
+  notes: Note[]
 }
 
-const NoteList: FC<NoteListProps> = ({
-  notes,
-  updateNote,
-  noteMenuIcon
-}: NoteListProps) => {
+const NoteList: FC<NoteListProps> = ({ notes }: NoteListProps) => {
   return (
-    <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }}>
+    <List>
       {
         notes.map(note => {
           return (
-            <NoteCard
-              key={note.id}
-              note={note}
-              updateNote={updateNote}
-              noteMenuIcon={noteMenuIcon}
-            />
+            <List.Item key={note.id}>
+              {note.name}
+            </List.Item>
           )
         })
       }
-    </SimpleGrid>
+    </List>
   )
 }
 

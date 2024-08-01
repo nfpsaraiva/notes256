@@ -1,5 +1,5 @@
 import { SidebarToggle } from "@/components/Common";
-import { Burger, Group } from "@mantine/core";
+import { Badge, Burger, Group } from "@mantine/core";
 import { FC, ReactNode } from "react";
 
 interface HeaderProps {
@@ -12,19 +12,21 @@ const Header: FC<HeaderProps> = ({ sidebarOpened, sidebarToggle, userMenu }: Hea
   return (
     <>
       <Group h="100%" px="md" mt={7} wrap="nowrap" visibleFrom="sm">
-        {
-          !sidebarOpened
-            ? <Group justify="flex-end" w={"100%"}>
-              {userMenu}
-            </Group>
-            : <Group justify="space-between" w={"100%"}>
-              <SidebarToggle toggle={sidebarToggle} />
-              {userMenu}
-            </Group>
-        }
+        <Group justify="space-between" w={"100%"}>
+          <Group>
+            {
+              sidebarOpened && <SidebarToggle toggle={sidebarToggle} />
+            }
+            <Badge variant="transparent" size="sm">ALPHA</Badge>
+          </Group>
+          {userMenu}
+        </Group>
       </Group>
       <Group justify="space-between" h="100%" px="lg" mt={7} wrap="nowrap" hiddenFrom="sm">
-        <Burger opened={sidebarOpened} onClick={sidebarToggle} size="sm" />
+        <Group>
+          <Burger opened={sidebarOpened} onClick={sidebarToggle} size="sm" />
+          <Badge variant="transparent" size="sm">ALPHA</Badge>
+        </Group>
         {userMenu}
       </Group>
     </>

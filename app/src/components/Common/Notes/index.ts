@@ -6,6 +6,7 @@ import NoteCardControls from "./NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "./NoteCardExpanded/NoteCardExpanded";
 import NoteContent from "./NoteContent/NoteContent";
 import NoteContentEditable from "./NoteContentEditable/NoteContentEditable";
+import NoteCardsList from "./NoteCardsList/NoteCardsList";
 import NoteList from "./NoteList/NoteList";
 import NoteMenu from "./NoteMenu/NoteMenu";
 import NotePage from "./NotePage/NotePage";
@@ -20,6 +21,7 @@ export {
   NoteCardExpanded,
   NoteContent,
   NoteContentEditable,
+  NoteCardsList,
   NoteList,
   NoteMenu,
   NotePage,

@@ -19,7 +19,6 @@ const NoteCard: FC<NoteCardProps> = ({
 }: NoteCardProps) => {
   const [opened, { open, close }] = useDisclosure(false);
 
-
   return (
     <>
       <Card onClick={open} className={classes.NoteCard} radius={"lg"} h={280} padding={"lg"} withBorder shadow="md">
@@ -28,7 +27,6 @@ const NoteCard: FC<NoteCardProps> = ({
           expanded={false}
           noteMenuIcon={noteMenuIcon}
         />
-        
       </Card>
       <NoteCardExpanded
         opened={opened}

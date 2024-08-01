@@ -12,7 +12,7 @@ interface PageShellProps {
 const PageShell: FC<PageShellProps> = ({title, subtitle, userMenu, children}: PageShellProps) => {
   return (
     <AppShell userMenu={userMenu}>
-      <Stack>
+      <Stack gap={"xl"}>
         <Stack gap={2}>
           <Title order={2} size={"h1"}>{title}</Title>
           {

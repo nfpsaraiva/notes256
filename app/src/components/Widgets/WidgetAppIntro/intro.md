@@ -1,0 +1,1 @@
+Secure your ideas with Notes256, a decentralized note-taking app. Choose from three storage modes: Local Notes for on-device storage, Web Notes for cloud-based access with authentication, and Block Notes to record your notes on the blockchain with NFT-backed proof of ownership. Welcome to the future of secure and flexible note-taking!
