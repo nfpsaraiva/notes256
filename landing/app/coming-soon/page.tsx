@@ -1,5 +1,5 @@
 import { Affix, Anchor, BackgroundImage, Box, Center, Group, Image, Stack, Text, Title } from '@mantine/core';
-import backgroundIamge from '../assets/coming-soon-background.png';
+import backgroundIamge from '../../assets/coming-soon-background.png';
 
 export default function HomePage() {
 
