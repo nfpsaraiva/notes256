@@ -1,4 +1,4 @@
-import { BlockNote, LocalNote, WebNote } from "@/types";
+import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 
 const filterNotes = (notes: LocalNote[] | WebNote[] | BlockNote[], searchTerm: string) => {
   const notesFiltered = notes.filter(note => {
@@ -21,6 +21,11 @@ const filterNotes = (notes: LocalNote[] | WebNote[] | BlockNote[], searchTerm: s
   return notesFiltered;
 }
 
+const isNoteValid = (note: Note) => {
+  if (note.name.length > 50) return false;
+  if (note.description.length > 256) return false;
+}
+
 const shortifyAddress = (address: string) => {
   const start = address.substring(0, 4);
   const end = address.substring(address.length - 4, address.length);
@@ -30,5 +35,6 @@ const shortifyAddress = (address: string) => {
 
 export {
   filterNotes,
+  isNoteValid,
   shortifyAddress
 }

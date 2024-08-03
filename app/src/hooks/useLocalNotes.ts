@@ -1,6 +1,7 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { LocalNote, Note } from "@/types";
 import { NoteType } from "@/enums";
+import { isNoteValid } from "@/utils/NotesUtils";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -9,13 +10,20 @@ const useLocalNotes = () => {
   });
 
   const createNote = async (name: string, description: string) => {
-    setNotes([...notes, {
+    const newNote: LocalNote = {
       id: `Notes256-${Date.now()}`,
       name,
       description,
       date: new Date(),
       type: NoteType.LOCAL
-    }]);
+    };
+
+    if (!isNoteValid(newNote)) {
+      alert("invalid note");
+      return;
+    }
+
+    setNotes([...notes, newNote]);
   }
 
   const updateNote = async (note: LocalNote) => {

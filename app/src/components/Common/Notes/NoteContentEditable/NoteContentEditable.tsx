@@ -56,7 +56,7 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
         fw={300}
         size="sm"
         lh={1.6}
-        maxLength={500}
+        maxLength={256}
       />
 
     </Stack>
