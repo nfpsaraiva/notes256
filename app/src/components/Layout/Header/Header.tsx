@@ -13,20 +13,16 @@ const Header: FC<HeaderProps> = ({ sidebarOpened, sidebarToggle, userMenu }: Hea
     <>
       <Group h="100%" px="md" mt={7} wrap="nowrap" visibleFrom="sm">
         <Group justify="space-between" w={"100%"}>
-          <Group>
-            {
-              sidebarOpened && <SidebarToggle toggle={sidebarToggle} />
-            }
-            <Badge variant="transparent" size="sm">ALPHA</Badge>
+          {
+            sidebarOpened && <SidebarToggle toggle={sidebarToggle} />
+          }
+          <Group justify="flex-end" flex={1}>
+            {userMenu}
           </Group>
-          {userMenu}
         </Group>
       </Group>
       <Group justify="space-between" h="100%" px="lg" mt={7} wrap="nowrap" hiddenFrom="sm">
-        <Group>
-          <Burger opened={sidebarOpened} onClick={sidebarToggle} size="sm" />
-          <Badge variant="transparent" size="sm">ALPHA</Badge>
-        </Group>
+        <Burger opened={sidebarOpened} onClick={sidebarToggle} size="sm" />
         {userMenu}
       </Group>
     </>

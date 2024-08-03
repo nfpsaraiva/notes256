@@ -1,7 +1,7 @@
 import { useUserbase } from "@/contexts";
 import { Button, Group, Menu, Modal, Stack, Text, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCloud, IconUser } from "@tabler/icons-react";
+import { IconCloud, IconLogin, IconLogin2, IconUser } from "@tabler/icons-react";
 import { FC, useState } from "react";
 
 const UserMenu: FC = () => {
@@ -35,7 +35,7 @@ const UserMenu: FC = () => {
             }
           </Stack>
         </Modal>
-        <Button onClick={open}>Use account</Button>
+        <Button onClick={open} radius={"xl"} leftSection={<IconLogin2 size={20} />}>Connect account</Button>
       </>
     )
   }
@@ -44,7 +44,7 @@ const UserMenu: FC = () => {
     <>
       <Menu>
         <Menu.Target>
-          <Button variant="subtle" leftSection={<IconCloud size={16} />}>{user.username}</Button>
+          <Button size="md" variant="subtle" leftSection={<IconCloud size={20} stroke={2} />} fw={700}>{user.username}</Button>
         </Menu.Target>
         <Menu.Dropdown>
           <Menu.Item color="red" onClick={() => signout()}>

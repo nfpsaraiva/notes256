@@ -11,7 +11,7 @@ const UserMenu: FC = () => {
       size="md"
       fw={700} variant="transparent"
       leftSection={
-        <IconDeviceMobile size={16} stroke={3} />
+        <IconDeviceMobile size={20} stroke={2} />
       }
     >
       {os === "undetermined" ? "Local device" : os}

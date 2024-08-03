@@ -13,10 +13,12 @@ const UserMenu: FC = () => {
       ? (
         <Group wrap="nowrap" gap={0}>
           <Button
+            fw={700}
+            size="md"
             component="a"
             variant="subtle"
             onClick={() => open()}
-            leftSection={<IconCube size={16} />}
+            leftSection={<IconCube size={20} />}
           >
             {shortifyAddress(address as string)}
           </Button>

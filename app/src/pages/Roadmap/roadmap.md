@@ -9,7 +9,6 @@
 
 ### Future
 - Sharing notes
-- Print Notes
 - Multi chain
 - Account Abstraction
-- Formatted notes
+- Social Login

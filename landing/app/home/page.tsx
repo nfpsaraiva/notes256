@@ -24,17 +24,15 @@ const Home: FC = () => {
 
   return (
     <AppShell scrollHome={scrollHome} scrollAbout={scrollAbout} scrollContacts={scrollContacts}>
-      <Stack gap={0}>
-        <Center h={"100vh"} bg={"var(--mantine-color-gray-1)"} ref={targetHome}>
-          <HomeHero scrollAbout={scrollAbout} />
-        </Center>
-        <Center h={"100vh"} ref={targetAbout}>
-          <FeaturesHero />
-        </Center>
-        <Center h={"10vh"} ref={targetContacts}>
-          <ContactsHero />
-        </Center>
-      </Stack>
+      <Center h={"100vh"} bg={"var(--mantine-color-gray-1)"} ref={targetHome}>
+        <HomeHero scrollAbout={scrollAbout} />
+      </Center>
+      <Center h={"100vh"} ref={targetAbout}>
+        <FeaturesHero />
+      </Center>
+      <Center h={"10vh"} ref={targetContacts}>
+        <ContactsHero />
+      </Center>
     </AppShell>
   );
 }

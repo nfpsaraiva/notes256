@@ -15,7 +15,7 @@ const WebNotes: FC = () => {
   return (
     <NotePage
       pageTitle="Web Notes"
-      pageSubtitle="Notes will be linked to your current accoun"
+      pageSubtitle="Notes will be linked to your current account"
       createNote={createNote}
       createNoteModalHandle={createNoteModalHandle}
       createNoteModalOpened={createNoteModalOpened}

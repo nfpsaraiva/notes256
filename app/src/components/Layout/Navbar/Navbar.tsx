@@ -38,7 +38,7 @@ const Navbar: FC<NavbarProps> = ({ sidebarOpened, sidebarToggle }: NavbarProps) 
       </AppShell.Section>
       <AppShell.Section p={"lg"}>
         <Stack>
-          <Divider />
+          {/* <Divider /> */}
           <BottomMenu />
         </Stack>
       </AppShell.Section>
