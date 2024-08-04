@@ -18,8 +18,6 @@ import envs from "@/envs";
 export default function App() {
   const queryClient = new QueryClient();
 
-  console.log(envs);
-
   const auth0Config = {
     domain: envs.AUTH0_CLIENT_ID,
     clientId: envs.AUTH0_CLIENT_ID,

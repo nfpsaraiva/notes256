@@ -4,7 +4,6 @@ import NoteSearch from "../NoteSearch/NoteSearch";
 import { IconRefresh } from "@tabler/icons-react";
 import NoteCardsList from "../NoteCardsList/NoteCardsList";
 import CreateNoteButton from "../CreateNoteButton/CreateNoteButton";
-import CreateNoteModal from "../CreateNoteModal/CreateNoteModal";
 import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { filterNotes } from "@/utils/NotesUtils";
 import { PageShell } from "@/components/UI";
@@ -16,18 +15,11 @@ interface NotePageProps {
   notes: LocalNote[] | WebNote[] | BlockNote[],
   createNote: (name: string, description: string) => Promise<void>,
   updateNote: (note: Note) => Promise<void>,
-  createNoteModalOpened: boolean,
-  createNoteModalHandle: {
-    readonly open: () => void;
-    readonly close: () => void;
-    readonly toggle: () => void;
-  },
   searchValue: string,
   setSearchValue: React.Dispatch<React.SetStateAction<string>>,
   searchValueDebounced: string
   isLoading: boolean,
   refetch: () => void,
-  redirectAfterSubmit: string,
   noteMenuIcon: ReactNode
 }
 
@@ -38,14 +30,11 @@ const NotePage: FC<NotePageProps> = ({
   notes,
   createNote,
   updateNote,
-  createNoteModalOpened,
-  createNoteModalHandle,
   searchValue,
   setSearchValue,
   searchValueDebounced,
   isLoading,
   refetch,
-  redirectAfterSubmit,
   noteMenuIcon
 }: NotePageProps) => {
   return (
@@ -70,13 +59,10 @@ const NotePage: FC<NotePageProps> = ({
           noteMenuIcon={noteMenuIcon}
         />
       }
-      <CreateNoteButton open={createNoteModalHandle.open} />
-      <CreateNoteModal
-        opened={createNoteModalOpened}
-        close={createNoteModalHandle.close}
+      <CreateNoteButton
         createNote={createNote}
-        redirectAfterSubmit={redirectAfterSubmit}
       />
+
     </PageShell>
   )
 }

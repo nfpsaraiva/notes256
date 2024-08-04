@@ -6,14 +6,16 @@ import envs from "@/envs";
 import contractArtifact from "../../../artifacts/contracts/Notes256.sol/Notes256.json";
 import { BlockNote, Note } from "@/types";
 import { BrowserProvider, Contract } from "ethers";
-import { NoteType } from "@/enums";
+import { NoteType, Path } from "@/enums";
+import { useNavigate } from "react-router-dom";
 
 const useBlockNotes = () => {
   const alchemy = useAlchemy();
   const queryClient = useQueryClient()
-  const { address } = useWeb3ModalAccount();
+  const { address, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
   const { CONTRACT_ADDRESS, PROOF_TOKEN_URI } = envs;
+  const navigate = useNavigate();
 
   const { data: notes, isSuccess, isFetching, isError, refetch } = useQuery({
     queryKey: ["blockNotes"],
@@ -154,18 +156,22 @@ const useBlockNotes = () => {
 
   const createNote = async (name: string, description: string) => {
     createNoteMutation({ name, description });
+    navigate(Path.BLOCK_NOTES);
   }
 
   const updateNote = async (note: Note) => { 
     updateNoteMutation({note: note as BlockNote});
+    navigate(Path.BLOCK_NOTES);
   }
 
   const deleteNote = async (note: Note) => {
-    deleteNoteMutation(note as BlockNote)
+    deleteNoteMutation(note as BlockNote);
+    navigate(Path.BLOCK_NOTES);
   }
 
   const transferNote = async (note: Note, to: string) => {
     transferNoteMutation({ note: note as BlockNote, to });
+    navigate(Path.BLOCK_NOTES);
   }
 
   const convertToLocal = async (
@@ -174,6 +180,7 @@ const useBlockNotes = () => {
   ) => {
     await createLocalNote(note.name, note.description);
     await deleteNote(note)
+    navigate(Path.LOCAL_NOTES);
   }
 
   const convertToWeb = async (
@@ -182,9 +189,11 @@ const useBlockNotes = () => {
   ) => {
     await createWebNote(note.name, note.description);
     await deleteNote(note);
+    navigate(Path.WEB_NOTES);
   }
 
   return {
+    isConnected,
     blockNotes: notes,
     isLoading: isFetching,
     refetch,

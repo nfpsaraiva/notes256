@@ -13,9 +13,9 @@ export default defineConfig({
         enabled: true
       },
       manifest: {
-        name: 'Provify',
-        short_name: 'Provify',
-        description: 'Save your proofs in the blockchain',
+        name: 'Notes256',
+        short_name: 'Notes256',
+        description: 'Your notes, your way',
         theme_color: '#ffffff',
         icons: [
           {

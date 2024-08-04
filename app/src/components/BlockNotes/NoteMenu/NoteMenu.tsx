@@ -1,8 +1,8 @@
 import { useLocalNotes, useWebNotes } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
-import { BlockNote, LocalNote } from "@/types";
+import { BlockNote } from "@/types";
 import { Menu } from "@mantine/core";
-import { IconCloud, IconCloudPlus, IconDeviceMobile, IconDeviceMobilePlus, IconFileUpload, IconSend, IconShare, IconTrash } from "@tabler/icons-react";
+import { IconCloudPlus, IconDeviceMobilePlus, IconFileUpload, IconShare, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface NoteMenuProps {
@@ -11,7 +11,7 @@ interface NoteMenuProps {
 
 const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
   const { deleteNote, convertToWeb, convertToLocal, transferNote } = useBlockNotes();
-  const { createNote: createWebNote } = useWebNotes();
+  const { isConnected: isWebConnected, createNote: createWebNote } = useWebNotes();
   const { createNote: createLocalNote } = useLocalNotes();
 
   return (
@@ -28,12 +28,15 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
       }} leftSection={<IconFileUpload size={16} />}>
         Transfer
       </Menu.Item>
-      <Menu.Item onClick={e => {
-        e.stopPropagation();
-        convertToWeb(note, createWebNote);
-      }} leftSection={<IconCloudPlus size={16} />}>
-        Convert to Web Note
-      </Menu.Item>
+      {
+        isWebConnected &&
+        <Menu.Item onClick={e => {
+          e.stopPropagation();
+          convertToWeb(note, createWebNote);
+        }} leftSection={<IconCloudPlus size={16} />}>
+          Convert to Web Note
+        </Menu.Item>
+      }
       <Menu.Item onClick={e => {
         e.stopPropagation();
         convertToLocal(note, createLocalNote);

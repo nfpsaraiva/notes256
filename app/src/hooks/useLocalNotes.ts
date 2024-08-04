@@ -1,13 +1,14 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { LocalNote, Note } from "@/types";
-import { NoteType } from "@/enums";
-import { isNoteValid } from "@/utils/NotesUtils";
+import { NoteType, Path } from "@/enums";
+import { useNavigate } from "react-router-dom";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
     key: "Notes256",
     defaultValue: []
   });
+  const navigate = useNavigate();
 
   const createNote = async (name: string, description: string) => {
     const newNote: LocalNote = {
@@ -18,12 +19,9 @@ const useLocalNotes = () => {
       type: NoteType.LOCAL
     };
 
-    if (!isNoteValid(newNote)) {
-      alert("invalid note");
-      return;
-    }
-
     setNotes([...notes, newNote]);
+
+    navigate(Path.LOCAL_NOTES);
   }
 
   const updateNote = async (note: LocalNote) => {
@@ -33,11 +31,14 @@ const useLocalNotes = () => {
       ...note,
       date: new Date(),
     }]);
+
+    navigate(Path.LOCAL_NOTES);
   }
 
   const deleteNote = async (note: LocalNote) => {
     const newNotes = notes.filter(n => n.id !== note.id);
-    setNotes(newNotes)
+    setNotes(newNotes);
+    navigate(Path.LOCAL_NOTES);
   }
 
   const transferNote = async (note: Note, to: string) => {}
@@ -48,6 +49,7 @@ const useLocalNotes = () => {
   ) => {
     await createWebNote(note.name, note.description);
     await deleteNote(note);
+    navigate(Path.WEB_NOTES);
   }
 
   const convertToBlock = async (
@@ -56,9 +58,11 @@ const useLocalNotes = () => {
   ) => {
     await createBlockNote(note.name, note.description);
     await deleteNote(note);
+    navigate(Path.BLOCK_NOTES);
   }
 
   return { 
+    isConnected: true,
     localNotes: notes, 
     createNote,
     updateNote,

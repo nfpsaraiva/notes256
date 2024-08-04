@@ -1,8 +1,9 @@
-import { Button, Group, Menu } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import { FC } from "react";
 import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers/react";
-import { IconCube, IconGizmo, IconWallet } from "@tabler/icons-react";
+import { IconWallet } from "@tabler/icons-react";
 import { shortifyAddress } from "@/utils/NotesUtils";
+import NoteIcon from "../NoteIcon/NoteIcon";
 
 const UserMenu: FC = () => {
   const { isConnected, address } = useWeb3ModalAccount();
@@ -14,11 +15,12 @@ const UserMenu: FC = () => {
         <Group wrap="nowrap" gap={0}>
           <Button
             fw={700}
+            radius={"xl"}
             size="md"
             component="a"
             variant="subtle"
             onClick={() => open()}
-            leftSection={<IconCube size={20} />}
+            leftSection={<NoteIcon size={20} />}
           >
             {shortifyAddress(address as string)}
           </Button>
@@ -26,7 +28,7 @@ const UserMenu: FC = () => {
         </Group>
       )
       : <Button
-        radius={"lg"}
+        radius={"xl"}
         leftSection={<IconWallet size={20} />}
         onClick={() => open()}
         size='sm'

@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import { useOs } from "@mantine/hooks";
-import { IconDeviceMobile } from "@tabler/icons-react";
 import { FC } from "react";
+import NoteIcon from "../NoteIcon/NoteIcon";
 
 const UserMenu: FC = () => {
   const os = useOs();
@@ -9,9 +9,10 @@ const UserMenu: FC = () => {
   return (
     <Button
       size="md"
-      fw={700} variant="transparent"
+      radius={"xl"}
+      fw={700} variant="subtle"
       leftSection={
-        <IconDeviceMobile size={20} stroke={2} />
+        <NoteIcon size={20} stroke={2} />
       }
     >
       {os === "undetermined" ? "Local device" : os}

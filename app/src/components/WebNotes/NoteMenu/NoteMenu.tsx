@@ -12,16 +12,19 @@ interface NoteMenuProps {
 const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
   const { deleteNote, convertToLocal, convertToBlock } = useWebNotes();
   const { createNote: createLocalNote } = useLocalNotes();
-  const { createNote: createBlockNote } = useBlockNotes();
+  const { isConnected: isBlockConnected, createNote: createBlockNote } = useBlockNotes();
 
   return (
     <Menu.Dropdown>
-      <Menu.Item onClick={e => {
-        e.stopPropagation();
-        convertToBlock(note, createBlockNote)
-      }} leftSection={<IconCubePlus size={16} />}>
-        Convert to Block Note
-      </Menu.Item>
+      {
+        isBlockConnected &&
+        <Menu.Item onClick={e => {
+          e.stopPropagation();
+          convertToBlock(note, createBlockNote)
+        }} leftSection={<IconCubePlus size={16} />}>
+          Convert to Block Note
+        </Menu.Item>
+      }
       <Menu.Item onClick={e => {
         e.stopPropagation();
         convertToLocal(note, createLocalNote)

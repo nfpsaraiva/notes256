@@ -1,12 +1,18 @@
 import { ActionIcon, Affix, Tooltip } from "@mantine/core";
 import { FC } from "react";
 import { IconPlus } from "@tabler/icons-react";
+import { useDisclosure } from "@mantine/hooks";
+import CreateNoteForm from "../CreateNoteForm/CreateNoteForm";
 
 interface CreateNoteButtonProps {
-  open: () => void
+  createNote: (name: string, description: string) => Promise<void>,
 }
 
-const CreateNoteButton: FC<CreateNoteButtonProps> = ({ open }: CreateNoteButtonProps) => {
+const CreateNoteButton: FC<CreateNoteButtonProps> = ({
+  createNote,
+}: CreateNoteButtonProps) => {
+  const [opened, {open, close}] = useDisclosure(false);
+
   return (
     <>
       <Affix bottom={20} right={20}>
@@ -21,6 +27,11 @@ const CreateNoteButton: FC<CreateNoteButtonProps> = ({ open }: CreateNoteButtonP
           </ActionIcon>
         </Tooltip>
       </Affix>
+      <CreateNoteForm
+        opened={opened}
+        close={close}
+        createNote={createNote}
+      />
     </>
   )
 }

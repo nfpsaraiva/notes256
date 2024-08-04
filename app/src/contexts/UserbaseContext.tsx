@@ -8,9 +8,11 @@ interface UserbaseProviderProps {
 
 interface Userbase {
   user: UserResult | null,
-  signin: (username: string, password: string) => Promise<UserResult>
+  signin: (username: string, password: string) => Promise<UserResult | null>
   signout: () => Promise<void>,
-  signup: (username: string, password: string) => Promise<UserResult>,
+  signup: (username: string, password: string) => Promise<UserResult | null>,
+  isConnecting: boolean,
+  refetch: () => void,
   notes: WebNote[] | null,
   createNote: (note: WebNote) => Promise<void>,
   updateNote: (note: WebNote) => Promise<void>,
@@ -29,6 +31,7 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
   const [notes, setNotes] = useState<WebNote[] | null>([]);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const changeHandler = (items: Item[]) => {
     const newNotes = items.map(i => {
@@ -43,20 +46,35 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
 
 
   const signup = async (username: string, password: string) => {
-    const user = await userbase.signUp({ username, password })
-    setUser(user);
+    setIsConnecting(true);
+    try {
+      const user = await userbase.signUp({ username, password })
+      setUser(user);
+      userbase.openDatabase({ databaseName, changeHandler });
+    } finally {
+      setIsConnecting(false);
+    }
+
     return user;
   }
 
   const signin = async (username: string, password: string) => {
-    const user = await userbase.signIn({ username, password })
-    setUser(user);
+    setIsConnecting(true);
+    try {
+      const user = await userbase.signIn({ username, password })
+      setUser(user);
+      userbase.openDatabase({ databaseName, changeHandler });
+    } finally {
+      setIsConnecting(false);
+    }
+
     return user;
   }
 
   const signout = async () => {
     await userbase.signOut();
     setUser(null);
+    changeHandler([]);
   }
 
   const createNote = async (item: WebNote) => {
@@ -71,16 +89,19 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
     return await userbase.deleteItem({ databaseName, itemId: item.id });
   }
 
-  useEffect(() => {
+  const refetch = () => {
+    setIsLoading(true);
     userbase.init({ appId: import.meta.env.VITE_USERBASE_APP_ID }).then(session => {
       if (session.user) {
         setUser(session.user);
         userbase.openDatabase({ databaseName, changeHandler });
       } else {
-        setIsLoading(false);
+        changeHandler([])
       }
     });
-  }, []);
+  }
+
+  useEffect(() => refetch(), []);
 
   return (
     <UserbaseContext.Provider value={{
@@ -88,6 +109,8 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
       signin,
       signout,
       signup,
+      isConnecting,
+      refetch,
       notes,
       createNote,
       updateNote,
