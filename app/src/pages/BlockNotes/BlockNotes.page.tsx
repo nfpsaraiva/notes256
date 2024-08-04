@@ -12,6 +12,7 @@ const BlockNotes: FC = () => {
   const {
     blockNotes,
     createNote,
+    creatingNote,
     updateNote,
     isLoading,
     refetch,
@@ -23,6 +24,7 @@ const BlockNotes: FC = () => {
       pageTitle="Block Notes"
       pageSubtitle="Notes will be secured by the blockchain"
       createNote={createNote}
+      creatingNote={creatingNote}
       isLoading={isLoading}
       notes={blockNotes ? blockNotes : []}
       refetch={refetch}

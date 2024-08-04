@@ -10,6 +10,7 @@ const useWebNotes = () => {
     isLoading,
     refetch,
     createNote: userbaseCreateNote,
+    creatingNote,
     updateNote: userbaseUpdateNote,
     deleteNote: userbaseDeleteNote,
   } = useUserbase();
@@ -64,6 +65,7 @@ const useWebNotes = () => {
     isLoading,
     refetch,
     createNote,
+    creatingNote,
     updateNote,
     deleteNote,
     transferNote,

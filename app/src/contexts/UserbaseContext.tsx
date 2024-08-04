@@ -15,6 +15,7 @@ interface Userbase {
   refetch: () => void,
   notes: WebNote[] | null,
   createNote: (note: WebNote) => Promise<void>,
+  creatingNote: boolean,
   updateNote: (note: WebNote) => Promise<void>,
   deleteNote: (note: WebNote) => Promise<void>,
   isLoading: boolean
@@ -32,6 +33,7 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
 
   const [isLoading, setIsLoading] = useState(true);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [creatingNote, setCreatingNote] = useState(false);
 
   const changeHandler = (items: Item[]) => {
     const newNotes = items.map(i => {
@@ -78,7 +80,10 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
   }
 
   const createNote = async (item: WebNote) => {
-    return await userbase.insertItem({ databaseName, item });
+    setCreatingNote(true);
+    const note = await userbase.insertItem({ databaseName, item });
+    setCreatingNote(false);
+    return note;
   }
 
   const updateNote = async (item: WebNote) => {
@@ -113,6 +118,7 @@ export const UserbaseProvider: FC<UserbaseProviderProps> = ({
       refetch,
       notes,
       createNote,
+      creatingNote,
       updateNote,
       deleteNote,
       isLoading,

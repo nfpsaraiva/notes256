@@ -198,6 +198,7 @@ const useBlockNotes = () => {
     isLoading: isFetching,
     refetch,
     createNote,
+    creatingNote: creatingBlockNote,
     updateNote,
     deleteNote,
     transferNote,

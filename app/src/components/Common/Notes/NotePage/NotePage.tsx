@@ -14,6 +14,7 @@ interface NotePageProps {
   userMenu: ReactNode,
   notes: LocalNote[] | WebNote[] | BlockNote[],
   createNote: (name: string, description: string) => Promise<void>,
+  creatingNote: boolean,
   updateNote: (note: Note) => Promise<void>,
   searchValue: string,
   setSearchValue: React.Dispatch<React.SetStateAction<string>>,
@@ -29,6 +30,7 @@ const NotePage: FC<NotePageProps> = ({
   userMenu,
   notes,
   createNote,
+  creatingNote,
   updateNote,
   searchValue,
   setSearchValue,
@@ -61,6 +63,7 @@ const NotePage: FC<NotePageProps> = ({
       }
       <CreateNoteButton
         createNote={createNote}
+        creatingNote={creatingNote}
       />
 
     </PageShell>

@@ -2,6 +2,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { LocalNote, Note } from "@/types";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -10,7 +11,12 @@ const useLocalNotes = () => {
   });
   const navigate = useNavigate();
 
+  const [creatingNote, setCreatingNote] = useState(false);
+
   const createNote = async (name: string, description: string) => {
+    // await to force state update on the useEffect for creatingNote on CreateNoteForm
+    await setCreatingNote(true);
+
     const newNote: LocalNote = {
       id: `Notes256-${Date.now()}`,
       name,
@@ -20,7 +26,8 @@ const useLocalNotes = () => {
     };
 
     setNotes([...notes, newNote]);
-
+    setCreatingNote(false);
+    
     navigate(Path.LOCAL_NOTES);
   }
 
@@ -65,6 +72,7 @@ const useLocalNotes = () => {
     isConnected: true,
     localNotes: notes, 
     createNote,
+    creatingNote,
     updateNote,
     deleteNote,
     transferNote,

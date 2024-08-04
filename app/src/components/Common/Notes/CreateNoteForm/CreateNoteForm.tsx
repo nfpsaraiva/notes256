@@ -1,17 +1,19 @@
 import { Button, Modal, Stack, Textarea, TextInput } from "@mantine/core";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { IconCheck } from "@tabler/icons-react";
 
 interface CreateNoteFormProps {
   opened: boolean,
   close: () => void,
   createNote: (name: string, description: string) => Promise<void>,
+  creatingNote: boolean
 }
 
 const CreateNoteForm: FC<CreateNoteFormProps> = ({
   opened,
   close,
   createNote,
+  creatingNote,
 }: CreateNoteFormProps) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -21,8 +23,12 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
       name,
       description
     );
-    close();
   }
+
+  useEffect(() => {
+    console.log(creatingNote);
+    if (!creatingNote) close();
+  }, [creatingNote])
 
   return (
     <Modal radius={"lg"} opened={opened} withCloseButton={false} onClose={close}>
@@ -44,16 +50,29 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
           minRows={6}
           withAsterisk
         />
-        <Button
-          leftSection={<IconCheck stroke={3} size={18} />}
-          size="sm"
-          radius={"lg"}
-          variant="light"
-          onClick={save}
-          fw={700}
-        >
-          Save
-        </Button>
+        {
+          creatingNote
+            ? <Button
+              leftSection={<IconCheck stroke={3} size={18} />}
+              size="sm"
+              radius={"lg"}
+              variant="light"
+              disabled
+              fw={700}
+            >
+              Saving
+            </Button>
+            : <Button
+              leftSection={<IconCheck stroke={3} size={18} />}
+              size="sm"
+              radius={"lg"}
+              variant="light"
+              onClick={save}
+              fw={700}
+            >
+              Save
+            </Button>
+        }
       </Stack>
     </Modal>
   )

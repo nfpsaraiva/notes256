@@ -6,15 +6,22 @@ import { FC, useState } from "react";
 
 const LocalNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { localNotes, createNote, updateNote, transferNote } = useLocalNotes();
+  const {
+    localNotes,
+    createNote,
+    creatingNote,
+    updateNote,
+    transferNote
+  } = useLocalNotes();
 
-  const refetch = () => {};
+  const refetch = () => { };
 
   return (
     <NotePage
       pageTitle="Local Notes"
       pageSubtitle="Notes will only be saved on your device"
       createNote={createNote}
+      creatingNote={creatingNote}
       isLoading={false}
       notes={localNotes}
       refetch={refetch}

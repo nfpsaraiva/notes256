@@ -6,10 +6,12 @@ import CreateNoteForm from "../CreateNoteForm/CreateNoteForm";
 
 interface CreateNoteButtonProps {
   createNote: (name: string, description: string) => Promise<void>,
+  creatingNote: boolean
 }
 
 const CreateNoteButton: FC<CreateNoteButtonProps> = ({
   createNote,
+  creatingNote,
 }: CreateNoteButtonProps) => {
   const [opened, {open, close}] = useDisclosure(false);
 
@@ -31,6 +33,7 @@ const CreateNoteButton: FC<CreateNoteButtonProps> = ({
         opened={opened}
         close={close}
         createNote={createNote}
+        creatingNote={creatingNote}
       />
     </>
   )

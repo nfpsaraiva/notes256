@@ -6,13 +6,21 @@ import { FC, useState } from "react";
 
 const WebNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
-  const { webNotes, isLoading, createNote, updateNote, refetch } = useWebNotes();
+  const {
+    webNotes,
+    isLoading,
+    createNote,
+    creatingNote,
+    updateNote,
+    refetch
+  } = useWebNotes();
 
   return (
     <NotePage
       pageTitle="Web Notes"
       pageSubtitle="Notes will be linked to your current account"
       createNote={createNote}
+      creatingNote={creatingNote}
       isLoading={isLoading}
       notes={webNotes ? webNotes : []}
       refetch={refetch}
