@@ -3,6 +3,7 @@ import { LocalNote, Note } from "@/types";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { modals } from "@mantine/modals";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -43,9 +44,18 @@ const useLocalNotes = () => {
   }
 
   const deleteNote = async (note: LocalNote) => {
-    const newNotes = notes.filter(n => n.id !== note.id);
-    setNotes(newNotes);
-    navigate(Path.LOCAL_NOTES);
+    modals.openConfirmModal({
+      title: 'Delete Note',
+      centered: true,
+      children: "Are you sure you want to delete this note? This action is irreversible",
+      labels: { confirm: 'Delete', cancel: "Cancel" },
+      confirmProps: { color: 'red' },
+      onConfirm: () => {
+        const newNotes = notes.filter(n => n.id !== note.id);
+        setNotes(newNotes);
+        navigate(Path.LOCAL_NOTES);
+      }
+    });
   }
 
   const transferNote = async (note: Note, to: string) => {}
@@ -68,9 +78,12 @@ const useLocalNotes = () => {
     navigate(Path.BLOCK_NOTES);
   }
 
+  const refetch = () => {};
+
   return { 
     isConnected: true,
     localNotes: notes, 
+    refetch,
     createNote,
     creatingNote,
     updateNote,

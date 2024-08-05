@@ -1,13 +1,14 @@
 import { useAlchemy } from "@/contexts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useWeb3ModalAccount, useWeb3ModalProvider } from "@web3modal/ethers/react";
-import { Contract as AlchemyContract, OwnedNft } from "alchemy-sdk";
+import { Contract as AlchemyContract, Block, OwnedNft } from "alchemy-sdk";
 import envs from "@/envs";
 import contractArtifact from "../../../artifacts/contracts/Notes256.sol/Notes256.json";
 import { BlockNote, Note } from "@/types";
 import { BrowserProvider, Contract } from "ethers";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
+import { modals } from "@mantine/modals";
 
 const useBlockNotes = () => {
   const alchemy = useAlchemy();
@@ -165,8 +166,17 @@ const useBlockNotes = () => {
   }
 
   const deleteNote = async (note: Note) => {
-    deleteNoteMutation(note as BlockNote);
-    navigate(Path.BLOCK_NOTES);
+    modals.openConfirmModal({
+      title: 'Delete Note',
+      centered: true,
+      children: "Are you sure you want to delete this note? This action is irreversible",
+      labels: { confirm: 'Delete', cancel: "Cancel" },
+      confirmProps: { color: 'red' },
+      onConfirm: () => {
+        deleteNoteMutation(note as BlockNote);
+        navigate(Path.BLOCK_NOTES);
+      }
+    });
   }
 
   const transferNote = async (note: Note, to: string) => {
@@ -178,9 +188,17 @@ const useBlockNotes = () => {
     note: Note,
     createLocalNote: (name: string, description: string) => Promise<void>
   ) => {
-    await createLocalNote(note.name, note.description);
-    await deleteNote(note)
-    navigate(Path.LOCAL_NOTES);
+    modals.openConfirmModal({
+      title: 'Delete Note',
+      centered: true,
+      children: "Are you sure you want to convert this note? This action is will delete the current block note",
+      labels: { confirm: 'Convert', cancel: "Cancel" },
+      onConfirm: async () => {
+        await createLocalNote(note.name, note.description);
+        await deleteNoteMutation(note as BlockNote)
+        navigate(Path.LOCAL_NOTES);
+      }
+    });
   }
 
   const convertToWeb = async (
@@ -188,7 +206,7 @@ const useBlockNotes = () => {
     createWebNote: (name: string, description: string) => Promise<void>
   ) => {
     await createWebNote(note.name, note.description);
-    await deleteNote(note);
+    await deleteNoteMutation(note as BlockNote);
     navigate(Path.WEB_NOTES);
   }
 

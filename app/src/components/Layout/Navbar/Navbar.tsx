@@ -1,8 +1,8 @@
-import { AppShell, Box, Burger, Divider, Group, Image, ScrollArea, Stack, Title } from "@mantine/core";
+import { AppShell, Box, Burger, Group, Image, ScrollArea, Stack, Title } from "@mantine/core";
 import { FC } from "react";
 import { BottomMenu, TopMenu } from "./Menu";
-import { ColorSchemeToggle, NetworkSwitcher, SidebarToggle } from "@/components/Common";
-import appIcon from "../../../assets/app-icon.jpg";
+import { ColorSchemeToggle, SidebarToggle } from "@/components/Common";
+import appIcon from "../../../assets/app-icon.png";
 import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {

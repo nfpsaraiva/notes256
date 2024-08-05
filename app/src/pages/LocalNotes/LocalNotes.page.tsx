@@ -8,13 +8,13 @@ const LocalNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const {
     localNotes,
+    refetch,
     createNote,
     creatingNote,
     updateNote,
     transferNote
   } = useLocalNotes();
 
-  const refetch = () => { };
 
   return (
     <NotePage

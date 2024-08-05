@@ -24,7 +24,6 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
       </Menu.Item>
       <Menu.Item onClick={e => {
         e.stopPropagation();
-        transferNote(note, "");
       }} leftSection={<IconFileUpload size={16} />}>
         Transfer
       </Menu.Item>

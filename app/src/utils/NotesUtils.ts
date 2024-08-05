@@ -36,5 +36,5 @@ const shortifyAddress = (address: string) => {
 export {
   filterNotes,
   isNoteValid,
-  shortifyAddress
+  shortifyAddress,
 }

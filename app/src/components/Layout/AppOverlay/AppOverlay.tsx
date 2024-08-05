@@ -1,15 +1,14 @@
-import { LoadingOverlay, Text, Stack, Loader, Title, Group, Image } from "@mantine/core";
+import { LoadingOverlay, Stack, Loader, Title, Group, Image } from "@mantine/core";
 import { FC } from "react";
+import appIcon from "../../../assets/app-icon.png";
 
-interface AppOverlayProps {
-  visible: boolean
-}
 
-const AppOverlay: FC<AppOverlayProps> = ({ visible }: AppOverlayProps) => {
+const AppOverlay: FC = () => {
   return (
-    <LoadingOverlay visible={visible} overlayProps={{ backgroundOpacity: 1 }} loaderProps={{
+    <LoadingOverlay visible={true} overlayProps={{ backgroundOpacity: 1 }} loaderProps={{
       children: <Stack align='center' gap={"lg"}>
         <Group align='end'>
+          <Image src={appIcon} w={40} />
           <Title order={1}>Notes256</Title>
         </Group>
         <Loader size={"sm"} />
