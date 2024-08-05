@@ -14,7 +14,6 @@ import { UserbaseProvider } from './contexts/UserbaseContext';
 import { Auth0Provider } from "@auth0/auth0-react";
 import envs from "@/envs";
 
-
 export default function App() {
   const queryClient = new QueryClient();
 
