@@ -20,6 +20,8 @@ const NoteContent: FC<NoteContentProps> = ({
     }
   </Text>
 
+  console.log(note.id);
+
   return (
     <Stack gap={"lg"} h={"100%"} mb={"lg"}>
       <Stack gap={4}>
@@ -34,7 +36,7 @@ const NoteContent: FC<NoteContentProps> = ({
           <NoteMenu note={note} noteMenuIcon={noteMenuIcon} />
         </Group>
       </Stack>
-      <Text fw={400} lineClamp={5} size="sm" lh={1.6}>
+      <Text fw={400} lineClamp={6} size="sm" lh={1.6}>
         {note.description}
       </Text>
     </Stack>

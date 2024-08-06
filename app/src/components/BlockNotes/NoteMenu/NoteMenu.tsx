@@ -1,8 +1,8 @@
 import { useLocalNotes, useWebNotes } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 import { BlockNote } from "@/types";
-import { Menu } from "@mantine/core";
-import { IconCloudPlus, IconDeviceMobilePlus, IconFileUpload, IconShare, IconTrash } from "@tabler/icons-react";
+import { CopyButton, Menu, Text } from "@mantine/core";
+import { IconCloudPlus, IconCopy, IconDeviceMobilePlus, IconFileUpload, IconShare, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface NoteMenuProps {
@@ -16,6 +16,16 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
 
   return (
     <Menu.Dropdown>
+      <CopyButton value={note.id}>
+        {({ copied, copy }) => (
+          <Menu.Item leftSection={<IconCopy size={16} />} onClick={e => {
+            e.stopPropagation();
+            copy();
+          }}>
+            {copied ? 'Copied' : 'Copy ID'}
+          </Menu.Item>
+        )}
+      </CopyButton>
       <Menu.Item onClick={e => {
         e.stopPropagation();
         transferNote(note, "");

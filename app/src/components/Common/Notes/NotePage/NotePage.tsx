@@ -18,7 +18,8 @@ interface NotePageProps {
   updateNote: (note: Note) => Promise<void>,
   searchValue: string,
   setSearchValue: React.Dispatch<React.SetStateAction<string>>,
-  searchValueDebounced: string
+  searchValueDebounced: string,
+  searchPlaceholder?: string,
   isLoading: boolean,
   refetch: () => void,
   noteMenuIcon: ReactNode,
@@ -36,6 +37,7 @@ const NotePage: FC<NotePageProps> = ({
   searchValue,
   setSearchValue,
   searchValueDebounced,
+  searchPlaceholder,
   isLoading,
   refetch,
   noteMenuIcon,
@@ -46,6 +48,7 @@ const NotePage: FC<NotePageProps> = ({
       <NoteSearch
         searchValue={searchValue}
         setSearchValue={setSearchValue}
+        placeholder={searchPlaceholder}
         submit={refetch}
         submitLabel="Refresh"
         submitIcon={<IconRefresh size={18} />}

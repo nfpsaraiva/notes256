@@ -18,7 +18,7 @@ const BlockNotes: FC = () => {
     refetch,
     transferNote,
     isConnected
-  } = useBlockNotes();
+  } = useBlockNotes(searchValueDebounced);
 
   return (
     <NotePage
@@ -32,6 +32,7 @@ const BlockNotes: FC = () => {
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       searchValueDebounced={searchValueDebounced}
+      searchPlaceholder='Search by keywords / note ID'
       updateNote={updateNote}
       userMenu={<UserMenu />}
       noteMenuIcon={<IconCube size={20} />}

@@ -24,10 +24,10 @@ const mainnet = {
 
 // 3. Create a metadata object
 const metadata = {
-  name: 'Provify',
-  description: 'Decentralized proof issuer',
-  url: 'https://provify.nfpsaraiva.com', // origin must match your domain & subdomain
-  icons: ['https://avatars.mywebsite.com/']
+  name: 'Notes256',
+  description: 'Multi-storage note taking app',
+  url: 'https://app.notes256.com', // origin must match your domain & subdomain
+  icons: []
 }
 
 // 4. Create Ethers config

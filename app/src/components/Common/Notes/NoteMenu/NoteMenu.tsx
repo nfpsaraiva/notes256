@@ -1,5 +1,6 @@
 import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { Group, Menu, UnstyledButton } from "@mantine/core";
+import { IconChevronDown } from "@tabler/icons-react";
 import { FC, ReactNode } from "react";
 import classes from "./NoteMenu.module.css";
 import { NoteType } from "@/enums";

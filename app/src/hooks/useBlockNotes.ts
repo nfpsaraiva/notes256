@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { modals } from "@mantine/modals";
 import { DeleteModal } from "@/modals";
 
-const useBlockNotes = () => {
+const useBlockNotes = (noteId?: string) => {
   const alchemy = useAlchemy();
   const queryClient = useQueryClient()
   const { address, isConnected } = useWeb3ModalAccount();
@@ -22,8 +22,6 @@ const useBlockNotes = () => {
   const { data: notes, isSuccess, isFetching, isError, refetch } = useQuery({
     queryKey: ["blockNotes"],
     queryFn: async () => {
-      if (address === undefined) return [];
-
       const alchemyProvider = await alchemy.config.getProvider();
 
       const contract = new AlchemyContract(
@@ -31,6 +29,27 @@ const useBlockNotes = () => {
         contractArtifact.abi,
         alchemyProvider
       )
+
+      if (noteId) {
+        console.log(noteId);
+        const tokenId = await contract.notesIds(noteId);
+        const note = await contract.notes(tokenId);
+        const timestamp = Number(note[3]);
+        const date = new Date(timestamp * 1000);
+
+        const blockNote: BlockNote = {
+          id: noteId,
+          name: note[1] as string,
+          description: note[2] as string,
+          date,
+          tokenId: tokenId,
+          image: "" as string,
+          type: NoteType.BLOCK
+        }
+        return [blockNote];
+      }
+
+      if (address === undefined) return [];
 
       const getBlockNote = async (nft: OwnedNft) => {
         try {
@@ -67,7 +86,7 @@ const useBlockNotes = () => {
         return 0
       });
     },
-    enabled: address !== undefined,
+    enabled: address !== undefined || noteId !== "",
     refetchOnMount: false,
     refetchOnWindowFocus: false
   });
@@ -98,7 +117,7 @@ const useBlockNotes = () => {
     isSuccess: blockNoteUpdated,
     isPending: updatingBlockNote
   } = useMutation({
-    mutationFn: async ({ note }: { note: BlockNote}) => {
+    mutationFn: async ({ note }: { note: BlockNote }) => {
       if (!walletProvider) return;
 
       const ethersProvider = new BrowserProvider(walletProvider);
@@ -161,8 +180,8 @@ const useBlockNotes = () => {
     navigate(Path.BLOCK_NOTES);
   }
 
-  const updateNote = async (note: Note) => { 
-    updateNoteMutation({note: note as BlockNote});
+  const updateNote = async (note: Note) => {
+    updateNoteMutation({ note: note as BlockNote });
     navigate(Path.BLOCK_NOTES);
   }
 

@@ -12,7 +12,6 @@ const UserMenu: FC = () => {
   return (
     isConnected
       ? (
-        <Group wrap="nowrap" gap={0}>
           <Button
             fw={700}
             radius={"xl"}
@@ -24,8 +23,6 @@ const UserMenu: FC = () => {
           >
             {shortifyAddress(address as string)}
           </Button>
-
-        </Group>
       )
       : <Button
         radius={"xl"}
