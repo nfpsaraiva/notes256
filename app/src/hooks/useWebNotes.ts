@@ -1,65 +1,118 @@
 import { useSupabase } from "@/contexts";
-import { Path } from "@/enums";
-import { DeleteModal } from "@/modals";
+import { NoteType, Path } from "@/enums";
 import { Note, WebNote } from "@/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import useWebUser from "./useWebUser";
+import NewNote from "@/types/NewNote";
 
 const useWebNotes = () => {
-  const {
-    user,
-    notes,
-    isLoading,
-    refetch,
-    createNote: supabaseCreateNote,
-    creatingNote,
-    updateNote: supabaseUpdateNote,
-    deleteNote: supabaseDeleteNote,
-  } = useSupabase();
-
+  const supabase = useSupabase();
+  const { user } = useWebUser();
   const navigate = useNavigate();
 
-  const createNote = async (name: string, description: string) => {
-    supabaseCreateNote(name, description);
+  const queryClient = useQueryClient();
 
-    navigate(Path.WEB_NOTES);
-  }
+  const { data: notes, isLoading, refetch } = useQuery({
+    queryKey: ["web-notes", user],
+    queryFn: async () => {
+      if (user === null) return [];
 
-  const updateNote = async (note: WebNote) => {
-    await supabaseUpdateNote(note);
-    navigate(Path.WEB_NOTES);
-  }
+      const { data: notes } = await supabase
+        .from('notes')
+        .select('id, title, description, created_at')
+        .eq('user_id', user?.id);
 
-  const deleteNote = async (note: WebNote) => {
-    DeleteModal(() => {
-      supabaseDeleteNote(note);
+      if (notes === null) return [];
+
+      return notes.map(note => ({
+        id: note.id,
+        name: note.title,
+        description: note.description,
+        date: note.created_at,
+        type: NoteType.WEB
+      }))
+    }
+  })
+
+  const {
+    mutate: createNote,
+    isPending: creatingNote
+  } = useMutation({
+    mutationFn: async ({ name, description }: NewNote) => {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      await supabase
+        .from('notes')
+        .insert({
+          title: name,
+          description,
+          user_id: user?.id
+        });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["web-notes"] });
       navigate(Path.WEB_NOTES);
-    })
-  }
+    }
+  })
+
+  const {
+    mutate: updateNote,
+    isPending: updatingNote
+  } = useMutation({
+    mutationFn: async (note: WebNote) => {
+      await supabase
+        .from('notes')
+        .update({
+          title: note.name,
+          description: note.description,
+        })
+        .eq('id', note.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["web-notes"] });
+      navigate(Path.WEB_NOTES)
+    }
+  })
+
+  const {
+    mutate: deleteNote,
+    isPending: deletingNote
+  } = useMutation({
+    mutationFn: async (note: WebNote) => {
+      return await supabase
+        .from('notes')
+        .delete()
+        .eq('id', note.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["web-notes"] })
+    }
+  });
 
   const transferNote = async (note: Note, to: string) => { }
 
   const convertToLocal = async (
     note: Note,
-    createLocalNote: (name: string, description: string) => Promise<void>
+    createLocalNote: (newNote: NewNote) => void
   ) => {
-    await createLocalNote(note.name, note.description);
-    await supabaseDeleteNote(note);
+    await createLocalNote({ name: note.name, description: note.description });
+    await deleteNote(note);
     navigate(Path.LOCAL_NOTES);
   }
 
   const convertToBlock = async (
     note: Note,
-    createBlockNote: (name: string, description: string) => Promise<void>
+    createBlockNote: (note: NewNote) => void
   ) => {
-    await createBlockNote(note.name, note.description);
-    await supabaseDeleteNote(note);
+    await createBlockNote({ name: note.name, description: note.description });
+    await deleteNote(note);
     navigate(Path.BLOCK_NOTES);
   }
 
   return {
-    isConnected: user !== null,
-    webNotes: notes,
-    isLoading,
+    notes,
+    isLoading: isLoading || creatingNote || deletingNote,
     refetch,
     createNote,
     creatingNote,

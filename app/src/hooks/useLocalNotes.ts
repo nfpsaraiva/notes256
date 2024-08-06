@@ -3,8 +3,8 @@ import { LocalNote, Note } from "@/types";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { modals } from "@mantine/modals";
 import { DeleteModal } from "@/modals";
+import NewNote from "@/types/NewNote";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -15,7 +15,7 @@ const useLocalNotes = () => {
 
   const [creatingNote, setCreatingNote] = useState(false);
 
-  const createNote = async (name: string, description: string) => {
+  const createNote = async ({ name, description }: NewNote) => {
     // await to force state update on the useEffect for creatingNote on CreateNoteForm
     await setCreatingNote(true);
 
@@ -57,18 +57,18 @@ const useLocalNotes = () => {
 
   const convertToWeb = async (
     note: Note,
-    createWebNote: (name: string, description: string) => Promise<void>
+    createWebNote: (note: NewNote) => void
   ) => {
-    await createWebNote(note.name, note.description);
+    await createWebNote({ name: note.name, description: note.description });
     deleteLocalStorageNote(note);
     navigate(Path.WEB_NOTES);
   }
 
   const convertToBlock = async (
     note: Note,
-    createBlockNote: (name: string, description: string) => Promise<void>
+    createBlockNote: (note: NewNote) => void
   ) => {
-    await createBlockNote(note.name, note.description);
+    await createBlockNote({ name: note.name, description: note.description });
     deleteLocalStorageNote(note);
     navigate(Path.BLOCK_NOTES);
   }

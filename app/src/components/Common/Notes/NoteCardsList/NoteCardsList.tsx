@@ -5,7 +5,7 @@ import NoteCard from "../NoteCard/NoteCard";
 
 interface NoteCardsListProps {
   notes: Note[],
-  updateNote: (note: Note) => Promise<void>,
+  updateNote: (note: Note) => void,
   noteMenuIcon: ReactNode
 }
 

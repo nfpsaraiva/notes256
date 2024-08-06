@@ -20,8 +20,6 @@ const NoteContent: FC<NoteContentProps> = ({
     }
   </Text>
 
-  console.log(note.id);
-
   return (
     <Stack gap={"lg"} h={"100%"} mb={"lg"}>
       <Stack gap={4}>

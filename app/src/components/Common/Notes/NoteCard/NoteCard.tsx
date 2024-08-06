@@ -8,7 +8,7 @@ import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
 
 interface NoteCardProps {
   note: Note,
-  updateNote: (note: Note) => Promise<void>,
+  updateNote: (note: Note) => void,
   noteMenuIcon: ReactNode
 }
 

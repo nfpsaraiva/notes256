@@ -1,7 +1,6 @@
 import CreateNoteButton from "./CreateNoteButton/CreateNoteButton";
 import CreateNoteForm from "./CreateNoteForm/CreateNoteForm";
 import NoteCard from "./NoteCard/NoteCard";
-import NoteCardControls from "./NoteCardControls/NoteCardControls";
 import NoteCardExpanded from "./NoteCardExpanded/NoteCardExpanded";
 import NoteContent from "./NoteContent/NoteContent";
 import NoteContentEditable from "./NoteContentEditable/NoteContentEditable";
@@ -15,7 +14,6 @@ export {
   CreateNoteButton,
   CreateNoteForm,
   NoteCard,
-  NoteCardControls,
   NoteCardExpanded,
   NoteContent,
   NoteContentEditable,

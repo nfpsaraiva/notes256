@@ -1,12 +1,12 @@
-import { useSupabase } from "@/contexts";
 import { Button, Group, Menu, Modal, Stack, Tabs, Text, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconLogin2, IconLogout } from "@tabler/icons-react";
 import { FC, useState } from "react";
 import NoteIcon from "../NoteIcon/NoteIcon";
+import { useWebUser } from "@/hooks";
 
 const UserMenu: FC = () => {
-  const {user, signup, signin, signout, isConnecting} = useSupabase();
+  const { user, signup, signin, signout, isConnecting, isConnected } = useWebUser();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [opened, { open, close }] = useDisclosure(false);
@@ -14,28 +14,16 @@ const UserMenu: FC = () => {
 
   const login = async () => {
     setErrorMessage('');
+    await signin({ email, password });
 
-    const {error} = await signin(email, password);
-
-    if (error) {
-      setErrorMessage(error.message);
-    }
   }
 
   const register = async () => {
     setErrorMessage('');
-
-    const {error} = await signup(email, password);
-
-    if (error) {
-      setErrorMessage(error.message);
-    } else {
-      setErrorMessage('Check your email for the login link!')
-    }
-
+    await signup({ email, password });
   }
 
-  if (!user) {
+  if (!isConnected) {
     return (
       <>
         <Modal opened={opened} onClose={close} title="Sign in" radius={"xl"} padding={"xl"}>
@@ -89,7 +77,7 @@ const UserMenu: FC = () => {
     <>
       <Menu radius={"xl"}>
         <Menu.Target>
-          <Button radius={"xl"} size="md" variant="subtle" leftSection={<NoteIcon size={20} stroke={2} />} fw={700}>{user.email}</Button>
+          <Button radius={"xl"} size="md" variant="subtle" leftSection={<NoteIcon size={20} stroke={2} />} fw={700}>{user?.email}</Button>
         </Menu.Target>
         <Menu.Dropdown>
           <Menu.Item leftSection={<IconLogout size={20} stroke={2} />} color="red" onClick={e => {

@@ -3,9 +3,10 @@ import { FC } from "react";
 import { IconPlus } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import CreateNoteForm from "../CreateNoteForm/CreateNoteForm";
+import { NewNote } from "@/types";
 
 interface CreateNoteButtonProps {
-  createNote: (name: string, description: string) => Promise<void>,
+  createNote: (newNote: NewNote) => void,
   creatingNote: boolean
 }
 

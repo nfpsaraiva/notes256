@@ -4,11 +4,10 @@ import { FC } from "react";
 import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
 import { MenuEnum, Path } from "@/enums";
-import { useSupabase } from "@/contexts";
-import { useBlockNotes, useLocalNotes } from "@/hooks";
+import { useBlockNotes, useLocalNotes, useWebNotes } from "@/hooks";
 
 const TopMenu: FC = () => {
-  const { notes } = useSupabase();
+  const { notes } = useWebNotes();
   const { localNotes } = useLocalNotes();
   const { blockNotes } = useBlockNotes();
 

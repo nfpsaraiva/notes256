@@ -9,7 +9,7 @@ interface NoteCardExpandedProps {
   close: () => void,
   note: Note,
   noteMenuIcon: ReactNode,
-  updateNote: (note: Note) => Promise<void>
+  updateNote: (note: Note) => void
 }
 
 const NoteCardExpanded: FC<NoteCardExpandedProps> = ({

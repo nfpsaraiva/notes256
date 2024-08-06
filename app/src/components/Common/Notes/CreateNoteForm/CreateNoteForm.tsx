@@ -1,11 +1,12 @@
 import { Button, Modal, Stack, Textarea, TextInput } from "@mantine/core";
 import { FC, useEffect, useState } from "react";
 import { IconCheck } from "@tabler/icons-react";
+import NewNote from "@/types/NewNote";
 
 interface CreateNoteFormProps {
   opened: boolean,
   close: () => void,
-  createNote: (name: string, description: string) => Promise<void>,
+  createNote: (newNote: NewNote) => void,
   creatingNote: boolean
 }
 
@@ -19,10 +20,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
   const [description, setDescription] = useState('');
 
   const save = async () => {
-    await createNote(
-      name,
-      description
-    );
+    await createNote({ name, description });
   }
 
   useEffect(() => {

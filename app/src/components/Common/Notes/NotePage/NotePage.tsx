@@ -4,7 +4,7 @@ import NoteSearch from "../NoteSearch/NoteSearch";
 import { IconRefresh } from "@tabler/icons-react";
 import NoteCardsList from "../NoteCardsList/NoteCardsList";
 import CreateNoteButton from "../CreateNoteButton/CreateNoteButton";
-import { BlockNote, LocalNote, Note, WebNote } from "@/types";
+import { BlockNote, LocalNote, NewNote, Note, WebNote } from "@/types";
 import { filterNotes } from "@/utils/NotesUtils";
 import { PageShell } from "@/components/UI";
 
@@ -13,9 +13,9 @@ interface NotePageProps {
   pageSubtitle: string,
   userMenu: ReactNode,
   notes: LocalNote[] | WebNote[] | BlockNote[],
-  createNote: (name: string, description: string) => Promise<void>,
+  createNote: (newNote: NewNote) => void,
   creatingNote: boolean,
-  updateNote: (note: Note) => Promise<void>,
+  updateNote: (note: Note) => void,
   searchValue: string,
   setSearchValue: React.Dispatch<React.SetStateAction<string>>,
   searchValueDebounced: string,
