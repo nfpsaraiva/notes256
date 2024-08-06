@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { useDebouncedValue, useDisclosure } from '@mantine/hooks';
+import { useDebouncedValue } from '@mantine/hooks';
 import { NotePage } from '@/components/Common/Notes';
-import useBlockNotes from '@/hooks/useBlockNotes';
 import { UserMenu } from '@/components/BlockNotes';
 import { IconCube } from '@tabler/icons-react';
+import { useBlockNotes } from '@/hooks';
 
 const BlockNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -16,7 +16,8 @@ const BlockNotes: FC = () => {
     updateNote,
     isLoading,
     refetch,
-    transferNote
+    transferNote,
+    isConnected
   } = useBlockNotes();
 
   return (
@@ -34,6 +35,7 @@ const BlockNotes: FC = () => {
       updateNote={updateNote}
       userMenu={<UserMenu />}
       noteMenuIcon={<IconCube size={20} />}
+      isConnected={isConnected}
     />
   )
 }

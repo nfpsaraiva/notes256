@@ -12,7 +12,8 @@ const WebNotes: FC = () => {
     createNote,
     creatingNote,
     updateNote,
-    refetch
+    refetch,
+    isConnected
   } = useWebNotes();
 
   return (
@@ -30,6 +31,7 @@ const WebNotes: FC = () => {
       updateNote={updateNote}
       userMenu={<UserMenu />}
       noteMenuIcon={<IconCloud size={20} />}
+      isConnected={isConnected}
     />
   )
 }

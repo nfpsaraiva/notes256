@@ -38,7 +38,7 @@ const UserMenu: FC = () => {
   if (!user) {
     return (
       <>
-        <Modal opened={opened} onClose={close} title="Sign in">
+        <Modal opened={opened} onClose={close} title="Sign in" radius={"xl"} padding={"xl"}>
           <Tabs defaultValue={"login"} >
             <Tabs.List grow>
               <Tabs.Tab value="login">Login</Tabs.Tab>
@@ -51,8 +51,8 @@ const UserMenu: FC = () => {
                 <Group gap={"xs"} justify="flex-end">
                   {
                     isConnecting
-                      ? <Button disabled>Connecting</Button>
-                      : <Button onClick={() => login()}>Login</Button>
+                      ? <Button radius={"xl"} disabled>Connecting</Button>
+                      : <Button radius={"xl"} onClick={() => login()}>Login</Button>
                   }
 
                 </Group>
@@ -68,8 +68,8 @@ const UserMenu: FC = () => {
                 <Group gap={"xs"} justify="flex-end">
                   {
                     isConnecting
-                      ? <Button disabled>Connecting</Button>
-                      : <Button onClick={() => register()}>Register</Button>
+                      ? <Button radius={"xl"} disabled>Connecting</Button>
+                      : <Button radius={"xl"} onClick={() => register()}>Register</Button>
                   }
 
                 </Group>

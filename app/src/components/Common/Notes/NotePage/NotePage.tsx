@@ -21,7 +21,8 @@ interface NotePageProps {
   searchValueDebounced: string
   isLoading: boolean,
   refetch: () => void,
-  noteMenuIcon: ReactNode
+  noteMenuIcon: ReactNode,
+  isConnected: boolean
 }
 
 const NotePage: FC<NotePageProps> = ({
@@ -37,7 +38,8 @@ const NotePage: FC<NotePageProps> = ({
   searchValueDebounced,
   isLoading,
   refetch,
-  noteMenuIcon
+  noteMenuIcon,
+  isConnected
 }: NotePageProps) => {
   return (
     <PageShell title={pageTitle} subtitle={pageSubtitle} userMenu={userMenu}>
@@ -61,11 +63,13 @@ const NotePage: FC<NotePageProps> = ({
           noteMenuIcon={noteMenuIcon}
         />
       }
-      <CreateNoteButton
-        createNote={createNote}
-        creatingNote={creatingNote}
-      />
-
+      {
+        isConnected &&
+        <CreateNoteButton
+          createNote={createNote}
+          creatingNote={creatingNote}
+        />
+      }
     </PageShell>
   )
 }

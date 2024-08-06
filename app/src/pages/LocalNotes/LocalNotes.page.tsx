@@ -12,7 +12,8 @@ const LocalNotes: FC = () => {
     createNote,
     creatingNote,
     updateNote,
-    transferNote
+    transferNote,
+    isConnected
   } = useLocalNotes();
 
 
@@ -31,6 +32,7 @@ const LocalNotes: FC = () => {
       updateNote={updateNote}
       userMenu={<UserMenu />}
       noteMenuIcon={<IconDeviceMobile size={20} />}
+      isConnected={isConnected}
     />
   )
 }

@@ -5,8 +5,7 @@ import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
 import { MenuEnum, Path } from "@/enums";
 import { useSupabase } from "@/contexts";
-import { useLocalNotes } from "@/hooks";
-import useBlockNotes from "@/hooks/useBlockNotes";
+import { useBlockNotes, useLocalNotes } from "@/hooks";
 
 const TopMenu: FC = () => {
   const { notes } = useSupabase();
