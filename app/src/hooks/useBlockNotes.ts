@@ -9,6 +9,7 @@ import { BrowserProvider, Contract } from "ethers";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { modals } from "@mantine/modals";
+import { DeleteModal } from "@/modals";
 
 const useBlockNotes = () => {
   const alchemy = useAlchemy();
@@ -166,17 +167,10 @@ const useBlockNotes = () => {
   }
 
   const deleteNote = async (note: Note) => {
-    modals.openConfirmModal({
-      title: 'Delete Note',
-      centered: true,
-      children: "Are you sure you want to delete this note? This action is irreversible",
-      labels: { confirm: 'Delete', cancel: "Cancel" },
-      confirmProps: { color: 'red' },
-      onConfirm: () => {
-        deleteNoteMutation(note as BlockNote);
-        navigate(Path.BLOCK_NOTES);
-      }
-    });
+    DeleteModal(() => {
+      deleteNoteMutation(note as BlockNote);
+      navigate(Path.BLOCK_NOTES);
+    })
   }
 
   const transferNote = async (note: Note, to: string) => {

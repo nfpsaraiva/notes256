@@ -23,7 +23,6 @@ const CreateNoteButton: FC<CreateNoteButtonProps> = ({
             onClick={open}
             size={50}
             radius={"xl"}
-
           >
             <IconPlus size={26} stroke={3} />
           </ActionIcon>

@@ -4,6 +4,7 @@ import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { modals } from "@mantine/modals";
+import { DeleteModal } from "@/modals";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -28,7 +29,7 @@ const useLocalNotes = () => {
 
     setNotes([...notes, newNote]);
     setCreatingNote(false);
-    
+
     navigate(Path.LOCAL_NOTES);
   }
 
@@ -43,29 +44,23 @@ const useLocalNotes = () => {
     navigate(Path.LOCAL_NOTES);
   }
 
-  const deleteNote = async (note: LocalNote) => {
-    modals.openConfirmModal({
-      title: 'Delete Note',
-      centered: true,
-      children: "Are you sure you want to delete this note? This action is irreversible",
-      labels: { confirm: 'Delete', cancel: "Cancel" },
-      confirmProps: { color: 'red' },
-      onConfirm: () => {
-        const newNotes = notes.filter(n => n.id !== note.id);
-        setNotes(newNotes);
-        navigate(Path.LOCAL_NOTES);
-      }
-    });
+  const deleteLocalStorageNote = async (note: LocalNote) => {
+    const newNotes = notes.filter(n => n.id !== note.id);
+    setNotes(newNotes);
   }
 
-  const transferNote = async (note: Note, to: string) => {}
+  const deleteNote = async (note: LocalNote) => {
+    DeleteModal(() => deleteLocalStorageNote(note))
+  }
+
+  const transferNote = async (note: Note, to: string) => { }
 
   const convertToWeb = async (
     note: Note,
     createWebNote: (name: string, description: string) => Promise<void>
   ) => {
     await createWebNote(note.name, note.description);
-    await deleteNote(note);
+    deleteLocalStorageNote(note);
     navigate(Path.WEB_NOTES);
   }
 
@@ -74,15 +69,15 @@ const useLocalNotes = () => {
     createBlockNote: (name: string, description: string) => Promise<void>
   ) => {
     await createBlockNote(note.name, note.description);
-    await deleteNote(note);
+    deleteLocalStorageNote(note);
     navigate(Path.BLOCK_NOTES);
   }
 
-  const refetch = () => {};
+  const refetch = () => { };
 
-  return { 
+  return {
     isConnected: true,
-    localNotes: notes, 
+    localNotes: notes,
     refetch,
     createNote,
     creatingNote,

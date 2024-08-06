@@ -1,6 +1,5 @@
 import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { Group, Menu, UnstyledButton } from "@mantine/core";
-import { IconChevronDown } from "@tabler/icons-react";
 import { FC, ReactNode } from "react";
 import classes from "./NoteMenu.module.css";
 import { NoteType } from "@/enums";
@@ -31,7 +30,6 @@ const NoteMenu: FC<NoteMenuProps> = ({ note, noteMenuIcon }: NoteMenuProps) => {
         <UnstyledButton px={"md"} py={"xs"} className={classes.target} onClick={e => e.stopPropagation()}>
           <Group gap={"xs"} wrap="nowrap">
             {noteMenuIcon}
-            <IconChevronDown size={20} />
           </Group>
         </UnstyledButton>
       </Menu.Target>
