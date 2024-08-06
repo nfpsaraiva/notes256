@@ -1,7 +1,7 @@
 import { useAlchemy } from "./AlchemyContext";
-import { useUserbase } from "./UserbaseContext";
+import { useSupabase } from "./SupabaseContext";
 
 export {
   useAlchemy,
-  useUserbase
+  useSupabase,
 }

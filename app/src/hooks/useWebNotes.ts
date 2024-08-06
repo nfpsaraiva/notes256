@@ -1,8 +1,7 @@
-import { useUserbase } from "@/contexts";
-import { NoteType, Path } from "@/enums";
+import { useSupabase } from "@/contexts";
+import { Path } from "@/enums";
 import { DeleteModal } from "@/modals";
 import { Note, WebNote } from "@/types";
-import { modals } from "@mantine/modals";
 import { useNavigate } from "react-router-dom";
 
 const useWebNotes = () => {
@@ -11,34 +10,28 @@ const useWebNotes = () => {
     notes,
     isLoading,
     refetch,
-    createNote: userbaseCreateNote,
+    createNote: supabaseCreateNote,
     creatingNote,
-    updateNote: userbaseUpdateNote,
-    deleteNote: userbaseDeleteNote,
-  } = useUserbase();
+    updateNote: supabaseUpdateNote,
+    deleteNote: supabaseDeleteNote,
+  } = useSupabase();
 
   const navigate = useNavigate();
 
   const createNote = async (name: string, description: string) => {
-    userbaseCreateNote({
-      id: Date.now().toString(),
-      name,
-      description,
-      date: new Date(),
-      type: NoteType.WEB
-    });
+    supabaseCreateNote(name, description);
 
     navigate(Path.WEB_NOTES);
   }
 
   const updateNote = async (note: WebNote) => {
-    await userbaseUpdateNote(note);
+    await supabaseUpdateNote(note);
     navigate(Path.WEB_NOTES);
   }
 
   const deleteNote = async (note: WebNote) => {
     DeleteModal(() => {
-      userbaseDeleteNote(note);
+      supabaseDeleteNote(note);
       navigate(Path.WEB_NOTES);
     })
   }
@@ -50,7 +43,7 @@ const useWebNotes = () => {
     createLocalNote: (name: string, description: string) => Promise<void>
   ) => {
     await createLocalNote(note.name, note.description);
-    await userbaseDeleteNote(note);
+    await supabaseDeleteNote(note);
     navigate(Path.LOCAL_NOTES);
   }
 
@@ -59,7 +52,7 @@ const useWebNotes = () => {
     createBlockNote: (name: string, description: string) => Promise<void>
   ) => {
     await createBlockNote(note.name, note.description);
-    await userbaseDeleteNote(note);
+    await supabaseDeleteNote(note);
     navigate(Path.BLOCK_NOTES);
   }
 

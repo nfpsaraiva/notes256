@@ -13,6 +13,7 @@ import { ModalsProvider } from '@mantine/modals';
 import { UserbaseProvider } from './contexts/UserbaseContext';
 import { Auth0Provider } from "@auth0/auth0-react";
 import envs from "@/envs";
+import { SupabaseProvider } from './contexts/SupabaseContext';
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -38,13 +39,13 @@ export default function App() {
       <Notifications />
       <Auth0Provider {...auth0Config}>
         <ModalsProvider>
-          <UserbaseProvider>
-            <AlchemyProvider>
-              <QueryClientProvider client={queryClient}>
-                <Router />
-              </QueryClientProvider>
-            </AlchemyProvider>
-          </UserbaseProvider>
+          <SupabaseProvider>
+              <AlchemyProvider>
+                <QueryClientProvider client={queryClient}>
+                  <Router />
+                </QueryClientProvider>
+              </AlchemyProvider>
+          </SupabaseProvider>
         </ModalsProvider>
       </Auth0Provider>
     </MantineProvider>

@@ -26,7 +26,6 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
   }
 
   useEffect(() => {
-    console.log(creatingNote);
     if (!creatingNote) close();
   }, [creatingNote])
 

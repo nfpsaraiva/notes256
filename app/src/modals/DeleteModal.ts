@@ -11,7 +11,7 @@ const DeleteModal = (
     labels: { confirm: 'Delete', cancel: "Cancel" },
     cancelProps: { radius: "xl" },
     confirmProps: { color: 'red', radius: "xl" },
-    onConfirm: () => confirmFn
+    onConfirm: () => confirmFn()
   });
 }
 

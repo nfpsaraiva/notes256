@@ -1,15 +1,15 @@
 import { Divider, Stack } from "@mantine/core";
-import { IconCloud, IconCube, IconDeviceMobile, IconGizmo, IconHome, IconSmartHome } from "@tabler/icons-react";
+import { IconCloud, IconCube, IconDeviceMobile, IconSmartHome } from "@tabler/icons-react";
 import { FC } from "react";
 import classes from "./Menu.module.css";
 import MenuItem from "./MenuItem";
 import { MenuEnum, Path } from "@/enums";
-import { useUserbase } from "@/contexts";
+import { useSupabase } from "@/contexts";
 import { useLocalNotes } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 
 const TopMenu: FC = () => {
-  const { notes } = useUserbase();
+  const { notes } = useSupabase();
   const { localNotes } = useLocalNotes();
   const { blockNotes } = useBlockNotes();
 
