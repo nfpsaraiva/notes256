@@ -1,4 +1,4 @@
-import { useLocalNotes, useWebNotes } from "@/hooks";
+import { useLocalNotes, useWebNotes, useWebUser } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 import { LocalNote } from "@/types";
 import { Menu } from "@mantine/core";
@@ -11,7 +11,8 @@ interface NoteMenuProps {
 
 const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
   const { deleteNote, convertToWeb, convertToBlock } = useLocalNotes();
-  const { isConnected: isWebConnected, createNote: createWebNote } = useWebNotes();
+  const { createNote: createWebNote } = useWebNotes();
+  const { isConnected: isWebConnected } = useWebUser();
   const { isConnected: isBlockConnected, createNote: createBlockNote } = useBlockNotes();
 
   return (

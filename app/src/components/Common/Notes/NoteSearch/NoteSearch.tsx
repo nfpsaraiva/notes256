@@ -14,7 +14,7 @@ interface NoteSearchProps {
 const NoteSearch: FC<NoteSearchProps> = ({
   searchValue,
   setSearchValue,
-  placeholder = "Search",
+  placeholder = "Search by keywords",
   submitLabel = "Search",
   submitIcon = <IconSearch size={18} />,
   submit

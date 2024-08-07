@@ -1,9 +1,10 @@
 import { useLocalNotes, useWebNotes, useWebUser } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 import { BlockNote } from "@/types";
-import { CopyButton, Menu, Text } from "@mantine/core";
+import { CopyButton, Menu } from "@mantine/core";
 import { IconCloudPlus, IconCopy, IconDeviceMobilePlus, IconFileUpload, IconShare, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
+import { useLocation } from "react-router-dom";
 
 interface NoteMenuProps {
   note: BlockNote
@@ -17,13 +18,13 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
 
   return (
     <Menu.Dropdown>
-      <CopyButton value={note.id}>
+      <CopyButton value={`${window.location.href}/${note.id}`}>
         {({ copied, copy }) => (
           <Menu.Item leftSection={<IconCopy size={16} />} onClick={e => {
             e.stopPropagation();
             copy();
           }}>
-            {copied ? 'Copied' : 'Copy ID'}
+            {copied ? 'Copied' : 'Copy URL'}
           </Menu.Item>
         )}
       </CopyButton>

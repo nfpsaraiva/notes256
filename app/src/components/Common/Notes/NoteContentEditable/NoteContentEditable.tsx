@@ -1,5 +1,5 @@
 import { Note } from "@/types";
-import { Group, Stack, Text, Textarea, TextInput } from "@mantine/core";
+import { Badge, Group, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { FC, ReactNode } from "react";
 import NoteMenu from "../NoteMenu/NoteMenu";
 
@@ -29,21 +29,21 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
   </Text>
 
   return (
-    <Stack gap={"lg"} h={"100%"} mb={"lg"}>
-      <Stack gap={4}>
+    <Stack gap={"xs"} h={"100%"}>
+      <Stack gap={0} flex={1}>
         <Group justify="space-between">
-          <Stack gap={4} flex={1}>
-            <TextInput
-              value={newTitle}
-              onChange={e => setNewTitle(e.target.value)}
-              variant="unstyled"
-              placeholder="Name"
-              fw={600}
-            />
-            {note.date && formatedDate}
-          </Stack>
+          <Badge size="sm" variant="transparent" px={0}>
+            {note.type}
+          </Badge>
           <NoteMenu note={note} noteMenuIcon={noteMenuIcon} />
         </Group>
+        <TextInput
+          value={newTitle}
+          onChange={e => setNewTitle(e.target.value)}
+          variant="unstyled"
+          placeholder="Name"
+          fw={600}
+        />
       </Stack>
       <Textarea
         value={newDescription}
@@ -56,9 +56,11 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
         fw={300}
         size="sm"
         lh={1.6}
-        maxLength={256}
+        maxLength={1000}
       />
-
+      <Text>
+        {note.date && formatedDate}
+      </Text>
     </Stack>
   )
 }

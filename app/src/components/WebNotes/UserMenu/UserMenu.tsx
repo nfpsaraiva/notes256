@@ -75,7 +75,7 @@ const UserMenu: FC = () => {
 
   return (
     <>
-      <Menu radius={"xl"}>
+      <Menu radius={"xl"} width={"target"}>
         <Menu.Target>
           <Button radius={"xl"} size="md" variant="subtle" leftSection={<NoteIcon size={20} stroke={2} />} fw={700}>{user?.email}</Button>
         </Menu.Target>

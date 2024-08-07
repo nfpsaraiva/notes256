@@ -4,11 +4,13 @@ import { NotePage } from '@/components/Common/Notes';
 import { UserMenu } from '@/components/BlockNotes';
 import { IconCube } from '@tabler/icons-react';
 import { useBlockNotes } from '@/hooks';
+import { useParams } from 'react-router-dom';
 
 const BlockNotes: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchValueDebounced] = useDebouncedValue(searchValue, 500);
-  
+  const { noteId } = useParams();
+
   const {
     blockNotes,
     createNote,
@@ -18,7 +20,7 @@ const BlockNotes: FC = () => {
     refetch,
     transferNote,
     isConnected
-  } = useBlockNotes(searchValueDebounced);
+  } = useBlockNotes(noteId);
 
   return (
     <NotePage
@@ -32,7 +34,6 @@ const BlockNotes: FC = () => {
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       searchValueDebounced={searchValueDebounced}
-      searchPlaceholder='Search by keywords / note ID'
       updateNote={updateNote}
       userMenu={<UserMenu />}
       noteMenuIcon={<IconCube size={20} />}

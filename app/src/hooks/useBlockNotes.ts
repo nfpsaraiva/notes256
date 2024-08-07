@@ -9,7 +9,6 @@ import { BrowserProvider, Contract } from "ethers";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { modals } from "@mantine/modals";
-import { DeleteModal } from "@/modals";
 import NewNote from "@/types/NewNote";
 
 const useBlockNotes = (noteId?: string) => {
@@ -21,7 +20,7 @@ const useBlockNotes = (noteId?: string) => {
   const navigate = useNavigate();
 
   const { data: notes, isSuccess, isFetching, isError, refetch } = useQuery({
-    queryKey: ["blockNotes"],
+    queryKey: ["blockNotes", noteId],
     queryFn: async () => {
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -32,23 +31,27 @@ const useBlockNotes = (noteId?: string) => {
       )
 
       if (noteId) {
-        console.log(noteId);
         const tokenId = await contract.notesIds(noteId);
-        const note = await contract.notes(tokenId);
-        const timestamp = Number(note[3]);
-        const date = new Date(timestamp * 1000);
+        console.log(noteId);
+        if (tokenId) {
+          const note = await contract.notes(tokenId);
+          const timestamp = Number(note[3]);
+          const date = new Date(timestamp * 1000);
+  
+          const blockNote: BlockNote = {
+            id: noteId,
+            name: note[1] as string,
+            description: note[2] as string,
+            date,
+            tokenId: tokenId,
+            image: "" as string,
+            type: NoteType.BLOCK
+          }
 
-        const blockNote: BlockNote = {
-          id: noteId,
-          name: note[1] as string,
-          description: note[2] as string,
-          date,
-          tokenId: tokenId,
-          image: "" as string,
-          type: NoteType.BLOCK
+          return [blockNote];
         }
-        return [blockNote];
       }
+
 
       if (address === undefined) return [];
 
@@ -77,9 +80,11 @@ const useBlockNotes = (noteId?: string) => {
       }
 
       const { ownedNfts } = await alchemy.nft.getNftsForOwner(address);
+      console.log(ownedNfts);
       const filteredOwnedNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
       const blockNotesPromises = filteredOwnedNfts.map(n => getBlockNote(n));
       const blockNotes = await Promise.all(blockNotesPromises);
+
 
       return blockNotes.filter(p => p !== undefined).sort((a, b) => {
         if (a.date.getTime() < b.date.getTime()) return 1;
@@ -121,8 +126,10 @@ const useBlockNotes = (noteId?: string) => {
     isSuccess: blockNoteUpdated,
     isPending: updatingBlockNote
   } = useMutation({
-    mutationFn: async (note: BlockNote) => {
+    mutationFn: async (note: Note) => {
       if (!walletProvider) return;
+
+      const blockNote = note as BlockNote;
 
       const ethersProvider = new BrowserProvider(walletProvider);
 
@@ -130,7 +137,7 @@ const useBlockNotes = (noteId?: string) => {
 
       const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
 
-      const response = await contract.updateNote(note.tokenId, note.name, note.description);
+      const response = await contract.updateNote(blockNote.tokenId, note.name, note.description);
 
       await response.wait();
     },

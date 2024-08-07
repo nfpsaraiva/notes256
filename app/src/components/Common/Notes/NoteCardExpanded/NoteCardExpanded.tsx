@@ -34,7 +34,7 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
 
   return (
     <Modal
-      radius={"lg"}
+      radius={"xl"}
       size={"md"}
       padding={0}
       opened={opened}
@@ -56,7 +56,7 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
         leftSection={<IconCheck stroke={3} size={18} />}
         size="sm"
         radius={"lg"}
-        variant="light"
+        variant="filled"
         onClick={save}
         fw={700}
       >

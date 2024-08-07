@@ -1,5 +1,5 @@
 import { Note } from "@/types";
-import { Group, Stack, Text, Title } from "@mantine/core";
+import { Badge, Group, Stack, Text, Title } from "@mantine/core";
 import { FC, ReactNode } from "react";
 import NoteMenu from "../NoteMenu/NoteMenu";
 
@@ -21,20 +21,24 @@ const NoteContent: FC<NoteContentProps> = ({
   </Text>
 
   return (
-    <Stack gap={"lg"} h={"100%"} mb={"lg"}>
-      <Stack gap={4}>
+    <Stack gap={"xs"} h={"100%"} mb={0}>
+      <Stack gap={2}>
         <Group justify="space-between" wrap="nowrap" align="flex-start">
-          <Stack gap={4} flex={1}>
+          <Stack gap={"xs"} flex={1}>
+            <Group justify="space-between">
+              <Badge size="sm" variant="transparent" px={0}>
+                {note.type}
+              </Badge>
+              <NoteMenu note={note} noteMenuIcon={noteMenuIcon} />
+            </Group>
             {
               note.name !== "" &&
-              <Title order={3} fw={600} size={"h5"} lineClamp={expanded ? 3 : 2}>{note.name}</Title>
+              <Title order={3} fw={600} size={"h4"} lineClamp={expanded ? 3 : 2}>{note.name}</Title>
             }
-            {note.date && formatedDate}
           </Stack>
-          <NoteMenu note={note} noteMenuIcon={noteMenuIcon} />
         </Group>
       </Stack>
-      <Text fw={400} lineClamp={6} size="sm" lh={1.6}>
+      <Text fw={400} lineClamp={5} size="sm" lh={1.6}>
         {note.description}
       </Text>
     </Stack>

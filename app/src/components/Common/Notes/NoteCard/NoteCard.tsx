@@ -21,7 +21,7 @@ const NoteCard: FC<NoteCardProps> = ({
 
   return (
     <>
-      <Card onClick={open} className={classes.NoteCard} radius={"lg"} h={280} padding={"lg"} withBorder shadow="md">
+      <Card onClick={open} className={classes.NoteCard} radius={"xl"} h={280} padding={"lg"} withBorder shadow="md">
         <NoteContent
           note={note}
           expanded={false}

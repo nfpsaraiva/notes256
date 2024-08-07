@@ -53,7 +53,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
               leftSection={<IconCheck stroke={3} size={18} />}
               size="sm"
               radius={"lg"}
-              variant="light"
+              variant="filled"
               disabled
               fw={700}
             >
@@ -63,7 +63,7 @@ const CreateNoteForm: FC<CreateNoteFormProps> = ({
               leftSection={<IconCheck stroke={3} size={18} />}
               size="sm"
               radius={"lg"}
-              variant="light"
+              variant="filled"
               onClick={save}
               fw={700}
             >
