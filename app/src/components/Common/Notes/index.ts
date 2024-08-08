@@ -9,6 +9,7 @@ import NoteList from "./NoteList/NoteList";
 import NoteMenu from "./NoteMenu/NoteMenu";
 import NotePage from "./NotePage/NotePage";
 import NoteSearch from "./NoteSearch/NoteSearch";
+import NoteTransferForm from "./NoteTransferForm/NoteTransferForm";
 
 export {
   CreateNoteButton,
@@ -21,5 +22,6 @@ export {
   NoteList,
   NoteMenu,
   NotePage,
-  NoteSearch
+  NoteSearch,
+  NoteTransferForm,
 }

@@ -8,16 +8,16 @@ interface NoteCardExpandedProps {
   opened: boolean,
   close: () => void,
   note: Note,
-  noteMenuIcon: ReactNode,
-  updateNote: (note: Note) => void
+  updateNote: (note: Note) => void,
+  openNoteTransferForm: () => void
 }
 
 const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
   opened,
   close,
   note,
-  noteMenuIcon,
-  updateNote
+  updateNote,
+  openNoteTransferForm
 }: NoteCardExpandedProps) => {
   const [newTitle, setNewTitle] = useState(note.name);
   const [newDescription, setNewDescription] = useState(note.description);
@@ -45,12 +45,11 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
       <Stack gap={"lg"} m={"lg"}>
         <NoteContentEditable
           note={note}
-          expanded={true}
           newTitle={newTitle}
           newDescription={newDescription}
           setNewTitle={setNewTitle}
           setNewDescription={setNewDescription}
-          noteMenuIcon={noteMenuIcon}
+          openNoteTransferForm={openNoteTransferForm}
         />
         <Button
         leftSection={<IconCheck stroke={3} size={18} />}

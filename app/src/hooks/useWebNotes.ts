@@ -1,6 +1,6 @@
 import { useSupabase } from "@/contexts";
 import { NoteType, Path } from "@/enums";
-import { Note, WebNote } from "@/types";
+import { Note, TransferedNote, WebNote } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useWebUser from "./useWebUser";
@@ -90,7 +90,7 @@ const useWebNotes = () => {
     }
   });
 
-  const transferNote = async (note: Note, to: string) => { }
+  const transferNote = async (transferNote: TransferedNote) => { }
 
   const convertToLocal = async (
     note: Note,

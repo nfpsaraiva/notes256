@@ -1,4 +1,0 @@
-.target:hover {
-  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-7));
-  border-radius: 12px;
-}

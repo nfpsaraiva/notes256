@@ -1,39 +1,47 @@
 import { Card } from "@mantine/core";
 import { FC, ReactNode } from "react";
 import classes from "./NoteCard.module.css";
-import { Note } from "@/types";
+import { Note, TransferedNote } from "@/types";
 import { useDisclosure } from "@mantine/hooks";
 import NoteContent from "../NoteContent/NoteContent";
 import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
+import NoteTransferForm from "../NoteTransferForm/NoteTransferForm";
 
 interface NoteCardProps {
   note: Note,
   updateNote: (note: Note) => void,
-  noteMenuIcon: ReactNode
+  transfer: (transferedNote: TransferedNote) => void
 }
 
 const NoteCard: FC<NoteCardProps> = ({
   note,
   updateNote,
-  noteMenuIcon
+  transfer
 }: NoteCardProps) => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [noteCardExpandedOpened, noteCardExpandedHandle] = useDisclosure(false);
+  const [noteTransferFormOpened, noteTransferFormHandle] = useDisclosure(false);
 
   return (
     <>
-      <Card onClick={open} className={classes.NoteCard} radius={"xl"} h={280} padding={"lg"} withBorder shadow="md">
+      <Card onClick={noteCardExpandedHandle.open} className={classes.NoteCard} radius={"xl"} h={280} padding={"lg"} withBorder shadow="md">
         <NoteContent
           note={note}
           expanded={false}
-          noteMenuIcon={noteMenuIcon}
+          openNoteTransferForm={noteTransferFormHandle.open}
         />
       </Card>
       <NoteCardExpanded
-        opened={opened}
-        close={close}
+        opened={noteCardExpandedOpened}
+        close={noteCardExpandedHandle.close}
         note={note}
         updateNote={updateNote}
-        noteMenuIcon={noteMenuIcon}
+        openNoteTransferForm={noteTransferFormHandle.open}
+      />
+      <NoteTransferForm 
+        opened={noteTransferFormOpened}
+        close={noteTransferFormHandle.close}
+        note={note}
+        transfer={transfer}
       />
     </>
   )

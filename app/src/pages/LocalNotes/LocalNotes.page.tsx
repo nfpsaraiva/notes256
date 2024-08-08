@@ -1,7 +1,6 @@
 import { NotePage } from "@/components/Common/Notes";
 import { UserMenu } from "@/components/LocalNotes";
 import { useLocalNotes } from "@/hooks";
-import { IconDeviceMobile } from "@tabler/icons-react";
 import { FC, useState } from "react";
 
 const LocalNotes: FC = () => {
@@ -31,8 +30,8 @@ const LocalNotes: FC = () => {
       searchValueDebounced={searchValue}
       updateNote={updateNote}
       userMenu={<UserMenu />}
-      noteMenuIcon={<IconDeviceMobile size={20} />}
       isConnected={isConnected}
+      transfer={transferNote}
     />
   )
 }

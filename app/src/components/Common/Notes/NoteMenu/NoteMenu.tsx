@@ -1,19 +1,18 @@
-import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { Group, Menu, UnstyledButton } from "@mantine/core";
 import { IconMenu } from "@tabler/icons-react";
-import { FC, ReactNode } from "react";
-import classes from "./NoteMenu.module.css";
+import { FC } from "react";
+import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { NoteType } from "@/enums";
 import { NoteMenu as LocalNoteMenu } from "@/components/LocalNotes";
 import { NoteMenu as WebNoteMenu } from "@/components/WebNotes";
 import { NoteMenu as BlockNoteMenu } from "@/components/BlockNotes";
 
 interface NoteMenuProps {
-  note: Note
-  noteMenuIcon: ReactNode
+  note: Note,
+  openNoteTransferForm: () => void
 }
 
-const NoteMenu: FC<NoteMenuProps> = ({ note, noteMenuIcon }: NoteMenuProps) => {
+const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuProps) => {
   const getMenu = () => {
     switch (note.type) {
       case NoteType.LOCAL:
@@ -21,14 +20,14 @@ const NoteMenu: FC<NoteMenuProps> = ({ note, noteMenuIcon }: NoteMenuProps) => {
       case NoteType.WEB:
         return <WebNoteMenu note={note as WebNote} />
       default:
-        return <BlockNoteMenu note={note as BlockNote} />
+        return <BlockNoteMenu note={note as BlockNote} openNoteTransferForm={openNoteTransferForm} />
     }
   }
 
   return (
-    <Menu radius={"lg"}>
+    <Menu radius={"xl"}>
       <Menu.Target>
-        <UnstyledButton px={"md"} py={"xs"} className={classes.target} onClick={e => e.stopPropagation()}>
+        <UnstyledButton px={0} py={"xs"} onClick={e => e.stopPropagation()}>
           <Group gap={"xs"} wrap="nowrap">
             <IconMenu size={18} />
           </Group>

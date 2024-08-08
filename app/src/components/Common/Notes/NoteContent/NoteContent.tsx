@@ -6,13 +6,13 @@ import NoteMenu from "../NoteMenu/NoteMenu";
 interface NoteContentProps {
   note: Note,
   expanded: boolean,
-  noteMenuIcon: ReactNode
+  openNoteTransferForm: () => void
 }
 
 const NoteContent: FC<NoteContentProps> = ({
   note,
   expanded = false,
-  noteMenuIcon
+  openNoteTransferForm
 }: NoteContentProps) => {
   const formatedDate = <Text c={"dimmed"} size="xs" fw={500}>
     {
@@ -29,7 +29,7 @@ const NoteContent: FC<NoteContentProps> = ({
               <Badge size="sm" variant="transparent" px={0}>
                 {note.type}
               </Badge>
-              <NoteMenu note={note} noteMenuIcon={noteMenuIcon} />
+              <NoteMenu note={note} openNoteTransferForm={openNoteTransferForm} />
             </Group>
             {
               note.name !== "" &&

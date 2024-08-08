@@ -6,6 +6,9 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "hardhat/console.sol";
 
 contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
+    uint16 NOTE_TITLE_MAX_LENGTH = 50;
+    uint32 NOTE_CONTENT_MAX_LENGTH = 1000;
+
     // Single note structure
     struct Note {
         bytes32 id;
@@ -61,6 +64,9 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         string memory _content,
         string memory _tokenURI
     ) external {
+        require(bytes(_name).length <= NOTE_TITLE_MAX_LENGTH, "Name is too large");
+        require(bytes(_content).length <= NOTE_CONTENT_MAX_LENGTH, "Content is too large");
+
         // Generates an unique ID for the new note
         bytes32 contentHashed = keccak256(abi.encodePacked(_content, block.timestamp));
 

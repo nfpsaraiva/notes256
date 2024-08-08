@@ -4,7 +4,7 @@ import NoteSearch from "../NoteSearch/NoteSearch";
 import { IconRefresh } from "@tabler/icons-react";
 import NoteCardsList from "../NoteCardsList/NoteCardsList";
 import CreateNoteButton from "../CreateNoteButton/CreateNoteButton";
-import { BlockNote, LocalNote, NewNote, Note, WebNote } from "@/types";
+import { BlockNote, LocalNote, NewNote, Note, TransferedNote, WebNote } from "@/types";
 import { filterNotes } from "@/utils/NotesUtils";
 import { PageShell } from "@/components/UI";
 
@@ -22,8 +22,8 @@ interface NotePageProps {
   searchPlaceholder?: string,
   isLoading: boolean,
   refetch: () => void,
-  noteMenuIcon: ReactNode,
-  isConnected: boolean
+  isConnected: boolean,
+  transfer: (transferedNote: TransferedNote) => void
 }
 
 const NotePage: FC<NotePageProps> = ({
@@ -40,8 +40,8 @@ const NotePage: FC<NotePageProps> = ({
   searchPlaceholder,
   isLoading,
   refetch,
-  noteMenuIcon,
-  isConnected
+  isConnected,
+  transfer
 }: NotePageProps) => {
   return (
     <PageShell title={pageTitle} subtitle={pageSubtitle} userMenu={userMenu}>
@@ -63,7 +63,7 @@ const NotePage: FC<NotePageProps> = ({
         notes && <NoteCardsList
           notes={filterNotes(notes, searchValueDebounced)}
           updateNote={updateNote}
-          noteMenuIcon={noteMenuIcon}
+          transfer={transfer}
         />
       }
       {

@@ -4,7 +4,7 @@ import { useWeb3ModalAccount, useWeb3ModalProvider } from "@web3modal/ethers/rea
 import { Contract as AlchemyContract, Block, OwnedNft } from "alchemy-sdk";
 import envs from "@/envs";
 import contractArtifact from "../../../artifacts/contracts/Notes256.sol/Notes256.json";
-import { BlockNote, Note } from "@/types";
+import { BlockNote, Note, TransferedNote } from "@/types";
 import { BrowserProvider, Contract } from "ethers";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
@@ -32,12 +32,11 @@ const useBlockNotes = (noteId?: string) => {
 
       if (noteId) {
         const tokenId = await contract.notesIds(noteId);
-        console.log(noteId);
         if (tokenId) {
           const note = await contract.notes(tokenId);
           const timestamp = Number(note[3]);
           const date = new Date(timestamp * 1000);
-  
+
           const blockNote: BlockNote = {
             id: noteId,
             name: note[1] as string,
@@ -172,12 +171,14 @@ const useBlockNotes = (noteId?: string) => {
   });
 
   const {
-    mutate: transferNoteMutation,
+    mutate: transferNote,
     isSuccess: blockNoteTransfered,
     isPending: transferingBlockNote
   } = useMutation({
-    mutationFn: async ({ note, to }: { note: BlockNote, to: string }) => {
+    mutationFn: async ({ note, to }: TransferedNote) => {
       if (!walletProvider) return;
+
+      const blockNote = note as BlockNote;
 
       const ethersProvider = new BrowserProvider(walletProvider);
 
@@ -185,17 +186,15 @@ const useBlockNotes = (noteId?: string) => {
 
       const contract = new Contract(CONTRACT_ADDRESS, contractArtifact.abi, signer);
 
-      const response = await contract.safeTransferFrom(address, to, note.tokenId);
+      const response = await contract.safeTransferFrom(address, to, blockNote.tokenId);
 
       await response.wait();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["blockNotes"] })
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blockNotes"] })
+      navigate(Path.BLOCK_NOTES);
+    }
   });
-
-  const transferNote = async (note: Note, to: string) => {
-    transferNoteMutation({ note: note as BlockNote, to });
-    navigate(Path.BLOCK_NOTES);
-  }
 
   const convertToLocal = async (
     note: Note,

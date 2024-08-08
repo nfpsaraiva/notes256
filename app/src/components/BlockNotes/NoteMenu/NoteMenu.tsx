@@ -2,15 +2,15 @@ import { useLocalNotes, useWebNotes, useWebUser } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 import { BlockNote } from "@/types";
 import { CopyButton, Menu } from "@mantine/core";
-import { IconCloudPlus, IconCopy, IconDeviceMobilePlus, IconFileUpload, IconShare, IconTrash } from "@tabler/icons-react";
+import { IconCloudPlus, IconCopy, IconDeviceMobilePlus, IconFileUpload, IconTrash } from "@tabler/icons-react";
 import { FC } from "react";
-import { useLocation } from "react-router-dom";
 
 interface NoteMenuProps {
-  note: BlockNote
+  note: BlockNote,
+  openNoteTransferForm: () => void
 }
 
-const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
+const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuProps) => {
   const { deleteNote, convertToWeb, convertToLocal, transferNote } = useBlockNotes();
   const { createNote: createWebNote } = useWebNotes();
   const { createNote: createLocalNote } = useLocalNotes();
@@ -30,12 +30,7 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
       </CopyButton>
       <Menu.Item onClick={e => {
         e.stopPropagation();
-        transferNote(note, "");
-      }} leftSection={<IconShare size={16} />}>
-        Share
-      </Menu.Item>
-      <Menu.Item onClick={e => {
-        e.stopPropagation();
+        openNoteTransferForm();
       }} leftSection={<IconFileUpload size={16} />}>
         Transfer
       </Menu.Item>

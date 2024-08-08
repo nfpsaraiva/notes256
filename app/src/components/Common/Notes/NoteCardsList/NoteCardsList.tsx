@@ -1,4 +1,4 @@
-import { Note } from "@/types";
+import { Note, TransferedNote } from "@/types";
 import { SimpleGrid } from "@mantine/core";
 import { FC, ReactNode } from "react";
 import NoteCard from "../NoteCard/NoteCard";
@@ -6,13 +6,13 @@ import NoteCard from "../NoteCard/NoteCard";
 interface NoteCardsListProps {
   notes: Note[],
   updateNote: (note: Note) => void,
-  noteMenuIcon: ReactNode
+  transfer: (transferedNote: TransferedNote) => void
 }
 
 const NoteCardsList: FC<NoteCardsListProps> = ({
   notes,
   updateNote,
-  noteMenuIcon
+  transfer
 }: NoteCardsListProps) => {
   return (
     <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }}>
@@ -23,7 +23,7 @@ const NoteCardsList: FC<NoteCardsListProps> = ({
               key={note.id}
               note={note}
               updateNote={updateNote}
-              noteMenuIcon={noteMenuIcon}
+              transfer={transfer}
             />
           )
         })

@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { useDebouncedValue } from '@mantine/hooks';
 import { NotePage } from '@/components/Common/Notes';
 import { UserMenu } from '@/components/BlockNotes';
-import { IconCube } from '@tabler/icons-react';
 import { useBlockNotes } from '@/hooks';
 import { useParams } from 'react-router-dom';
 
@@ -36,8 +35,8 @@ const BlockNotes: FC = () => {
       searchValueDebounced={searchValueDebounced}
       updateNote={updateNote}
       userMenu={<UserMenu />}
-      noteMenuIcon={<IconCube size={20} />}
       isConnected={isConnected}
+      transfer={transferNote}
     />
   )
 }

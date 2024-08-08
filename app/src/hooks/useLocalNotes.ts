@@ -1,5 +1,5 @@
 import { useLocalStorage } from "@mantine/hooks";
-import { LocalNote, Note } from "@/types";
+import { LocalNote, Note, TransferedNote } from "@/types";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -53,7 +53,7 @@ const useLocalNotes = () => {
     DeleteModal(() => deleteLocalStorageNote(note))
   }
 
-  const transferNote = async (note: Note, to: string) => { }
+  const transferNote = async (transferedNote: TransferedNote) => { }
 
   const convertToWeb = async (
     note: Note,

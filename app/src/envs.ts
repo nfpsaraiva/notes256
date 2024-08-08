@@ -14,7 +14,8 @@ const config = {
   AUTH0_CLIENT_DOMAIN: import.meta.env.VITE_AUTH0_DOMAIN,
   AUTH0_CLIENT_ID: import.meta.env.VITE_AUTH0_CLIENT_ID,
   AUTH0_CLIENT_SECRET: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
-
+  NOTE_TITLE_MAX_LENGTH: import.meta.env.VITE_NOTE_TITLE_MAX_LENGTH,
+  NOTE_CONTENT_MAX_LENGTH: import.meta.env.VITE_NOTE_CONTENT_MAX_LENGTH
 };
 
 export default config;

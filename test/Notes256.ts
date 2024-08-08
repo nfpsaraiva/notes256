@@ -46,7 +46,27 @@ describe("Create Note", () => {
 
     expect(duplicatedNote[1]).to.be.equal("foo");
     expect(duplicatedNote[2]).to.be.equal("bar");
-  })
+  });
+
+  it("Should failed when trying to create a note with a large name", async () => {
+    const {provifyContract} = await loadFixture(deployNotes256Fixture);
+
+    const largeName = new Array(50 + 2).join('a');
+    
+    const failedNote =  provifyContract.createNote(largeName, 'bar', "https:://gateway/foo");
+
+    await expect(failedNote).to.be.reverted;
+  });
+
+  it("Should create a note with the corrent content length", async () => {
+    const {provifyContract} = await loadFixture(deployNotes256Fixture);
+
+    const largeContent = new Array(1000 + 2).join('a');
+
+    const failedNote = provifyContract.createNote('foo', largeContent, "https:://gateway/foo");
+
+    await expect(failedNote).to.be.reverted;
+  });
 });
 
 describe("Update Note", () => {
