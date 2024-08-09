@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@mantine/hooks";
+import { useLocalStorage, useOs } from "@mantine/hooks";
 import { LocalNote, Note, TransferedNote } from "@/types";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ const useLocalNotes = () => {
     defaultValue: []
   });
   const navigate = useNavigate();
+  const os = useOs();
 
   const [creatingNote, setCreatingNote] = useState(false);
 
@@ -24,7 +25,8 @@ const useLocalNotes = () => {
       name,
       description,
       date: new Date(),
-      type: NoteType.LOCAL
+      type: NoteType.LOCAL,
+      owner: os
     };
 
     setNotes([...notes, newNote]);

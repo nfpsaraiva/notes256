@@ -4,6 +4,7 @@ import { FC, ReactNode } from "react";
 import NoteMenu from "../NoteMenu/NoteMenu";
 import envs from "@/envs";
 import { shortifyAddress } from "@/utils/NotesUtils";
+import NoteContentFooter from "../NoteContentFooter/NoteContentFooter";
 
 interface NoteContentEditableProps {
   note: Note,
@@ -24,11 +25,6 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
 }: NoteContentEditableProps) => {
   const { NOTE_TITLE_MAX_LENGTH, NOTE_CONTENT_MAX_LENGTH } = envs;
 
-  const formatedDate = <Text c={"dimmed"} size="xs" fw={500}>
-    {
-      new Date(note.date).toLocaleDateString() + " " + new Date(note.date).toLocaleTimeString()
-    }
-  </Text>
 
   return (
     <Stack gap={"xs"} h={"100%"}>
@@ -51,32 +47,25 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
           />
           <Text size="xs" c={"dimmed"} fw={500}>{newTitle.length}/{NOTE_TITLE_MAX_LENGTH}</Text>
         </Group>
+        <Textarea
+          value={newDescription}
+          onChange={e => setNewDescription(e.target.value)}
+          rows={5}
+          minRows={5}
+          autosize
+          variant="unstyled"
+          placeholder="Take a note"
+          fw={300}
+          size="sm"
+          lh={1.6}
+          maxLength={NOTE_CONTENT_MAX_LENGTH}
+        />
       </Stack>
-      <Textarea
-        value={newDescription}
-        onChange={e => setNewDescription(e.target.value)}
-        rows={5}
-        minRows={5}
-        autosize
-        variant="unstyled"
-        placeholder="Take a note"
-        fw={300}
-        size="sm"
-        lh={1.6}
-        maxLength={NOTE_CONTENT_MAX_LENGTH}
+      <NoteContentFooter
+        note={note}
+        descriptionLength={newDescription.length}
+        descriptionMaxLength={NOTE_CONTENT_MAX_LENGTH}
       />
-      <Stack>
-        <Group justify="flex-end">
-          <Text size="xs" c={"dimmed"} fw={500}>{newDescription.length}/{NOTE_CONTENT_MAX_LENGTH}</Text>
-        </Group>
-        <Group justify="space-between" align="start" wrap="nowrap">
-          <Text>{note.date && formatedDate}</Text>
-          {
-            note.owner &&
-            <Text c={"dimmed"} fw={500} size="xs">{shortifyAddress(note.owner)}</Text>
-          }
-        </Group>
-      </Stack>
     </Stack>
   )
 }

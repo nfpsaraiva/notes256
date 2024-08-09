@@ -20,7 +20,7 @@ const WebNotes: FC = () => {
   return (
     <NotePage
       pageTitle="Web Notes"
-      pageSubtitle="Notes will be linked to your current account"
+      pageSubtitle="Notes will be linked to your account"
       createNote={createNote}
       creatingNote={creatingNote}
       isLoading={isLoading}

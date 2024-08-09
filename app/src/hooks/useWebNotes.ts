@@ -16,7 +16,7 @@ const useWebNotes = () => {
   const { data: notes, isLoading, refetch } = useQuery({
     queryKey: ["web-notes", user],
     queryFn: async () => {
-      if (user === null) return [];
+      if (user === undefined || user === null) return [];
 
       const { data: notes } = await supabase
         .from('notes')
@@ -30,7 +30,8 @@ const useWebNotes = () => {
         name: note.title,
         description: note.description,
         date: note.created_at,
-        type: NoteType.WEB
+        type: NoteType.WEB,
+        owner: user.id.toString()
       }))
     }
   })
