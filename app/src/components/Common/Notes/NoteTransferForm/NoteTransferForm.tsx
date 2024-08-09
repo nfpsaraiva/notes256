@@ -25,7 +25,9 @@ const NoteTransferForm: FC<NoteTransferFormProps> = ({
           value={to}
           onChange={e => setTo(e.target.value)}
         />
-        <Button>Transfer</Button>
+        <Button onClick={() => transfer({note, to})}>
+          Transfer
+        </Button>
       </Stack>
     </Modal>
   )

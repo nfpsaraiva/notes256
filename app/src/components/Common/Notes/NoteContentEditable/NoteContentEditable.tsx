@@ -3,6 +3,7 @@ import { Badge, Group, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { FC, ReactNode } from "react";
 import NoteMenu from "../NoteMenu/NoteMenu";
 import envs from "@/envs";
+import { shortifyAddress } from "@/utils/NotesUtils";
 
 interface NoteContentEditableProps {
   note: Note,
@@ -64,10 +65,18 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
         lh={1.6}
         maxLength={NOTE_CONTENT_MAX_LENGTH}
       />
-      <Group justify="space-between">
-        <Text>{note.date && formatedDate}</Text>
-        <Text size="xs" c={"dimmed"} fw={500}>{newDescription.length}/{NOTE_CONTENT_MAX_LENGTH}</Text>
-      </Group>
+      <Stack>
+        <Group justify="flex-end">
+          <Text size="xs" c={"dimmed"} fw={500}>{newDescription.length}/{NOTE_CONTENT_MAX_LENGTH}</Text>
+        </Group>
+        <Group justify="space-between" align="start" wrap="nowrap">
+          <Text>{note.date && formatedDate}</Text>
+          {
+            note.owner &&
+            <Text c={"dimmed"} fw={500} size="xs">{shortifyAddress(note.owner)}</Text>
+          }
+        </Group>
+      </Stack>
     </Stack>
   )
 }

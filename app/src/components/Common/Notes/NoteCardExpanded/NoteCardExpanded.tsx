@@ -1,8 +1,11 @@
 import { Note } from "@/types";
 import { Button, Modal, ScrollArea, Stack } from "@mantine/core";
-import { FC, ReactNode, useState } from "react";
+import { FC, useState } from "react";
 import NoteContentEditable from "../NoteContentEditable/NoteContentEditable";
-import { IconCheck, IconPlus } from "@tabler/icons-react";
+import { IconCheck } from "@tabler/icons-react";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { NoteType } from "@/enums";
+import NoteContentViewable from "../NoteContentViewable/NoteContentViewable";
 
 interface NoteCardExpandedProps {
   opened: boolean,
@@ -21,6 +24,7 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
 }: NoteCardExpandedProps) => {
   const [newTitle, setNewTitle] = useState(note.name);
   const [newDescription, setNewDescription] = useState(note.description);
+  const { address } = useWeb3ModalAccount();
 
   const save = () => {
     updateNote({
@@ -30,7 +34,6 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
     });
     close();
   }
-
 
   return (
     <Modal
@@ -43,24 +46,37 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
       scrollAreaComponent={ScrollArea.Autosize}
     >
       <Stack gap={"lg"} m={"lg"}>
-        <NoteContentEditable
-          note={note}
-          newTitle={newTitle}
-          newDescription={newDescription}
-          setNewTitle={setNewTitle}
-          setNewDescription={setNewDescription}
-          openNoteTransferForm={openNoteTransferForm}
-        />
-        <Button
-        leftSection={<IconCheck stroke={3} size={18} />}
-        size="sm"
-        radius={"lg"}
-        variant="filled"
-        onClick={save}
-        fw={700}
-      >
-        Save
-      </Button>
+        {
+          note.type === NoteType.BLOCK && address !== note.owner
+            ? <Stack>
+              <NoteContentViewable
+                note={note}
+                newTitle={newTitle}
+                newDescription={newDescription}
+              />
+            </Stack>
+            : <Stack>
+              <NoteContentEditable
+                note={note}
+                newTitle={newTitle}
+                newDescription={newDescription}
+                setNewTitle={setNewTitle}
+                setNewDescription={setNewDescription}
+                openNoteTransferForm={openNoteTransferForm}
+              />
+              <Button
+                leftSection={<IconCheck stroke={3} size={18} />}
+                size="sm"
+                radius={"lg"}
+                variant="filled"
+                onClick={save}
+                fw={700}
+              >
+                Save
+              </Button>
+            </Stack>
+        }
+
       </Stack>
     </Modal>
   )

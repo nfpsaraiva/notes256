@@ -20,7 +20,7 @@ const useBlockNotes = (noteId?: string) => {
   const navigate = useNavigate();
 
   const { data: notes, isSuccess, isFetching, isError, refetch } = useQuery({
-    queryKey: ["blockNotes", noteId],
+    queryKey: ["blockNotes", noteId, address],
     queryFn: async () => {
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -36,6 +36,7 @@ const useBlockNotes = (noteId?: string) => {
           const note = await contract.notes(tokenId);
           const timestamp = Number(note[3]);
           const date = new Date(timestamp * 1000);
+          const owner = await contract.ownerOf(tokenId);
 
           const blockNote: BlockNote = {
             id: noteId,
@@ -44,7 +45,8 @@ const useBlockNotes = (noteId?: string) => {
             date,
             tokenId: tokenId,
             image: "" as string,
-            type: NoteType.BLOCK
+            type: NoteType.BLOCK,
+            owner
           }
 
           return [blockNote];
@@ -70,7 +72,8 @@ const useBlockNotes = (noteId?: string) => {
             date,
             tokenId: Number(nft.tokenId),
             image: image as string,
-            type: NoteType.BLOCK
+            type: NoteType.BLOCK,
+            owner: address
           }
           return blockNote;
         } catch (e) {
@@ -79,7 +82,6 @@ const useBlockNotes = (noteId?: string) => {
       }
 
       const { ownedNfts } = await alchemy.nft.getNftsForOwner(address);
-      console.log(ownedNfts);
       const filteredOwnedNfts = ownedNfts.filter(nft => nft.contract.address === CONTRACT_ADDRESS);
       const blockNotesPromises = filteredOwnedNfts.map(n => getBlockNote(n));
       const blockNotes = await Promise.all(blockNotesPromises);

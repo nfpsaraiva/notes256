@@ -4,6 +4,7 @@ import NoteCard from "./NoteCard/NoteCard";
 import NoteCardExpanded from "./NoteCardExpanded/NoteCardExpanded";
 import NoteContent from "./NoteContent/NoteContent";
 import NoteContentEditable from "./NoteContentEditable/NoteContentEditable";
+import NoteContentViewable from "./NoteContentViewable/NoteContentViewable";
 import NoteCardsList from "./NoteCardsList/NoteCardsList";
 import NoteList from "./NoteList/NoteList";
 import NoteMenu from "./NoteMenu/NoteMenu";
@@ -18,6 +19,7 @@ export {
   NoteCardExpanded,
   NoteContent,
   NoteContentEditable,
+  NoteContentViewable,
   NoteCardsList,
   NoteList,
   NoteMenu,

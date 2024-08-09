@@ -15,8 +15,11 @@ const MenuItem: FC<MenuItemProps> = ({
   icon,
 }: MenuItemProps) => {
   const { pathname } = useLocation();
+  
+  const requestedPage = `/${path.split('/')[1]}`;
+  const page = `/${pathname.split('/')[1]}`;
 
-  const selected = path === pathname ? classes.selected : '';
+  const selected = requestedPage === page ? classes.selected : '';
 
   return (
     <NavLink to={path} className={selected}>

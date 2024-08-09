@@ -70,7 +70,7 @@ describe("Create Note", () => {
 });
 
 describe("Update Note", () => {
-  it("Should not update a nots owned note", async () => {
+  it("Should not update a not owned note", async () => {
     const { otherAccount, provifyContract } = await loadFixture(deployNotes256Fixture);
 
     await provifyContract.createNote('foo', "bar", "https://gateway/foo");

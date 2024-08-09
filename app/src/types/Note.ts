@@ -1,3 +1,4 @@
+
 import { NoteType } from "@/enums";
 
 interface Note {
@@ -6,6 +7,7 @@ interface Note {
   name: string,
   description: string,
   date: Date,
+  owner: string
 }
 
 export default Note;

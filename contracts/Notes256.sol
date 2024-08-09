@@ -105,7 +105,7 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         string memory _title, 
         string memory _content
     ) external {
-        require(ownerOf(_tokenId) == msg.sender, "Access denied");
+        require(ownerOf(_tokenId) == msg.sender, "You are not the owner of this note");
         require(notes[_tokenId].timestamp != 0, "Note not found");
 
         notes[_tokenId].title = _title;
