@@ -23,7 +23,8 @@ interface NotePageProps {
   isLoading: boolean,
   refetch: () => void,
   isConnected: boolean,
-  transfer: (transferedNote: TransferedNote) => void
+  transfer: (transferedNote: TransferedNote) => void,
+  transfering: boolean,
 }
 
 const NotePage: FC<NotePageProps> = ({
@@ -41,7 +42,8 @@ const NotePage: FC<NotePageProps> = ({
   isLoading,
   refetch,
   isConnected,
-  transfer
+  transfer,
+  transfering,
 }: NotePageProps) => {
   return (
     <PageShell title={pageTitle} subtitle={pageSubtitle} userMenu={userMenu}>
@@ -64,6 +66,7 @@ const NotePage: FC<NotePageProps> = ({
           notes={filterNotes(notes, searchValueDebounced)}
           updateNote={updateNote}
           transfer={transfer}
+          transfering={transfering}
         />
       }
       {

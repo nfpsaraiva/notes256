@@ -6,14 +6,16 @@ interface NoteTransferFormProps {
   opened: boolean,
   close: () => void,
   note: Note,
-  transfer: (transferedNote: TransferedNote) => void
+  transfer: (transferedNote: TransferedNote) => void,
+  transfering: boolean,
 }
 
 const NoteTransferForm: FC<NoteTransferFormProps> = ({
   opened,
   close,
   note,
-  transfer
+  transfer,
+  transfering,
 }: NoteTransferFormProps) => {
   const [to, setTo] = useState('');
 
@@ -25,9 +27,15 @@ const NoteTransferForm: FC<NoteTransferFormProps> = ({
           value={to}
           onChange={e => setTo(e.target.value)}
         />
-        <Button onClick={() => transfer({note, to})}>
-          Transfer
-        </Button>
+        {
+          transfering
+            ? <Button disabled>
+              Transfering
+            </Button>
+            : <Button onClick={() => transfer({ note, to })}>
+              Transfer
+            </Button>
+        }
       </Stack>
     </Modal>
   )

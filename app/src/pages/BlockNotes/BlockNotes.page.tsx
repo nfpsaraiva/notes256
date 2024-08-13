@@ -18,6 +18,8 @@ const BlockNotes: FC = () => {
     isLoading,
     refetch,
     transferNote,
+    transferingBlockNote,
+    blockNoteTransfered,
     isConnected
   } = useBlockNotes(noteId);
 
@@ -37,6 +39,7 @@ const BlockNotes: FC = () => {
       userMenu={<UserMenu />}
       isConnected={isConnected}
       transfer={transferNote}
+      transfering={transferingBlockNote}
     />
   )
 }

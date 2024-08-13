@@ -10,6 +10,9 @@ import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { modals } from "@mantine/modals";
 import NewNote from "@/types/NewNote";
+import { ConvertModal, DeleteModal } from "@/modals";
+
+const QUERY_KEY = 'block-notes';
 
 const useBlockNotes = (noteId?: string) => {
   const alchemy = useAlchemy();
@@ -20,7 +23,7 @@ const useBlockNotes = (noteId?: string) => {
   const navigate = useNavigate();
 
   const { data: notes, isSuccess, isFetching, isError, refetch } = useQuery({
-    queryKey: ["blockNotes", noteId, address],
+    queryKey: [QUERY_KEY, noteId, address],
     queryFn: async () => {
       const alchemyProvider = await alchemy.config.getProvider();
 
@@ -99,8 +102,8 @@ const useBlockNotes = (noteId?: string) => {
   });
 
   const {
-    mutate: createNote,
-    isSuccess: blockNotecreated,
+    mutateAsync: createNote,
+    isSuccess: blockNoteCreated,
     isPending: creatingBlockNote
   } = useMutation({
     mutationFn: async ({ name, description }: NewNote) => {
@@ -114,10 +117,10 @@ const useBlockNotes = (noteId?: string) => {
 
       const response = await contract.createNote(name, description, PROOF_TOKEN_URI);
 
-      await response.wait();
+      return await response.wait();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["block-notes"] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
       navigate(Path.BLOCK_NOTES);
     }
   });
@@ -143,13 +146,13 @@ const useBlockNotes = (noteId?: string) => {
       await response.wait();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blockNotes"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
       navigate(Path.BLOCK_NOTES)
     }
   });
 
   const {
-    mutate: deleteNote,
+    mutateAsync: deleteNoteMutation,
     isSuccess: blockNoteDeleted,
     isPending: deletingBlockNote
   } = useMutation({
@@ -167,15 +170,19 @@ const useBlockNotes = (noteId?: string) => {
       await response.wait();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blockNotes"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] });
       navigate(Path.BLOCK_NOTES)
     }
   });
 
+  const deleteNote = (note: Note) => {
+    DeleteModal(() => deleteNoteMutation(note as BlockNote))
+  }
+
   const {
     mutate: transferNote,
     isSuccess: blockNoteTransfered,
-    isPending: transferingBlockNote
+    isPending: transferingBlockNote,
   } = useMutation({
     mutationFn: async ({ note, to }: TransferedNote) => {
       if (!walletProvider) return;
@@ -190,10 +197,10 @@ const useBlockNotes = (noteId?: string) => {
 
       const response = await contract.safeTransferFrom(address, to, blockNote.tokenId);
 
-      await response.wait();
+      return await response.wait();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blockNotes"] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY] })
       navigate(Path.BLOCK_NOTES);
     }
   });
@@ -202,26 +209,22 @@ const useBlockNotes = (noteId?: string) => {
     note: Note,
     createLocalNote: (note: NewNote) => void
   ) => {
-    modals.openConfirmModal({
-      title: 'Delete Note',
-      centered: true,
-      children: "Are you sure you want to convert this note? This action is will delete the current block note",
-      labels: { confirm: 'Convert', cancel: "Cancel" },
-      onConfirm: async () => {
-        await createLocalNote({ name: note.name, description: note.description });
-        await deleteNote(note as BlockNote)
-        navigate(Path.LOCAL_NOTES);
-      }
-    });
+    ConvertModal(note, async () => {
+      await createLocalNote({ name: note.name, description: note.description });
+      await deleteNoteMutation(note as BlockNote)
+      navigate(Path.LOCAL_NOTES);
+    })
   }
 
   const convertToWeb = async (
     note: Note,
     createWebNote: (note: NewNote) => void
   ) => {
-    await createWebNote({ name: note.name, description: note.description });
-    await deleteNote(note as BlockNote);
-    navigate(Path.WEB_NOTES);
+    ConvertModal(note, async () => {
+      await createWebNote({ name: note.name, description: note.description });
+      await deleteNoteMutation(note as BlockNote);
+      navigate(Path.WEB_NOTES);
+    });
   }
 
   return {
@@ -231,9 +234,12 @@ const useBlockNotes = (noteId?: string) => {
     refetch,
     createNote,
     creatingNote: creatingBlockNote,
+    createdNote: blockNoteCreated,
     updateNote,
     deleteNote,
     transferNote,
+    transferingBlockNote,
+    blockNoteTransfered,
     convertToWeb,
     convertToLocal
   }

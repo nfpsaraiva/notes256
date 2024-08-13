@@ -1,5 +1,5 @@
-import { ActionIcon, Group, Menu, UnstyledButton } from "@mantine/core";
-import { IconMenu } from "@tabler/icons-react";
+import { ActionIcon, Menu } from "@mantine/core";
+import { IconMenu2 } from "@tabler/icons-react";
 import { FC } from "react";
 import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 import { NoteType } from "@/enums";
@@ -25,10 +25,10 @@ const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuPro
   }
 
   return (
-    <Menu radius={"xl"}>
+    <Menu radius={"lg"}>
       <Menu.Target>
         <ActionIcon variant="subtle" size={"lg"} radius={"md"} onClick={e => e.stopPropagation()}>
-          <IconMenu size={18} />
+          <IconMenu2 size={18} />
         </ActionIcon>
       </Menu.Target>
       {getMenu()}

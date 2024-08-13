@@ -67,7 +67,8 @@ contract Notes256 is ERC721, ERC721URIStorage, ERC721Burnable {
         require(bytes(_name).length <= NOTE_TITLE_MAX_LENGTH, "Name is too large");
         require(bytes(_content).length <= NOTE_CONTENT_MAX_LENGTH, "Content is too large");
 
-        // Generates an unique ID for the new note
+        // Generates an unique ID for the new note.
+        // This prevents a user search for a random note from a numeric ID on the frontend
         bytes32 contentHashed = keccak256(abi.encodePacked(_content, block.timestamp));
 
         // Prevent duplicates

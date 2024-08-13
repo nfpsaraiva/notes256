@@ -6,13 +6,15 @@ import NoteCard from "../NoteCard/NoteCard";
 interface NoteCardsListProps {
   notes: Note[],
   updateNote: (note: Note) => void,
-  transfer: (transferedNote: TransferedNote) => void
+  transfer: (transferedNote: TransferedNote) => void,
+  transfering: boolean,
 }
 
 const NoteCardsList: FC<NoteCardsListProps> = ({
   notes,
   updateNote,
-  transfer
+  transfer,
+  transfering,
 }: NoteCardsListProps) => {
   return (
     <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }}>
@@ -24,6 +26,7 @@ const NoteCardsList: FC<NoteCardsListProps> = ({
               note={note}
               updateNote={updateNote}
               transfer={transfer}
+              transfering={transfering}
             />
           )
         })

@@ -1,8 +1,6 @@
 import { BlockNote, LocalNote, Note, WebNote } from "@/types";
 
 const filterNotes = (notes: LocalNote[] | WebNote[] | BlockNote[], searchTerm: string) => {
-  if (notes.length === 1) return notes;
-  
   const notesFiltered = notes.filter(note => {
     if (searchTerm === undefined || searchTerm === "") return true;
     if (note.name.toLowerCase().includes(searchTerm.toLowerCase())) return true;

@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useWebUser from "./useWebUser";
 import NewNote from "@/types/NewNote";
+import { ConvertModal, DeleteModal } from "@/modals";
 
 const useWebNotes = () => {
   const supabase = useSupabase();
@@ -37,7 +38,7 @@ const useWebNotes = () => {
   })
 
   const {
-    mutate: createNote,
+    mutateAsync: createNote,
     isPending: creatingNote
   } = useMutation({
     mutationFn: async ({ name, description }: NewNote) => {
@@ -77,7 +78,7 @@ const useWebNotes = () => {
   })
 
   const {
-    mutate: deleteNote,
+    mutate: deleteNoteMutation,
     isPending: deletingNote
   } = useMutation({
     mutationFn: async (note: WebNote) => {
@@ -91,24 +92,31 @@ const useWebNotes = () => {
     }
   });
 
+  const deleteNote = (note: Note) => {
+    DeleteModal(() => deleteNoteMutation(note))
+  }
   const transferNote = async (transferNote: TransferedNote) => { }
 
   const convertToLocal = async (
     note: Note,
     createLocalNote: (newNote: NewNote) => void
   ) => {
-    await createLocalNote({ name: note.name, description: note.description });
-    await deleteNote(note);
-    navigate(Path.LOCAL_NOTES);
+    ConvertModal(note, async () => {
+      await createLocalNote({ name: note.name, description: note.description });
+      await deleteNoteMutation(note);
+      navigate(Path.LOCAL_NOTES);
+    });
   }
 
   const convertToBlock = async (
     note: Note,
     createBlockNote: (note: NewNote) => void
   ) => {
-    await createBlockNote({ name: note.name, description: note.description });
-    await deleteNote(note);
-    navigate(Path.BLOCK_NOTES);
+    ConvertModal(note, async () => {
+      await createBlockNote({ name: note.name, description: note.description });
+      await deleteNoteMutation(note);
+      navigate(Path.BLOCK_NOTES);
+    })
   }
 
   return {
@@ -120,6 +128,7 @@ const useWebNotes = () => {
     updateNote,
     deleteNote,
     transferNote,
+    transferingNote: false,
     convertToBlock,
     convertToLocal
   }

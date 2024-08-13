@@ -3,8 +3,9 @@ import { LocalNote, Note, TransferedNote } from "@/types";
 import { NoteType, Path } from "@/enums";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { DeleteModal } from "@/modals";
+import { ConvertModal, DeleteModal } from "@/modals";
 import NewNote from "@/types/NewNote";
+import { useMutation } from "@tanstack/react-query";
 
 const useLocalNotes = () => {
   const [notes, setNotes] = useLocalStorage<LocalNote[]>({
@@ -57,22 +58,20 @@ const useLocalNotes = () => {
 
   const transferNote = async (transferedNote: TransferedNote) => { }
 
-  const convertToWeb = async (
-    note: Note,
-    createWebNote: (note: NewNote) => void
-  ) => {
-    await createWebNote({ name: note.name, description: note.description });
-    deleteLocalStorageNote(note);
-    navigate(Path.WEB_NOTES);
+  const convertToWeb = async (note: Note, createWebNote: (note: NewNote) => Promise<void>) => {
+    ConvertModal(note, async () => {
+      await createWebNote({ name: note.name, description: note.description });
+      deleteLocalStorageNote(note);
+      navigate(Path.WEB_NOTES);
+    })
   }
 
-  const convertToBlock = async (
-    note: Note,
-    createBlockNote: (note: NewNote) => void
-  ) => {
-    await createBlockNote({ name: note.name, description: note.description });
-    deleteLocalStorageNote(note);
-    navigate(Path.BLOCK_NOTES);
+  const convertToBlock = async (note: Note, createBlockNote: (note: NewNote) => Promise<void>) => {
+    ConvertModal(note, async () => {
+      await createBlockNote({ name: note.name, description: note.description });
+      deleteLocalStorageNote(note);
+      navigate(Path.BLOCK_NOTES);
+    })
   }
 
   const refetch = () => { };
@@ -86,6 +85,7 @@ const useLocalNotes = () => {
     updateNote,
     deleteNote,
     transferNote,
+    transferingNote: false,
     convertToBlock,
     convertToWeb
   }

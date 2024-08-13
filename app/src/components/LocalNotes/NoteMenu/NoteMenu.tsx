@@ -13,7 +13,12 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
   const { deleteNote, convertToWeb, convertToBlock } = useLocalNotes();
   const { createNote: createWebNote } = useWebNotes();
   const { isConnected: isWebConnected } = useWebUser();
-  const { isConnected: isBlockConnected, createNote: createBlockNote } = useBlockNotes();
+  const {
+    isConnected: isBlockConnected,
+    createNote: createBlockNote,
+    creatingNote: creatingBlockNote,
+    createdNote
+  } = useBlockNotes();
 
   return (
     <Menu.Dropdown>
@@ -22,6 +27,7 @@ const NoteMenu: FC<NoteMenuProps> = ({ note }: NoteMenuProps) => {
         <Menu.Item onClick={e => {
           e.stopPropagation();
           convertToBlock(note, createBlockNote);
+          ;
         }} leftSection={<IconCubePlus size={16} />}>
           Convert to Block Note
         </Menu.Item>

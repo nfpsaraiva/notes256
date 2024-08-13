@@ -10,13 +10,15 @@ import NoteTransferForm from "../NoteTransferForm/NoteTransferForm";
 interface NoteCardProps {
   note: Note,
   updateNote: (note: Note) => void,
-  transfer: (transferedNote: TransferedNote) => void
+  transfer: (transferedNote: TransferedNote) => void,
+  transfering: boolean,
 }
 
 const NoteCard: FC<NoteCardProps> = ({
   note,
   updateNote,
-  transfer
+  transfer,
+  transfering,
 }: NoteCardProps) => {
   const [noteCardExpandedOpened, noteCardExpandedHandle] = useDisclosure(false);
   const [noteTransferFormOpened, noteTransferFormHandle] = useDisclosure(false);
@@ -42,6 +44,7 @@ const NoteCard: FC<NoteCardProps> = ({
         close={noteTransferFormHandle.close}
         note={note}
         transfer={transfer}
+        transfering={transfering}
       />
     </>
   )

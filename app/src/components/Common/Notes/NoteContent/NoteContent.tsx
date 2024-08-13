@@ -24,7 +24,7 @@ const NoteContent: FC<NoteContentProps> = ({
     <Stack gap={"xs"} h={"100%"} mb={0}>
       <Stack gap={2}>
         <Group justify="space-between" wrap="nowrap" align="flex-start">
-          <Stack gap={"xs"} flex={1}>
+          <Stack gap={"md"} flex={1}>
             <Group justify="space-between">
               <Badge size="sm" variant="transparent" px={0}>
                 {note.type}

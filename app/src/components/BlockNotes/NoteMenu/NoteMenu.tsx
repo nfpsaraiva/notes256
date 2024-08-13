@@ -11,7 +11,7 @@ interface NoteMenuProps {
 }
 
 const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuProps) => {
-  const { deleteNote, convertToWeb, convertToLocal, transferNote } = useBlockNotes();
+  const { deleteNote, convertToWeb, convertToLocal } = useBlockNotes();
   const { createNote: createWebNote } = useWebNotes();
   const { createNote: createLocalNote } = useLocalNotes();
   const { isConnected: isWebConnected } = useWebUser();
