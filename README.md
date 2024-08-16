@@ -5,11 +5,6 @@
 - MantineUI
 - Alchemy SDK
 
-### `/app-next` Next major verion (in developmnet)
-- NextJS
-- MantineUI
-- Alchemy SDK
-
 ### `landing` Landing page for project introduction (in development)
 - NextJS
 - MantineUI
