@@ -7,14 +7,23 @@ import { FC } from "react";
 
 interface NoteMenuProps {
   note: BlockNote,
-  openNoteTransferForm: () => void
+  openNoteTransferForm: () => void,
+  setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>
+  closeNoteCardExpanded: () => void
 }
 
-const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuProps) => {
-  const { deleteNote, convertToWeb, convertToLocal } = useBlockNotes();
+const NoteMenu: FC<NoteMenuProps> = ({ 
+  note, 
+  openNoteTransferForm, 
+  setLoadingNoteCard,
+  closeNoteCardExpanded
+}: NoteMenuProps) => {
+  const { deleteNote, deletingBlockNote, convertToWeb, convertToLocal } = useBlockNotes();
   const { createNote: createWebNote } = useWebNotes();
   const { createNote: createLocalNote } = useLocalNotes();
   const { isConnected: isWebConnected } = useWebUser();
+
+  setLoadingNoteCard(deletingBlockNote);
 
   return (
     <Menu.Dropdown>

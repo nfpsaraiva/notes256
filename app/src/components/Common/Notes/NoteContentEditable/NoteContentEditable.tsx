@@ -12,7 +12,9 @@ interface NoteContentEditableProps {
   newDescription: string,
   setNewTitle: React.Dispatch<React.SetStateAction<string>>,
   setNewDescription: React.Dispatch<React.SetStateAction<string>>,
-  openNoteTransferForm: () => void
+  openNoteTransferForm: () => void,
+  setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>
+  closeNoteCardExpanded: () => void
 }
 
 const NoteContentEditable: FC<NoteContentEditableProps> = ({
@@ -21,10 +23,11 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
   newDescription,
   setNewTitle,
   setNewDescription,
-  openNoteTransferForm
+  openNoteTransferForm,
+  setLoadingNoteCard,
+  closeNoteCardExpanded
 }: NoteContentEditableProps) => {
   const { NOTE_TITLE_MAX_LENGTH, NOTE_CONTENT_MAX_LENGTH } = envs;
-
 
   return (
     <Stack gap={"xs"} h={"100%"}>
@@ -33,7 +36,12 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
           <Badge size="sm" variant="transparent" px={0}>
             {note.type}
           </Badge>
-          <NoteMenu note={note} openNoteTransferForm={openNoteTransferForm} />
+          <NoteMenu
+            note={note}
+            openNoteTransferForm={openNoteTransferForm}
+            setLoadingNoteCard={setLoadingNoteCard}
+            closeNoteCardExpanded={closeNoteCardExpanded}
+          />
         </Group>
         <Group justify="space-between">
           <TextInput

@@ -237,6 +237,8 @@ const useBlockNotes = (noteId?: string) => {
     createdNote: blockNoteCreated,
     updateNote,
     deleteNote,
+    deletingBlockNote,
+    blockNoteDeleted,
     transferNote,
     transferingBlockNote,
     blockNoteTransfered,

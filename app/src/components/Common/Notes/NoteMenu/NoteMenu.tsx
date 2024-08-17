@@ -9,10 +9,17 @@ import { NoteMenu as BlockNoteMenu } from "@/components/BlockNotes";
 
 interface NoteMenuProps {
   note: Note,
-  openNoteTransferForm: () => void
+  openNoteTransferForm: () => void,
+  setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>,
+  closeNoteCardExpanded: () => void
 }
 
-const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuProps) => {
+const NoteMenu: FC<NoteMenuProps> = ({ 
+  note, 
+  openNoteTransferForm, 
+  setLoadingNoteCard,
+  closeNoteCardExpanded
+}: NoteMenuProps) => {
   const getMenu = () => {
     switch (note.type) {
       case NoteType.LOCAL:
@@ -20,7 +27,12 @@ const NoteMenu: FC<NoteMenuProps> = ({ note, openNoteTransferForm }: NoteMenuPro
       case NoteType.WEB:
         return <WebNoteMenu note={note as WebNote} />
       default:
-        return <BlockNoteMenu note={note as BlockNote} openNoteTransferForm={openNoteTransferForm} />
+        return <BlockNoteMenu
+          note={note as BlockNote}
+          openNoteTransferForm={openNoteTransferForm}
+          setLoadingNoteCard={setLoadingNoteCard}
+          closeNoteCardExpanded={closeNoteCardExpanded}
+        />
     }
   }
 

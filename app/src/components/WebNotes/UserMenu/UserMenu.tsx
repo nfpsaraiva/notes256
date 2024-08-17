@@ -52,7 +52,7 @@ const UserMenu: FC = () => {
             <Tabs.Panel value="register">
               <Stack my={"md"}>
                 <TextInput value={email} onChange={e => setEmail(e.target.value)} label="Email" />
-                <TextInput value={password} onChange={e => setPassword(e.target.value)} label="Password" />
+                <TextInput type="password" value={password} onChange={e => setPassword(e.target.value)} label="Password" />
                 <Group gap={"xs"} justify="flex-end">
                   {
                     isConnecting
