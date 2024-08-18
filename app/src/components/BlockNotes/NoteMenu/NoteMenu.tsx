@@ -13,9 +13,9 @@ interface NoteMenuProps {
   openAddToWallet: () => void
 }
 
-const NoteMenu: FC<NoteMenuProps> = ({ 
-  note, 
-  openNoteTransferForm, 
+const NoteMenu: FC<NoteMenuProps> = ({
+  note,
+  openNoteTransferForm,
   setLoadingNoteCard,
   closeNoteCardExpanded,
   openAddToWallet
@@ -29,6 +29,12 @@ const NoteMenu: FC<NoteMenuProps> = ({
 
   return (
     <Menu.Dropdown>
+      <Menu.Item onClick={e => {
+        e.stopPropagation();
+        openAddToWallet();
+      }} leftSection={<IconWallet size={16} />}>
+        NFT
+      </Menu.Item>
       <CopyButton value={`${window.location.href}/${note.id}`}>
         {({ copied, copy }) => (
           <Menu.Item leftSection={<IconCopy size={16} />} onClick={e => {
@@ -60,10 +66,6 @@ const NoteMenu: FC<NoteMenuProps> = ({
       }} leftSection={<IconDeviceMobilePlus size={16} />}>
         Convert to Local Note
       </Menu.Item>
-      <Menu.Item onClick={e => {
-        e.stopPropagation();
-        openAddToWallet();
-      }} leftSection={<IconWallet size={16} />}>Add to Wallet</Menu.Item>
       <Menu.Divider />
       <Menu.Item onClick={e => {
         e.stopPropagation();
