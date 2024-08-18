@@ -8,7 +8,8 @@ interface NoteContentProps {
   expanded: boolean,
   openNoteTransferForm: () => void,
   setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>,
-  closeNoteCardExpanded: () => void
+  closeNoteCardExpanded: () => void,
+  openAddToWallet: () => void
 }
 
 const NoteContent: FC<NoteContentProps> = ({
@@ -16,7 +17,8 @@ const NoteContent: FC<NoteContentProps> = ({
   expanded = false,
   openNoteTransferForm,
   setLoadingNoteCard,
-  closeNoteCardExpanded
+  closeNoteCardExpanded,
+  openAddToWallet
 }: NoteContentProps) => {
   const formatedDate = <Text c={"dimmed"} size="xs" fw={500}>
     {
@@ -38,6 +40,7 @@ const NoteContent: FC<NoteContentProps> = ({
                 openNoteTransferForm={openNoteTransferForm}
                 setLoadingNoteCard={setLoadingNoteCard}
                 closeNoteCardExpanded={closeNoteCardExpanded}
+                openAddToWallet={openAddToWallet}
               />
             </Group>
             {

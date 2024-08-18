@@ -14,6 +14,7 @@ interface NoteCardExpandedProps {
   updateNote: (note: Note) => void,
   openNoteTransferForm: () => void,
   setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>,
+  openAddToWallet: () => void
 }
 
 const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
@@ -23,6 +24,7 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
   updateNote,
   openNoteTransferForm,
   setLoadingNoteCard,
+  openAddToWallet
 }: NoteCardExpandedProps) => {
   const [newTitle, setNewTitle] = useState(note.name);
   const [newDescription, setNewDescription] = useState(note.description);
@@ -67,6 +69,7 @@ const NoteCardExpanded: FC<NoteCardExpandedProps> = ({
                 openNoteTransferForm={openNoteTransferForm}
                 setLoadingNoteCard={setLoadingNoteCard}
                 closeNoteCardExpanded={close}
+                openAddToWallet={openAddToWallet}
               />
               <Button
                 leftSection={<IconCheck stroke={3} size={18} />}

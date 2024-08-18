@@ -1,11 +1,13 @@
 import { Box, Card, LoadingOverlay } from "@mantine/core";
 import { FC, ReactNode, useState } from "react";
 import classes from "./NoteCard.module.css";
-import { Note, TransferedNote } from "@/types";
+import { BlockNote, Note, TransferedNote } from "@/types";
 import { useDisclosure } from "@mantine/hooks";
 import NoteContent from "../NoteContent/NoteContent";
 import NoteCardExpanded from "../NoteCardExpanded/NoteCardExpanded";
 import NoteTransferForm from "../NoteTransferForm/NoteTransferForm";
+import { NoteType } from "@/enums";
+import { AddToWalletModal } from "@/components/BlockNotes";
 
 interface NoteCardProps {
   note: Note,
@@ -22,19 +24,21 @@ const NoteCard: FC<NoteCardProps> = ({
 }: NoteCardProps) => {
   const [noteCardExpandedOpened, noteCardExpandedHandle] = useDisclosure(false);
   const [noteTransferFormOpened, noteTransferFormHandle] = useDisclosure(false);
+  const [addToWalletOpened, addToWalletHandle] = useDisclosure(false);
   const [loadingNoteCard, setLoadingNoteCard] = useState(false);
 
   return (
     <>
       <Box pos={"relative"}>
-      <LoadingOverlay visible={loadingNoteCard} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+        <LoadingOverlay visible={loadingNoteCard} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
         <Card onClick={noteCardExpandedHandle.open} className={classes.NoteCard} radius={"xl"} h={280} padding={"lg"} withBorder shadow="md">
           <NoteContent
             note={note}
             expanded={false}
             openNoteTransferForm={noteTransferFormHandle.open}
+            openAddToWallet={addToWalletHandle.open}
             setLoadingNoteCard={setLoadingNoteCard}
-            closeNoteCardExpanded={() => {}}
+            closeNoteCardExpanded={() => { }}
           />
         </Card>
       </Box>
@@ -45,6 +49,7 @@ const NoteCard: FC<NoteCardProps> = ({
         updateNote={updateNote}
         openNoteTransferForm={noteTransferFormHandle.open}
         setLoadingNoteCard={setLoadingNoteCard}
+        openAddToWallet={addToWalletHandle.open}
       />
       <NoteTransferForm
         opened={noteTransferFormOpened}
@@ -53,6 +58,14 @@ const NoteCard: FC<NoteCardProps> = ({
         transfer={transfer}
         transfering={transfering}
       />
+      {
+        note.type === NoteType.BLOCK &&
+        <AddToWalletModal
+          note={note as BlockNote}
+          opened={addToWalletOpened}
+          close={addToWalletHandle.close}
+        />
+      }
     </>
   )
 }

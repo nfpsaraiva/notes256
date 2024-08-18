@@ -11,14 +11,16 @@ interface NoteMenuProps {
   note: Note,
   openNoteTransferForm: () => void,
   setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>,
-  closeNoteCardExpanded: () => void
+  closeNoteCardExpanded: () => void,
+  openAddToWallet: () => void
 }
 
 const NoteMenu: FC<NoteMenuProps> = ({ 
   note, 
   openNoteTransferForm, 
   setLoadingNoteCard,
-  closeNoteCardExpanded
+  closeNoteCardExpanded,
+  openAddToWallet
 }: NoteMenuProps) => {
   const getMenu = () => {
     switch (note.type) {
@@ -32,6 +34,7 @@ const NoteMenu: FC<NoteMenuProps> = ({
           openNoteTransferForm={openNoteTransferForm}
           setLoadingNoteCard={setLoadingNoteCard}
           closeNoteCardExpanded={closeNoteCardExpanded}
+          openAddToWallet={openAddToWallet}
         />
     }
   }

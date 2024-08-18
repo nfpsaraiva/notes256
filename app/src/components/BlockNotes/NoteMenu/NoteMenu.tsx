@@ -2,21 +2,23 @@ import { useLocalNotes, useWebNotes, useWebUser } from "@/hooks";
 import useBlockNotes from "@/hooks/useBlockNotes";
 import { BlockNote } from "@/types";
 import { CopyButton, Menu } from "@mantine/core";
-import { IconCloudPlus, IconCopy, IconDeviceMobilePlus, IconFileUpload, IconTrash } from "@tabler/icons-react";
+import { IconCloudPlus, IconCopy, IconDeviceMobilePlus, IconFileUpload, IconTrash, IconWallet } from "@tabler/icons-react";
 import { FC } from "react";
 
 interface NoteMenuProps {
   note: BlockNote,
   openNoteTransferForm: () => void,
   setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>
-  closeNoteCardExpanded: () => void
+  closeNoteCardExpanded: () => void,
+  openAddToWallet: () => void
 }
 
 const NoteMenu: FC<NoteMenuProps> = ({ 
   note, 
   openNoteTransferForm, 
   setLoadingNoteCard,
-  closeNoteCardExpanded
+  closeNoteCardExpanded,
+  openAddToWallet
 }: NoteMenuProps) => {
   const { deleteNote, deletingBlockNote, convertToWeb, convertToLocal } = useBlockNotes();
   const { createNote: createWebNote } = useWebNotes();
@@ -58,6 +60,10 @@ const NoteMenu: FC<NoteMenuProps> = ({
       }} leftSection={<IconDeviceMobilePlus size={16} />}>
         Convert to Local Note
       </Menu.Item>
+      <Menu.Item onClick={e => {
+        e.stopPropagation();
+        openAddToWallet();
+      }} leftSection={<IconWallet size={16} />}>Add to Wallet</Menu.Item>
       <Menu.Divider />
       <Menu.Item onClick={e => {
         e.stopPropagation();

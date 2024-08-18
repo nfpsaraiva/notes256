@@ -14,7 +14,8 @@ interface NoteContentEditableProps {
   setNewDescription: React.Dispatch<React.SetStateAction<string>>,
   openNoteTransferForm: () => void,
   setLoadingNoteCard: React.Dispatch<React.SetStateAction<boolean>>
-  closeNoteCardExpanded: () => void
+  closeNoteCardExpanded: () => void,
+  openAddToWallet: () => void
 }
 
 const NoteContentEditable: FC<NoteContentEditableProps> = ({
@@ -25,7 +26,8 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
   setNewDescription,
   openNoteTransferForm,
   setLoadingNoteCard,
-  closeNoteCardExpanded
+  closeNoteCardExpanded,
+  openAddToWallet
 }: NoteContentEditableProps) => {
   const { NOTE_TITLE_MAX_LENGTH, NOTE_CONTENT_MAX_LENGTH } = envs;
 
@@ -41,6 +43,7 @@ const NoteContentEditable: FC<NoteContentEditableProps> = ({
             openNoteTransferForm={openNoteTransferForm}
             setLoadingNoteCard={setLoadingNoteCard}
             closeNoteCardExpanded={closeNoteCardExpanded}
+            openAddToWallet={openAddToWallet}
           />
         </Group>
         <Group justify="space-between">
