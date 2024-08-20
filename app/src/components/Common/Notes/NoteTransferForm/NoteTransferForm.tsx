@@ -20,19 +20,20 @@ const NoteTransferForm: FC<NoteTransferFormProps> = ({
   const [to, setTo] = useState('');
 
   return (
-    <Modal opened={opened} onClose={close} title="Transfer Note">
+    <Modal opened={opened} onClose={close} title="Transfer Note" radius={"lg"}>
       <Stack>
         <TextInput
+          radius={"lg"}
           placeholder="Destination address"
           value={to}
           onChange={e => setTo(e.target.value)}
         />
         {
           transfering
-            ? <Button disabled>
+            ? <Button disabled radius={"xl"}>
               Transfering
             </Button>
-            : <Button onClick={() => transfer({ note, to })}>
+            : <Button onClick={() => transfer({ note, to })} radius={"xl"}>
               Transfer
             </Button>
         }
