@@ -23,7 +23,7 @@ const LocalNotes: FC = () => {
   return (
     <NotePage
       pageTitle="Local Notes"
-      pageSubtitle="Notes will only be saved on your device"
+      pageSubtitle="Notes will be saved on your device"
       createNote={createNote}
       creatingNote={creatingNote}
       isLoading={false}

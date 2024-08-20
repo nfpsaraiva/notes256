@@ -13,7 +13,7 @@ const PageShell: FC<PageShellProps> = ({title, subtitle, userMenu, children}: Pa
   return (
     <AppShell userMenu={userMenu}>
       <Stack gap={"xl"}>
-        <Stack gap={2}>
+        <Stack gap={2} align="center">
           <Title order={2} size={"h1"}>{title}</Title>
           {
             subtitle && <Text c={"dimmed"}>{subtitle}</Text>

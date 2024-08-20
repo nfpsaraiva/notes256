@@ -18,10 +18,10 @@ const AddToWalletModal: FC<AddToWalletModalProps> = ({
   const { CONTRACT_ADDRESS } = envs;
 
   return (
-    <Modal opened={opened} onClose={close} withCloseButton={false} padding={0}>
+    <Modal opened={opened} onClose={close} withCloseButton={false} padding={0} radius={"xl"}>
       <Stack gap={"xs"}>
         <Image src={"https://ipfs.filebase.io/ipfs/QmTcWnGBeYX1GRCybjvgGFq3vg74VrstWyeFDnPF3KBvLB"} />
-        <Stack p={"md"}>
+        <Stack p={"lg"}>
           <Stack gap={4}>
             <Text fw={600}>Contract address</Text>
             <Group>
