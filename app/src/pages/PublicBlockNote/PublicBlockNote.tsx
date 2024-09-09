@@ -16,25 +16,25 @@ const PublicBlockNote: FC = () => {
   const blockNote = blockNotes[0];
 
   return (
-    <Modal opened={true} onClose={() => { }} withCloseButton={false} padding={0} radius={"xl"}>
+    <Modal size={"xs"} opened={true} onClose={() => { }} withCloseButton={false} padding={0} radius={"xl"}>
       <Image src={"https://ipfs.filebase.io/ipfs/QmTcWnGBeYX1GRCybjvgGFq3vg74VrstWyeFDnPF3KBvLB"} />
       <Stack p={"lg"}>
-        <Stack gap={4}>
-          <Title size={"h4"}>
+        <Stack gap={5}>
+          <Title size={"h5"}>
             {blockNote.name}
           </Title>
           <Text size="xs" c={"dimmed"}>
             {blockNote.date.toLocaleDateString()} {blockNote.date.toLocaleTimeString()}
           </Text>
         </Stack>
-        <Text size="sm">
+        <Text size="xs">
           {blockNote.description}
         </Text>
         <Group justify="space-between">
           <Button
             leftSection={<IconUser size={14} />}
-            variant="subtle"
-            size="xs"
+            variant="transparent"
+            size="compact-xs"
             radius={"lg"}
             component="a"
             target="_blank"
@@ -45,9 +45,9 @@ const PublicBlockNote: FC = () => {
           </Button>
           <Button
             leftSection={<IconExternalLink size={14} />}
-            variant="subtle"
+            variant="transparent"
             radius={"lg"}
-            size="xs"
+            size="compact-xs"
             component="a"
             target="_blank"
             href={`https://sepolia.etherscan.io/nft/${CONTRACT_ADDRESS}/${blockNote.tokenId}`}
