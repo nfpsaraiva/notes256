@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { BlockNotes, LocalNotes, WebNotes, Home } from '@/pages';
+import { BlockNotes, LocalNotes, WebNotes, Home, PublicBlockNote } from '@/pages';
 import { ReactNode, useEffect, useState } from 'react';
 import { AppOverlay } from './components/Layout';
 import { useTimeout } from '@mantine/hooks';
@@ -7,7 +7,7 @@ import { useTimeout } from '@mantine/hooks';
 const router = createBrowserRouter([
   { path: '/', element: (<Home />) },
   { path: '/block-notes', element: (<BlockNotes />), },
-  { path: '/block-notes/:noteId', element: (<BlockNotes />), },
+  { path: '/block-notes/:noteId', element: (<PublicBlockNote />), },
   { path: '/web-notes', element: (<WebNotes />), },
   { path: '/local-notes', element: (<LocalNotes />), },
 ]);
